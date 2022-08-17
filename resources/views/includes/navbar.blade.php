@@ -27,12 +27,44 @@
                             <a class="nav-link ">Product</a>
                         </li>
                         <li class="nav-item">
-                            <form class="form-inline" action="#" method="post">
-                                <button class="btn btn-login btn-navbar-right mr-4 my-2 mx-2 my-sm-0 px-4"
-                                    type="submit">
-                                    Masuk
-                                </button>
-                            </form>
+                            @guest
+                                <!-- Mobile Button-->
+                                <form class="form-inline d-sm-block d-md-none">
+                                    <button class="btn btn-login my-2 my-sm-0" type="button"
+                                        onclick="event.preventDefault(); location.href='{{ url('login') }}'">
+                                        Masuk
+                                    </button>
+                                </form>
+                                <!-- End Mobile Button-->
+                                <!-- Desktop Button -->
+                                <form class="form-inline my-2 my-lg-0 d-none d-md-block">
+                                    <button class="btn btn-login btn-navbar-right mr-4 my-2 my-sm-0 px-4" type="button"
+                                        onclick="event.preventDefault(); location.href='{{ url('login') }}'">
+                                        Masuk
+                                    </button>
+                                </form>
+                                <!-- End Desktop Button -->
+                            @endguest
+
+                            @auth
+                                <!-- Mobile Button-->
+                                <form class="form-inline d-sm-block d-md-none" action="{{ url('logout') }}" method="post">
+                                    @csrf
+                                    <button class="btn btn-login my-2 my-sm-0" type="submit">
+                                        Keluar
+                                    </button>
+                                </form>
+                                <!-- End Mobile Button-->
+                                <!-- Desktop Button -->
+                                <form class="form-inline my-2 my-lg-0 d-none d-md-block" action="{{ url('logout') }}"
+                                    method="post">
+                                    @csrf
+                                    <button class="btn btn-login btn-navbar-right mr-4 my-2 my-sm-0 px-4" type="submit">
+                                        Keluar
+                                    </button>
+                                </form>
+                                <!-- End Desktop Button -->
+                            @endauth
                         </li>
 
                     </ul>

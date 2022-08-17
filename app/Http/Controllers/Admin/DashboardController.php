@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Alert;
 
 class DashboardController extends Controller
 {
@@ -17,6 +18,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         //
+        toast('Hello ' . auth()->user()->name, 'success');
         return view('pages.admin.dashboard');
     }
 

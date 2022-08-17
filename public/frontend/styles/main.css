@@ -6,6 +6,26 @@ body {
   overflow-x: hidden;
 }
 
+.section-login .card {
+  margin-top: 100px;
+  margin-bottom: -20px;
+}
+
+.section-register .card {
+  margin-top: 100px;
+  margin-bottom: -130px;
+}
+
+.section-lupa-password .card {
+  margin-top: 100px;
+  margin-bottom: -130px;
+}
+
+.section-confirm .card {
+  margin-top: 100px;
+  margin-bottom: -130px;
+}
+
 .navbar-brand img {
   max-width: 80px;
   margin-left: 10px;

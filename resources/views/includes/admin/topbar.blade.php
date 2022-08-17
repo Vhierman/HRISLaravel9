@@ -7,7 +7,7 @@
             class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        Hello : Olay
+        Hello : {{ Auth::user()->name }}
     </form>
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -16,7 +16,7 @@
                 data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#"><i class="fas fa-street-view"></i>
-                        #</a>
+                        {{ Auth::user()->name }}</a>
                 </li>
                 <li><a class="dropdown-item" href="#"><i class="fas fa-tasks"></i>
                         Privacy Policy</a></li>
@@ -26,7 +26,7 @@
                 <li>
                     <hr class="dropdown-divider" />
                 </li>
-                <form class="form-inline ml-3" action="#" method="post">
+                <form class="form-inline ml-3" action="{{ url('logout') }}" method="post">
                     @csrf
                     <li class="text-center">
                         <button class="btn btn-light btn-block" type="submit">

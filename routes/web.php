@@ -20,6 +20,7 @@ Route::get('/facilities', 'FacilitiesController@index')->name('facilities');
 // Halaman Admin
 Route::prefix('admin')
     ->namespace('Admin')
+    ->middleware(['auth', 'admin'])
     ->group(function(){
         Route::resource('/', 'DashboardController');
     });
@@ -27,11 +28,10 @@ Route::prefix('admin')
 // Halaman Karyawan
 Route::prefix('karyawan')
     ->namespace('Karyawan')
+    ->middleware(['auth', 'karyawan'])
     ->group(function(){
         Route::resource('/', 'DashboardKaryawanController');
     });
 
 
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
