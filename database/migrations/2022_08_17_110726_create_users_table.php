@@ -20,6 +20,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('roles');
+            $table->string('nik');
+            $table->string('input_oleh');
+            $table->string('edit_oleh');
+            $table->string('hapus_oleh');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
