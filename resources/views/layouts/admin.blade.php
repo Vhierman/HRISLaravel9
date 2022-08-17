@@ -11,7 +11,7 @@
     <title>HRD-GA</title>
 
     {{-- Css --}}
-    @include('includes.style')
+    @include('includes.admin.style')
     {{-- End Css --}}
 
 </head>
@@ -19,12 +19,12 @@
 <body class="sb-nav-fixed">
 
     {{-- Topbar --}}
-    @include('includes.topbar')
+    @include('includes.admin.topbar')
     {{-- End Topbar --}}
 
     <div id="layoutSidenav">
         {{-- Sidebar --}}
-        @include('includes.sidebar')
+        @include('includes.admin.sidebar')
         {{-- End Sidebar --}}
         {{-- Content --}}
         @include('sweetalert::alert')
@@ -33,7 +33,7 @@
     </div>
 
     {{-- Script --}}
-    @include('includes.script')
+    @include('includes.admin.script')
     {{-- End Script --}}
 
 </body>

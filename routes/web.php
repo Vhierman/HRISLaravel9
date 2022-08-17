@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/tes', [TestController::class,'index']);
-Route::resource('dashboard', DashboardController::class);
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/facilities', 'FacilitiesController@index')->name('facilities');
+
+// Halaman Admin
+Route::prefix('admin')
+    ->namespace('Admin')
+    ->group(function(){
+        Route::resource('/', 'DashboardController');
+    });
+
+// Halaman Karyawan
+Route::prefix('karyawan')
+    ->namespace('Karyawan')
+    ->group(function(){
+        Route::resource('/', 'DashboardKaryawanController');
+    });
+
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
