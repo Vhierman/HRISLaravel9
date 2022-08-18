@@ -8,12 +8,12 @@ body {
 
 .section-login .card {
   margin-top: 100px;
-  margin-bottom: -20px;
+  margin-bottom: 10px;
 }
 
 .section-register .card {
   margin-top: 100px;
-  margin-bottom: -130px;
+  margin-bottom: 10px;
 }
 
 .section-lupa-password .card {
@@ -120,7 +120,7 @@ body {
 
 .section-core-value {
   margin-top: -250px;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
 }
 .section-core-value .section-core-value-heading {
   margin-top: 100px;
@@ -160,6 +160,9 @@ body {
   margin-bottom: 20px;
 }
 
+.section-footer {
+  background-color: #EFF4FC;
+}
 .section-footer img {
   max-width: 80%;
   transition: 0.5s;
@@ -183,6 +186,7 @@ body {
 }
 
 .section-copyright {
+  background-color: #EFF4FC;
   padding-top: 30px;
   padding-bottom: 20px;
   text-align: center;

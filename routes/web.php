@@ -25,13 +25,4 @@ Route::prefix('admin')
         Route::resource('/', 'DashboardController');
     });
 
-// Halaman Karyawan
-Route::prefix('karyawan')
-    ->namespace('Karyawan')
-    ->middleware(['auth', 'karyawan'])
-    ->group(function(){
-        Route::resource('/', 'DashboardKaryawanController');
-    });
-
-
-Auth::routes();
+Auth::routes(['verify' => true]);

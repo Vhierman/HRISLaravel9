@@ -6,16 +6,17 @@ body {
     overflow-x: hidden;
 }
 
+// Auth
 .section-login{
     .card{
         margin-top: 100px;
-        margin-bottom: -20px;
+        margin-bottom: 10px;
     }
 }
 .section-register{
     .card{
         margin-top: 100px;
-        margin-bottom: -130px;
+        margin-bottom: 10px;
     }
 }
 .section-lupa-password{
@@ -30,6 +31,7 @@ body {
         margin-bottom: -130px;
     }
 }
+// Auth
 
 //Navbar
 .navbar-brand {
@@ -155,7 +157,7 @@ body {
 .section-core-value {
 
     margin-top: -250px;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
 
     .section-core-value-heading {
         margin-top: 100px;
@@ -210,6 +212,8 @@ body {
 //Footer
 .section-footer{
     // margin-top: 140px;
+
+    background-color: #EFF4FC;
     img {
         max-width: 80%;
         transition: 0.5s;
@@ -236,6 +240,7 @@ body {
 
 //Copyright
 .section-copyright {
+    background-color: #EFF4FC;
     padding-top: 30px;
     padding-bottom: 20px;
     text-align: center;
