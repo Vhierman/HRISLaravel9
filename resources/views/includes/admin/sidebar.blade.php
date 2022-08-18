@@ -22,13 +22,14 @@
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="#">User</a>
-                        <a class="nav-link" href="#">Minimal
+                        <a class="nav-link" href="{{ route('minimal-salaries.index') }}">Minimal
                             Upah</a>
                         <a class="nav-link" href="#">Maksimal Upah
                             BPJS Kesehatan</a>
                         <a class="nav-link" href="#">Maksimal
                             Upah BPJS Ketenagakerjaan</a>
                         <a class="nav-link" href="#">Perusahaan</a>
+                        <a class="nav-link" href="#">Golongan</a>
                         <a class="nav-link" href="#">Area</a>
                         <a class="nav-link" href="#">Penempatan</a>
                         <a class="nav-link" href="">Jabatan</a>

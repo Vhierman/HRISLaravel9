@@ -23,6 +23,7 @@ Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function(){
         Route::resource('/', 'DashboardController');
+        Route::resource('minimal-salaries', 'MinimalSalariesController');
     });
 
 Auth::routes(['verify' => true]);
