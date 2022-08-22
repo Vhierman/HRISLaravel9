@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\CompaniesRequest;
+use App\Http\Requests\Admin\CompanyRequest;
 use App\Models\Admin\Companies;
 use Alert;
 
-class CompaniesController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +23,7 @@ class CompaniesController extends Controller
         }
 
         $items = Companies::all();
-        return view('pages.admin.companies.index',[
+        return view('pages.admin.company.index',[
             'items' => $items
         ]);
     }
@@ -39,7 +39,7 @@ class CompaniesController extends Controller
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
-        return view('pages.admin.companies.create');
+        return view('pages.admin.company.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class CompaniesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompaniesRequest $request)
+    public function store(CompanyRequest $request)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
@@ -57,7 +57,7 @@ class CompaniesController extends Controller
         $data = $request->all();
         Companies::create($data);
         Alert::success('Success Input Data Perusahaan','Oleh '.auth()->user()->name);
-        return redirect()->route('companies.index');
+        return redirect()->route('company.index');
     }
 
     /**
@@ -87,7 +87,7 @@ class CompaniesController extends Controller
             abort(403);
         }
         $item = Companies::findOrFail($id);
-        return view('pages.admin.companies.edit',[
+        return view('pages.admin.company.edit',[
         'item' => $item
         ]);
     }
@@ -99,7 +99,7 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CompaniesRequest $request, $id)
+    public function update(CompanyRequest $request, $id)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
@@ -109,7 +109,7 @@ class CompaniesController extends Controller
         $item = Companies::findOrFail($id);
         $item->update($data);
         Alert::info('Success Edit Data Perusahaan','Oleh '.auth()->user()->name);
-        return redirect()->route('companies.index');
+        return redirect()->route('company.index');
     }
 
     /**

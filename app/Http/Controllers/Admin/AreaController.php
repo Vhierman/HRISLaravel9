@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\GolongansRequest;
-use App\Models\Admin\Golongans;
+use App\Http\Requests\Admin\AreaRequest;
+use App\Models\Admin\Areas;
 use Alert;
 
-class GolongansController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +22,8 @@ class GolongansController extends Controller
             abort(403);
         }
 
-        $items = Golongans::all();
-        return view('pages.admin.golongan.index',[
+        $items = Areas::all();
+        return view('pages.admin.area.index',[
             'items' => $items
         ]);
     }
@@ -39,7 +39,7 @@ class GolongansController extends Controller
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
-        return view('pages.admin.golongan.create');
+        return view('pages.admin.area.create');
     }
 
     /**
@@ -48,16 +48,16 @@ class GolongansController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GolongansRequest $request)
+    public function store(AreaRequest $request)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
         $data = $request->all();
-        Golongans::create($data);
-        Alert::success('Success Input Data Golongan','Oleh '.auth()->user()->name);
-        return redirect()->route('golongan.index');
+        Areas::create($data);
+        Alert::success('Success Input Data Area','Oleh '.auth()->user()->name);
+        return redirect()->route('area.index');
     }
 
     /**
@@ -86,8 +86,8 @@ class GolongansController extends Controller
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
-        $item = Golongans::findOrFail($id);
-        return view('pages.admin.golongan.edit',[
+        $item = Areas::findOrFail($id);
+        return view('pages.admin.area.edit',[
         'item' => $item
         ]);
     }
@@ -99,17 +99,17 @@ class GolongansController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GolongansRequest $request, $id)
+    public function update(AreaRequest $request, $id)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
         $data = $request->all();
-        $item = Golongans::findOrFail($id);
+        $item = Areas::findOrFail($id);
         $item->update($data);
-        Alert::info('Success Edit Data Golongan','Oleh '.auth()->user()->name);
-        return redirect()->route('golongan.index');
+        Alert::info('Success Edit Data Area','Oleh '.auth()->user()->name);
+        return redirect()->route('area.index');
     }
 
     /**

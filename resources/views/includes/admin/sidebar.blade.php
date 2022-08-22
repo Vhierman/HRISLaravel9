@@ -28,9 +28,9 @@
                             BPJS Kesehatan</a>
                         <a class="nav-link" href="{{ route('maksimal-bpjsketenagakerjaan.index') }}">Maksimal
                             Upah BPJS Ketenagakerjaan</a>
-                        <a class="nav-link" href="{{ route('companies.index') }}">Perusahaan</a>
+                        <a class="nav-link" href="{{ route('company.index') }}">Perusahaan</a>
                         <a class="nav-link" href="{{ route('golongan.index') }}">Golongan</a>
-                        <a class="nav-link" href="#">Area</a>
+                        <a class="nav-link" href="{{ route('area.index') }}">Area</a>
                         <a class="nav-link" href="#">Penempatan</a>
                         <a class="nav-link" href="">Jabatan</a>
                         <a class="nav-link" href="">Jam Kerja</a>
