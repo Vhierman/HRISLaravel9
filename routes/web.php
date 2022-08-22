@@ -22,7 +22,7 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->middleware(['auth', 'admin'])
     ->group(function(){
-        Route::resource('/', 'DashboardController');
+        Route::get('/', 'DashboardController@index')->name('dashboard');
         Route::resource('minimal-salaries', 'MinimalSalariesController');
         Route::resource('maksimal-bpjskesehatan', 'MaksimalBpjsKesehatanController');
         Route::resource('maksimal-bpjsketenagakerjaan', 'MaksimalUpahBpjsKetenagakerjaanController');
@@ -31,6 +31,7 @@ Route::prefix('admin')
         Route::resource('area', 'AreaController');
         Route::resource('division', 'DivisionController');
         Route::resource('position', 'PositionController');
+        Route::resource('working-hour', 'WorkingHourController');
     });
 
 Auth::routes(['verify' => true]);
