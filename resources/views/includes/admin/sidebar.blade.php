@@ -26,7 +26,7 @@
                             Upah</a>
                         <a class="nav-link" href="{{ route('maksimal-bpjskesehatan.index') }}">Maksimal Upah
                             BPJS Kesehatan</a>
-                        <a class="nav-link" href="#">Maksimal
+                        <a class="nav-link" href="{{ route('maksimal-bpjsketenagakerjaan.index') }}">Maksimal
                             Upah BPJS Ketenagakerjaan</a>
                         <a class="nav-link" href="#">Perusahaan</a>
                         <a class="nav-link" href="#">Golongan</a>
