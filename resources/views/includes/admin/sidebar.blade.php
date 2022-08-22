@@ -31,7 +31,7 @@
                         <a class="nav-link" href="{{ route('company.index') }}">Perusahaan</a>
                         <a class="nav-link" href="{{ route('golongan.index') }}">Golongan</a>
                         <a class="nav-link" href="{{ route('area.index') }}">Area</a>
-                        <a class="nav-link" href="#">Penempatan</a>
+                        <a class="nav-link" href="{{ route('division.index') }}">Penempatan</a>
                         <a class="nav-link" href="">Jabatan</a>
                         <a class="nav-link" href="">Jam Kerja</a>
                         <a class="nav-link" href="">Sekolah</a>

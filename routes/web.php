@@ -29,6 +29,7 @@ Route::prefix('admin')
         Route::resource('company', 'CompanyController');
         Route::resource('golongan', 'GolonganController');
         Route::resource('area', 'AreaController');
+        Route::resource('division', 'DivisionController');
     });
 
 Auth::routes(['verify' => true]);
