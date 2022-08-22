@@ -24,7 +24,7 @@
                         <a class="nav-link" href="#">User</a>
                         <a class="nav-link" href="{{ route('minimal-salaries.index') }}">Minimal
                             Upah</a>
-                        <a class="nav-link" href="#">Maksimal Upah
+                        <a class="nav-link" href="{{ route('maksimal-bpjskesehatan.index') }}">Maksimal Upah
                             BPJS Kesehatan</a>
                         <a class="nav-link" href="#">Maksimal
                             Upah BPJS Ketenagakerjaan</a>

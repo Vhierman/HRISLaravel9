@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\MinimalSalariesRequest;
-use App\Models\Admin\MinimalSalaries;
+use App\Http\Requests\Admin\MaksimalBpjsKesehatanRequest;
+use App\Models\Admin\MaksimalUpahBpjskesehatan;
 use Alert;
 
-class MinimalSalariesController extends Controller
+class MaksimalBpjsKesehatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +22,8 @@ class MinimalSalariesController extends Controller
             abort(403);
         }
 
-        $items = MinimalSalaries::all();
-        return view('pages.admin.minimal-salaries.index',[
+        $items = MaksimalUpahBpjskesehatan::all();
+        return view('pages.admin.maksimal-bpjskesehatan.index',[
             'items' => $items
         ]);
     }
@@ -47,7 +47,7 @@ class MinimalSalariesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MinimalSalariesRequest $request)
+    public function store(Request $request)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
@@ -82,9 +82,9 @@ class MinimalSalariesController extends Controller
             abort(403);
         }
 
-        $item = MinimalSalaries::findOrFail($id);
+        $item = MaksimalUpahBpjskesehatan::findOrFail($id);
 
-        return view('pages.admin.minimal-salaries.edit',[
+        return view('pages.admin.maksimal-bpjskesehatan.edit',[
             'item' => $item
         ]);
     }
@@ -96,17 +96,17 @@ class MinimalSalariesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MinimalSalariesRequest $request, $id)
+    public function update(MaksimalBpjsKesehatanRequest $request, $id)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
         $data = $request->all();
-        $item = MinimalSalaries::findOrFail($id);
+        $item = MaksimalUpahBpjskesehatan::findOrFail($id);
         $item->update($data);
-        Alert::info('Success Edit Data Minimal Upah','Oleh '.auth()->user()->name);
-        return redirect()->route('minimal-salaries.index');
+        Alert::info('Success Edit Data Maksimal BPJS Kesehatan','Oleh '.auth()->user()->name);
+        return redirect()->route('maksimal-bpjskesehatan.index');
     }
 
     /**

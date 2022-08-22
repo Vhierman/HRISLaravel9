@@ -9,13 +9,13 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Master</li>
-                    <li class="breadcrumb-item active">Edit Minimal Upah</li>
+                    <li class="breadcrumb-item active">Edit Maksimal Upah BPJS Kesehatan</li>
                 </ol>
 
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Edit Data Minimal Upah
+                        Edit Data Maksimal Upah BPJS Kesehatan
                     </div>
 
                     @if ($errors->any())
@@ -30,7 +30,7 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('minimal-salaries.update', $item->id) }}" method="post"
+                            <form action="{{ route('maksimal-bpjskesehatan.update', $item->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
@@ -38,16 +38,17 @@
                                     <input type="hidden" readonly class="form-control" name="edit_oleh" placeholder="Name"
                                         value="{{ Auth::user()->name }}">
 
-                                    <label for="title" class="form-label">Minimal Upah</label>
-                                    <input type="text" class="form-control" name="minimal_upah"
-                                        placeholder="Masukan Minimal Upah" onkeyup="angka(this);"
-                                        value="{{ $item->minimal_upah }}">
+                                    <label for="title" class="form-label">Maksimal Upah BPJS Kesehatan</label>
+                                    <input type="text" class="form-control" name="maksimal_upah_bpjskesehatan"
+                                        placeholder="Masukan Maksimal Upah BPJS Kesehatan" onkeyup="angka(this);"
+                                        value="{{ $item->maksimal_upah_bpjskesehatan }}">
 
                                     <div class="d-grid gap-2 mt-3">
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Update
                                         </button>
-                                        <a href="{{ route('minimal-salaries.index') }}" class="btn btn-danger btn-block">
+                                        <a href="{{ route('maksimal-bpjskesehatan.index') }}"
+                                            class="btn btn-danger btn-block">
                                             Back
                                         </a>
                                     </div>

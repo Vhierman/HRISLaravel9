@@ -24,6 +24,7 @@ Route::prefix('admin')
     ->group(function(){
         Route::resource('/', 'DashboardController');
         Route::resource('minimal-salaries', 'MinimalSalariesController');
+        Route::resource('maksimal-bpjskesehatan', 'MaksimalBpjsKesehatanController');
     });
 
 Auth::routes(['verify' => true]);
