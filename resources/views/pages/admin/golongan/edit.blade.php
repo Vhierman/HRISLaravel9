@@ -9,13 +9,13 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Master</li>
-                    <li class="breadcrumb-item active">Edit Perusahaan</li>
+                    <li class="breadcrumb-item active">Edit Golongan</li>
                 </ol>
 
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Edit Data Perusahaan
+                        Edit Data Golongan
                     </div>
 
                     @if ($errors->any())
@@ -30,7 +30,7 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('companies.update', $item->id) }}" method="post"
+                            <form action="{{ route('golongan.update', $item->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
@@ -39,13 +39,13 @@
                                         value="{{ Auth::user()->name }}">
 
                                     <label for="title" class="form-label">Nama Perusahaan</label>
-                                    <input type="text" class="form-control" name="nama_perusahaan"
-                                        placeholder="Masukan Nama Perusahaan" value="{{ $item->nama_perusahaan }}">
+                                    <input type="text" class="form-control" name="golongan"
+                                        placeholder="Masukan Golongan" value="{{ $item->golongan }}">
                                     <div class="d-grid gap-2 mt-3">
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Update
                                         </button>
-                                        <a href="{{ route('companies.index') }}" class="btn btn-danger btn-block">
+                                        <a href="{{ route('golongan.index') }}" class="btn btn-danger btn-block">
                                             Back
                                         </a>
                                     </div>
