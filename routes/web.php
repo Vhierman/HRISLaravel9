@@ -26,6 +26,7 @@ Route::prefix('admin')
         Route::resource('minimal-salaries', 'MinimalSalariesController');
         Route::resource('maksimal-bpjskesehatan', 'MaksimalBpjsKesehatanController');
         Route::resource('maksimal-bpjsketenagakerjaan', 'MaksimalUpahBpjsKetenagakerjaanController');
+        Route::resource('companies', 'CompaniesController');
     });
 
 Auth::routes(['verify' => true]);
