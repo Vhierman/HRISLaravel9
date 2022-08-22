@@ -32,9 +32,9 @@
                         <a class="nav-link" href="{{ route('golongan.index') }}">Golongan</a>
                         <a class="nav-link" href="{{ route('area.index') }}">Area</a>
                         <a class="nav-link" href="{{ route('division.index') }}">Penempatan</a>
-                        <a class="nav-link" href="">Jabatan</a>
-                        <a class="nav-link" href="">Jam Kerja</a>
-                        <a class="nav-link" href="">Sekolah</a>
+                        <a class="nav-link" href="{{ route('position.index') }}">Jabatan</a>
+                        <a class="nav-link" href="{{ route('position.index') }}">Jam Kerja</a>
+                        <a class="nav-link" href="{{ route('position.index') }}">Sekolah</a>
                     </nav>
                 </div>
                 {{-- Master --}}

@@ -30,6 +30,7 @@ Route::prefix('admin')
         Route::resource('golongan', 'GolonganController');
         Route::resource('area', 'AreaController');
         Route::resource('division', 'DivisionController');
+        Route::resource('position', 'PositionController');
     });
 
 Auth::routes(['verify' => true]);
