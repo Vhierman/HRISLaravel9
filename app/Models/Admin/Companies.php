@@ -21,4 +21,9 @@ class Companies extends Model
     protected $hidden =[
         
     ];
+
+    //From Table Companies
+    public function history_positions() {
+        return $this->hasMany(HistoryPositions::class,'companies_id_history','id');
+    }
 }

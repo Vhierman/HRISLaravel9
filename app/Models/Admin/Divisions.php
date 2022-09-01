@@ -21,4 +21,9 @@ class Divisions extends Model
     protected $hidden =[
         
     ];
+
+    //From Table Divisions
+    public function history_positions() {
+        return $this->hasMany(HistoryPositions::class,'divisions_id_history','id');
+    }
 }

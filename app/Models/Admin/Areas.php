@@ -21,4 +21,9 @@ class Areas extends Model
     protected $hidden =[
         
     ];
+
+    //From Table Areas
+    public function history_positions() {
+        return $this->hasMany(HistoryPositions::class,'areas_id_history','id');
+    }
 }
