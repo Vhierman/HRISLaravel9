@@ -34,7 +34,7 @@
                         <a class="nav-link" href="{{ route('division.index') }}">Penempatan</a>
                         <a class="nav-link" href="{{ route('position.index') }}">Jabatan</a>
                         <a class="nav-link" href="{{ route('working-hour.index') }}">Jam Kerja</a>
-                        <a class="nav-link" href="{{ route('position.index') }}">Sekolah</a>
+                        <a class="nav-link" href="{{ route('school.index') }}">Sekolah</a>
                     </nav>
                 </div>
                 {{-- Master --}}

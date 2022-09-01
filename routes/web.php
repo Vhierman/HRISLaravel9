@@ -32,6 +32,7 @@ Route::prefix('admin')
         Route::resource('division', 'DivisionController');
         Route::resource('position', 'PositionController');
         Route::resource('working-hour', 'WorkingHourController');
+        Route::resource('school', 'SchoolController');
     });
 
 Auth::routes(['verify' => true]);

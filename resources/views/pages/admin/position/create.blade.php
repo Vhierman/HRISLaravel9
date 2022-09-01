@@ -9,7 +9,7 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Master</li>
-                    <li class="breadcrumb-item active">Tambah Jabatan</li>
+                    <li class="breadcrumb-item active">Jabatan</li>
                 </ol>
 
                 <div class="card mb-4">
