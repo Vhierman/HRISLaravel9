@@ -27,4 +27,20 @@ class HistoryPositions extends Model
     protected $hidden =[
         
     ];
+
+    public function employees(){
+        return $this->belongsTo(Employees::class,'employees_id','nik_karyawan');
+    }
+    public function companies(){
+        return $this->belongsTo(Companies::class,'companies_id_history','id');
+    }
+    public function areas(){
+        return $this->belongsTo(Areas::class,'areas_id_history','id');
+    }
+    public function divisions(){
+        return $this->belongsTo(Divisions::class,'divisions_id_history','id');
+    }
+    public function positions(){
+        return $this->belongsTo(Positions::class,'positions_id_history','id');
+    }
 }

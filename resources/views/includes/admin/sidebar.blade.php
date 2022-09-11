@@ -49,7 +49,7 @@
                 <div class="collapse" id="collapseEmployee" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Data Karyawan Aktif</a>
+                        <a class="nav-link" href="{{ route('employee.index') }}">Data Karyawan Aktif</a>
                     </nav>
                 </div>
                 <div class="collapse" id="collapseEmployee" aria-labelledby="headingOne"

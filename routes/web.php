@@ -33,6 +33,7 @@ Route::prefix('admin')
         Route::resource('position', 'PositionController');
         Route::resource('working-hour', 'WorkingHourController');
         Route::resource('school', 'SchoolController');
+        Route::resource('employee', 'EmployeeController');
     });
 
 Auth::routes(['verify' => true]);

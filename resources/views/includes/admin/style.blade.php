@@ -1,5 +1,6 @@
 {{-- Datatables --}}
-<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+{{-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
 {{-- Datatables --}}
 
 <link href="{{ url('backend/css/styles.css') }}" rel="stylesheet" />

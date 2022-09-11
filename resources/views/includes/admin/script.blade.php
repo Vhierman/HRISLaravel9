@@ -16,8 +16,18 @@
 <script src="{{ url('backend/assets/multipleselect/js/bootstrap-select.js') }}"></script>
 {{-- MultipleSelect --}}
 {{-- Datatables --}}
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="{{ url('backend/js/datatables-simple-demo.js') }}"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{{ url('backend/js/datatables-simple-demo.js') }}"></script> --}}
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+        $('#tableHistoryJabatan').DataTable();
+        $('#tableHistoryTrainingInternal').DataTable();
+        $('#tableHistoryTrainingEksternal').DataTable();
+        $('#tableHistoryKeluarga').DataTable();
+    });
+</script>
 {{-- Datatables --}}
 {{-- OnkeyUp --}}
 <script src="{{ url('backend/js/onkeyup_angka_huruf.js') }}"></script>
