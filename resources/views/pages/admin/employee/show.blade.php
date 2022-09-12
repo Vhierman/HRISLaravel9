@@ -592,10 +592,10 @@
                             <div class="modal-body">
 
                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                    {{-- <a href="{{ route('history_positions.tambahhistoryjabatan', $item->nik_karyawan) }}"
+                                    <a href="{{ route('history_position.tambahhistoryjabatan', $item->nik_karyawan) }}"
                                         class="btn btn-primary shadow-sm mb-3">
                                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah History
-                                    </a> --}}
+                                    </a>
                                 @endif
 
                                 <table class="table table-bordered" id="tableHistoryJabatan" width="100%"
@@ -628,17 +628,21 @@
                                                 </td>
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                                     <td>
-                                                        <a href="#" class="btn btn-success btn-sm">
+                                                        <a href="{{ route('history_position.edit', $historyjabatan->id) }}"
+                                                            class="btn btn-success btn-sm">
                                                             <i class="fa fa-pencil-alt"></i>
                                                         </a>
-                                                        <form action="#" method="POST" class="d-inline">
+                                                        <form
+                                                            action="{{ route('history_position.destroy', $historyjabatan->id) }}"
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btn-danger btn-sm">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
                                                         </form>
-                                                        <a href="#" target="_blank" class="btn btn-primary btn-sm">
+                                                        <a href="{{ Storage::url($historyjabatan->file_surat_mutasi) }}"
+                                                            target="_blank" class="btn btn-primary btn-sm">
                                                             <i class="fas fa-search"></i>
                                                         </a>
                                                     </td>
@@ -828,10 +832,10 @@
                             <div class="modal-body">
 
                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                    {{-- <a href="{{ route('history_families.tambahhistoryfamily', $item->nik_karyawan) }}"
+                                    <a href="{{ route('history_family.tambahhistoryfamily', $item->nik_karyawan) }}"
                                         class="btn btn-primary shadow-sm mb-3">
                                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah History
-                                    </a> --}}
+                                    </a>
                                 @endif
 
                                 <table class="table table-bordered" id="tableHistoryKeluarga" width="100%"
@@ -863,13 +867,13 @@
                                                 <td>{{ $historyfamily->tempat_lahir_history_keluarga . '-' . \Carbon\Carbon::parse($historyfamily->tanggal_lahir_history_keluarga)->isoformat('D MMMM Y') }}
                                                 </td>
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                                    {{-- <td>
-                                                        <a href="{{ route('history_families.edit', $historyfamily->id) }}"
+                                                    <td>
+                                                        <a href="{{ route('history_family.edit', $historyfamily->id) }}"
                                                             class="btn btn-success btn-sm">
                                                             <i class="fa fa-pencil-alt"></i>
                                                         </a>
                                                         <form
-                                                            action="{{ route('history_families.destroy', $historyfamily->id) }}"
+                                                            action="{{ route('history_family.destroy', $historyfamily->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
@@ -881,7 +885,7 @@
                                                             target="_blank" class="btn btn-primary btn-sm">
                                                             <i class="fas fa-search"></i>
                                                         </a>
-                                                    </td> --}}
+                                                    </td>
                                                 @endif
                                             </tr>
                                         @endforeach

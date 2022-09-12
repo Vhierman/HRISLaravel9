@@ -37,6 +37,12 @@ Route::prefix('admin')
         //History Kontrak
         Route::get('history_contract/tambahhistorykontrak/{nik_karyawan}', 'HistoryContractController@tambahhistorykontrak')->name('history_contract.tambahhistorykontrak');
         Route::resource('history_contract', 'HistoryContractController');
+        //History Jabatan
+        Route::get('history_position/tambahhistoryjabatan/{nik_karyawan}', 'HistoryPositionController@tambahhistoryjabatan')->name('history_position.tambahhistoryjabatan');
+        Route::resource('history_position', 'HistoryPositionController');
+        //History Keluarga
+        Route::get('history_family/tambahhistoryfamily/{nik_karyawan}', 'HistoryFamilyController@tambahhistoryfamily')->name('history_family.tambahhistoryfamily');
+        Route::resource('history_family', 'HistoryFamilyController');
         //Cetak
         Route::get('cetak/aktifkerja/{nik_karyawan}', 'CetakController@aktifkerja')->name('cetak.aktifkerja');
         Route::get('cetak/pkwt/{nik_karyawan}', 'CetakController@pkwt')->name('cetak.pkwt');
