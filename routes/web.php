@@ -34,6 +34,9 @@ Route::prefix('admin')
         Route::resource('working-hour', 'WorkingHourController');
         Route::resource('school', 'SchoolController');
         Route::resource('employee', 'EmployeeController');
+        //Karyawan Keluar
+        Route::get('employee_out/export_excel', 'EmployeeOutController@export_excel')->name('employee_out.export_excel');
+        Route::resource('employee_out', 'EmployeeOutController');
         //History Kontrak
         Route::get('history_contract/tambahhistorykontrak/{nik_karyawan}', 'HistoryContractController@tambahhistorykontrak')->name('history_contract.tambahhistorykontrak');
         Route::resource('history_contract', 'HistoryContractController');

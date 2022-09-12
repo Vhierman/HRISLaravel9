@@ -55,7 +55,7 @@
                 <div class="collapse" id="collapseEmployee" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Data Karyawan
+                        <a class="nav-link" href="{{ route('employee_out.index') }}">Data Karyawan
                             Keluar</a>
                     </nav>
                 </div>
