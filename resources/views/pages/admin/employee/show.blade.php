@@ -755,10 +755,10 @@
                             <div class="modal-body">
 
                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                    {{-- <a href="{{ route('history_training_eksternal.tambahhistorytrainingeksternal', $item->nik_karyawan) }}"
+                                    <a href="{{ route('history_training_eksternal.tambahhistorytrainingeksternal', $item->nik_karyawan) }}"
                                         class="btn btn-primary shadow-sm mb-3">
                                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah History
-                                    </a> --}}
+                                    </a>
                                 @endif
 
                                 <table class="table table-bordered" id="tableHistoryTrainingEksternal" width="100%"
@@ -791,7 +791,7 @@
                                                 </td>
                                                 <td>{{ $historytrainingeksternal->lokasi_training_eksternal }}</td>
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                                    {{-- <td>
+                                                    <td>
                                                         <a href="{{ route('history_training_eksternal.edit', $historytrainingeksternal->id) }}"
                                                             class="btn btn-success btn-sm">
                                                             <i class="fa fa-pencil-alt"></i>
@@ -805,7 +805,7 @@
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
                                                         </form>
-                                                    </td> --}}
+                                                    </td>
                                                 @endif
                                             </tr>
                                         @endforeach

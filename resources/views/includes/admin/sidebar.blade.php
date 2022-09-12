@@ -122,7 +122,7 @@
                         <a class="nav-link" href="{{ route('history_training_internal.index') }}">Internal</a>
                     </nav>
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Eksternal</a>
+                        <a class="nav-link" href="{{ route('history_training_eksternal.index') }}">Eksternal</a>
                     </nav>
                 </div>
                 {{-- Training --}}
