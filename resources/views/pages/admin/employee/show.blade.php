@@ -463,8 +463,8 @@
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-4 col-sm-4 mt-1">
-                                                            <a href="#" target="_blank"
-                                                                class="btn btn-primary btn-block">
+                                                            <a href="{{ route('cetak.aktifkerja', $item->id) }}"
+                                                                target="_blank" class="btn btn-primary btn-block">
                                                                 Surat Keterangan Aktif Kerja
                                                             </a>
                                                         </div>
@@ -510,10 +510,10 @@
 
                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                     @if ($item->status_kerja != 'PKWTT')
-                                        {{-- <a href="{{ route('history_contract.tambahhistorykontrak', $item->nik_karyawan) }}"
+                                        <a href="{{ route('history_contract.tambahhistorykontrak', $item->nik_karyawan) }}"
                                             class="btn btn-primary shadow-sm mb-3">
                                             <i class="fas fa-plus fa-sm text-white-50"></i> Tambah History
-                                        </a> --}}
+                                        </a>
                                     @endif
                                 @endif
 
@@ -545,17 +545,21 @@
                                                 <td>{{ $historycontract->status_kontrak_kerja }}</td>
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                                     <td>
-                                                        <a href="#" class="btn btn-success btn-sm">
+                                                        <a href="{{ route('history_contract.edit', $historycontract->id) }}"
+                                                            class="btn btn-success btn-sm">
                                                             <i class="fa fa-pencil-alt"></i>
                                                         </a>
-                                                        <form action="#" method="POST" class="d-inline">
+                                                        <form
+                                                            action="{{ route('history_contract.destroy', $historycontract->id) }}"
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btn-danger btn-sm">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
                                                         </form>
-                                                        <a href="#" class="btn btn-primary btn-sm" target="_blank">
+                                                        <a href="{{ route('cetak.pkwt', $historycontract->id) }}"
+                                                            class="btn btn-primary btn-sm" target="_blank">
                                                             <i class="fa fa-print"></i>
                                                         </a>
                                                     </td>

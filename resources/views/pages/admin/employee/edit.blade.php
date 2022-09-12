@@ -150,8 +150,8 @@
 
                                         @if ($item->status_kerja == 'PKWTT')
                                             <div class="form-group mt-2">
-                                                <label for="title" class="form-label">Tanggal Akhir Kerja</label>
-                                                <input type="date" class="form-control" name="tanggal_akhir_kerja"
+                                                {{-- <label for="title" class="form-label">Tanggal Akhir Kerja</label> --}}
+                                                <input type="hidden" class="form-control" name="tanggal_akhir_kerja"
                                                     placeholder="dd/mm/yyyy" value="{{ $item->tanggal_akhir_kerja }}">
                                             </div>
                                             <div class="form-group mt-2">
@@ -194,8 +194,8 @@
                                         <div class="form-group mt-4">
                                             <label for="title" class="form-label">NIK KTP Karyawan</label>
                                             <input type="text" onkeyup="angka(this);" maxlength="16"
-                                                class="form-control" readonly name="nik_karyawan" placeholder="Masukan NIK KTP"
-                                                value="{{ $item->nik_karyawan }}">
+                                                class="form-control" readonly name="nik_karyawan"
+                                                placeholder="Masukan NIK KTP" value="{{ $item->nik_karyawan }}">
                                         </div>
                                         <div class="form-group mt-2">
                                             <label for="title" class="form-label">Nama Karyawan</label>
