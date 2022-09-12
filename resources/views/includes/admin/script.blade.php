@@ -21,7 +21,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#myTable').DataTable();
+        $('#datatablesSimple').DataTable();
+        $('#tableHistoryKontrak').DataTable();
         $('#tableHistoryJabatan').DataTable();
         $('#tableHistoryTrainingInternal').DataTable();
         $('#tableHistoryTrainingEksternal').DataTable();

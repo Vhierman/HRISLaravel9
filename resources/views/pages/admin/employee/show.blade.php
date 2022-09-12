@@ -517,7 +517,8 @@
                                     @endif
                                 @endif
 
-                                <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="tableHistoryKontrak" width="100%"
+                                    cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>No</th>

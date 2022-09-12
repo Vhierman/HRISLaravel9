@@ -43,6 +43,9 @@ Route::prefix('admin')
         //History Keluarga
         Route::get('history_family/tambahhistoryfamily/{nik_karyawan}', 'HistoryFamilyController@tambahhistoryfamily')->name('history_family.tambahhistoryfamily');
         Route::resource('history_family', 'HistoryFamilyController');
+        //Inventaris
+        Route::resource('inventory_motorcycle', 'InventoryMotorcycleController');
+        Route::resource('inventory_car', 'InventoryCarController');
         //Cetak
         Route::get('cetak/aktifkerja/{nik_karyawan}', 'CetakController@aktifkerja')->name('cetak.aktifkerja');
         Route::get('cetak/pkwt/{nik_karyawan}', 'CetakController@pkwt')->name('cetak.pkwt');

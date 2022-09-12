@@ -101,10 +101,10 @@
                 <div class="collapse" id="collapseHistory" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Motor</a>
+                        <a class="nav-link" href="{{ route('inventory_motorcycle.index') }}">Motor</a>
                     </nav>
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Mobil</a>
+                        <a class="nav-link" href="{{ route('inventory_car.index') }}">Mobil</a>
                     </nav>
                 </div>
                 {{-- Inventaris --}}
