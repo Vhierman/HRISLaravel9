@@ -676,10 +676,10 @@
                             <div class="modal-body">
 
                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                    {{-- <a href="{{ route('history_training_internal.tambahhistorytraininginternal', $item->nik_karyawan) }}"
+                                    <a href="{{ route('history_training_internal.tambahhistorytraininginternal', $item->nik_karyawan) }}"
                                         class="btn btn-primary shadow-sm mb-3">
                                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah History
-                                    </a> --}}
+                                    </a>
                                 @endif
 
                                 <table class="table table-bordered" id="tableHistoryTrainingInternal" width="100%"
@@ -688,6 +688,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tanggal Training</th>
+                                            <th>Jam Training</th>
                                             <th>Lokasi Training</th>
                                             <th>Materi Training</th>
                                             <th>Trainer</th>
@@ -705,11 +706,12 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($historytraininginternal->tanggal_training_internal)->isoformat('D MMMM Y') }}
                                                 </td>
+                                                <td>{{ $historytraininginternal->jam_training_internal }}</td>
                                                 <td>{{ $historytraininginternal->lokasi_training_internal }}</td>
                                                 <td>{{ $historytraininginternal->materi_training_internal }}</td>
                                                 <td>{{ $historytraininginternal->trainer_training_internal }}</td>
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
-                                                    {{-- <td>
+                                                    <td>
                                                         <a href="{{ route('history_training_internal.edit', $historytraininginternal->id) }}"
                                                             class="btn btn-success btn-sm">
                                                             <i class="fa fa-pencil-alt"></i>
@@ -723,7 +725,7 @@
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
                                                         </form>
-                                                    </td> --}}
+                                                    </td>
                                                 @endif
                                             </tr>
                                         @endforeach

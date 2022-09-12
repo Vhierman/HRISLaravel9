@@ -191,6 +191,12 @@ class HistoryContractController extends Controller
         }
         $item = HistoryContracts::findOrFail($id);
 
+        //Hapus Oleh
+        $item->update([
+            'hapus_oleh'    => auth()->user()->name
+        ]);
+        //Hapus Oleh
+
         $nikkaryawan    = $item->employees_id;
         $itemkaryawan   = Employees::where('nik_karyawan', $nikkaryawan)->first();
 

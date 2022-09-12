@@ -43,6 +43,16 @@ Route::prefix('admin')
         //History Keluarga
         Route::get('history_family/tambahhistoryfamily/{nik_karyawan}', 'HistoryFamilyController@tambahhistoryfamily')->name('history_family.tambahhistoryfamily');
         Route::resource('history_family', 'HistoryFamilyController');
+        //History Training Internal
+        Route::get('history_training_internal/tambahhistorytraininginternal/{nik_karyawan}', 'HistoryTrainingInternalController@tambahhistorytraininginternal')->name('history_training_internal.tambahhistorytraininginternal');
+        Route::post('history_training_internal/storemultipletraininginternal', 'HistoryTrainingInternalController@storemultipletraininginternal')->name('history_training_internal.storemultipletraininginternal');
+        Route::post('history_training_internal/tampilmultipletraininginternal', 'HistoryTrainingInternalController@tampilmultipletraininginternal')->name('history_training_internal.tampilmultipletraininginternal');
+        Route::resource('history_training_internal', 'HistoryTrainingInternalController');
+        //History Training Eksternal
+        // Route::get('history_training_eksternal/tambahhistorytrainingeksternal/{nik_karyawan}', 'HistoryTrainingEksternalController@tambahhistorytrainingeksternal')->name('history_training_eksternal.tambahhistorytrainingeksternal');
+        // Route::post('history_training_eksternal/storemultipletrainingeksternal', 'HistoryTrainingEksternalController@storemultipletrainingeksternal')->name('history_training_eksternal.storemultipletrainingeksternal');
+        // Route::post('history_training_eksternal/tampilmultipletrainingeksternal', 'HistoryTrainingEksternalController@tampilmultipletrainingeksternal')->name('history_training_eksternal.tampilmultipletrainingeksternal');
+        // Route::resource('history_training_eksternal', 'HistoryTrainingEksternalController');
         //Inventaris
         Route::resource('inventory_motorcycle', 'InventoryMotorcycleController');
         Route::resource('inventory_car', 'InventoryCarController');

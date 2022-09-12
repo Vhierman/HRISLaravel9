@@ -478,6 +478,13 @@ class InventoryCarController extends Controller
             abort(403);
         }
         $iteminventory  = InventoryCars::findOrFail($id);
+        
+        //Hapus Oleh
+        $iteminventory->update([
+            'hapus_oleh'    => auth()->user()->name
+        ]);
+        //Hapus Oleh
+
         $nikkaryawan    = $iteminventory->nik_karyawan;
         $item           = Employees::where('nik_karyawan', $nikkaryawan)->first();
 

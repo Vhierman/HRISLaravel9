@@ -219,6 +219,12 @@ class HistoryPositionController extends Controller
         }
         $item = HistoryPositions::findOrFail($id);
 
+        //Hapus Oleh
+        $item->update([
+            'hapus_oleh'    => auth()->user()->name
+        ]);
+        //Hapus Oleh
+
         $nikkaryawan    = $item->employees_id;
         $itemkaryawan   = Employees::where('nik_karyawan', $nikkaryawan)->first();
 

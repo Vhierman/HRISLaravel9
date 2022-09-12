@@ -932,7 +932,7 @@ class EmployeeController extends Controller
         $datakaryawan->update([
             'hapus_oleh'    => $authname
         ]);
-        //
+        //Hapus Oleh
         //Hapus History Salary
         $salary->update([
             'hapus_oleh'    => $authname

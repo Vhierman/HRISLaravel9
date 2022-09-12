@@ -119,7 +119,7 @@
                 <div class="collapse" id="collapseTraining" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Internal</a>
+                        <a class="nav-link" href="{{ route('history_training_internal.index') }}">Internal</a>
                     </nav>
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="#">Eksternal</a>
