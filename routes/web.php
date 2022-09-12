@@ -53,6 +53,8 @@ Route::prefix('admin')
         Route::post('history_training_eksternal/storemultipletrainingeksternal', 'HistoryTrainingEksternalController@storemultipletrainingeksternal')->name('history_training_eksternal.storemultipletrainingeksternal');
         Route::post('history_training_eksternal/tampilmultipletrainingeksternal', 'HistoryTrainingEksternalController@tampilmultipletrainingeksternal')->name('history_training_eksternal.tampilmultipletrainingeksternal');
         Route::resource('history_training_eksternal', 'HistoryTrainingEksternalController');
+        // Students
+        Route::resource('student', 'StudentController');
         //Inventaris
         Route::resource('inventory_motorcycle', 'InventoryMotorcycleController');
         Route::resource('inventory_car', 'InventoryCarController');

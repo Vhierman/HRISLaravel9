@@ -86,7 +86,7 @@
                 <div class="collapse" id="collapseStudents" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Data Siswa Prakerin</a>
+                        <a class="nav-link" href="{{ route('student.index') }}">Data Siswa Prakerin</a>
                     </nav>
                 </div>
                 {{-- Siswa Prakerin --}}
