@@ -33,6 +33,8 @@ Route::prefix('admin')
         Route::resource('position', 'PositionController');
         Route::resource('working-hour', 'WorkingHourController');
         Route::resource('school', 'SchoolController');
+        //Karyawan
+        Route::get('employee/export_excel', 'EmployeeController@export_excel')->name('employee.export_excel');
         Route::resource('employee', 'EmployeeController');
         //Karyawan Keluar
         Route::get('employee_out/export_excel', 'EmployeeOutController@export_excel')->name('employee_out.export_excel');

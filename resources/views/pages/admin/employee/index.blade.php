@@ -16,13 +16,13 @@
                     <a href="{{ route('employee.create') }}" class="btn btn-primary shadow-sm mb-3">
                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Karyawan
                     </a>
-                    <a href="#" target="_blank" class="btn btn-success shadow-sm mb-3">
+                    <a href="{{ route('employee.export_excel') }}" target="_blank" class="btn btn-success shadow-sm mb-3">
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Excell Karyawan
                     </a>
                 @elseif (Auth::user()->roles == 'ACCOUNTING' ||
                     Auth::user()->roles == 'MANAGER HRD' ||
                     Auth::user()->roles == 'MANAGER ACCOUNTING')
-                    <a href="#" target="_blank" class="btn btn-success shadow-sm mb-3">
+                    <a href="{{ route('employee.export_excel') }}" target="_blank" class="btn btn-success shadow-sm mb-3">
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Excell Karyawan
                     </a>
                 @endif

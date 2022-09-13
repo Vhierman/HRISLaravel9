@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\EmployeesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Models\Admin\Employees;
@@ -125,6 +128,14 @@ class EmployeeController extends Controller
             'items' => $items
         ]);
     }
+
+    public function export_excel()
+	{
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+		return Excel::download(new EmployeesExport, 'databasekaryawanaktif.xlsx');
+	}
 
     /**
      * Show the form for creating a new resource.
