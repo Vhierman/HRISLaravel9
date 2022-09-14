@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmployeeRequest extends FormRequest
+class EmployeeUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,7 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
+            //
             //
             'companies_id'                  => 'required|integer|exists:companies,id',
             'working_hours_id'              => 'required|integer|exists:working_hours,id',
@@ -50,10 +51,6 @@ class EmployeeRequest extends FormRequest
             'kota'                          => 'required',
             'provinsi'                      => 'required',
             'kode_pos'                      => 'required|integer|min:5',
-            'foto_karyawan'                 => 'required|image',
-            'foto_ktp'                      => 'required|image',
-            'foto_npwp'                     => 'required|image',
-            'foto_kk'                       => 'required|image',
             'nomor_kartu_keluarga'          => 'required|integer|min:16',
             'status_nikah'                  => 'required|string|in:Single,Menikah,Janda,Duda',
             'nama_ibu'                      => 'required|string',

@@ -65,6 +65,8 @@ Route::prefix('admin')
         Route::resource('inventory_car', 'InventoryCarController');
         //Cetak
         Route::get('cetak/aktifkerja/{nik_karyawan}', 'CetakController@aktifkerja')->name('cetak.aktifkerja');
+        Route::get('cetak/penilaian_karyawan', 'CetakController@penilaian_karyawan')->name('cetak.penilaian_karyawan');
+        Route::post('cetak/tampil_penilaian_karyawan', 'CetakController@tampil_penilaian_karyawan')->name('cetak.tampil_penilaian_karyawan');
         Route::get('cetak/pkwt/{nik_karyawan}', 'CetakController@pkwt')->name('cetak.pkwt');
         Route::get('cetak/pkwt_kontrak', 'CetakController@pkwt_kontrak')->name('cetak.pkwt_kontrak');
         Route::post('cetak/tampil_pkwt_kontrak', 'CetakController@tampil_pkwt_kontrak')->name('cetak.tampil_pkwt_kontrak');

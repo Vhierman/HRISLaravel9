@@ -341,7 +341,7 @@
                                                         name="rt" value="{{ $item->rt }}">
                                                 </div>
                                                 <div class="col">
-                                                    <input type="text" placeholder="Masukan Nomor RT"
+                                                    <input type="text" placeholder="Masukan Nomor RW"
                                                         class="form-control" onkeyup="angka(this);" maxlength="3"
                                                         name="rw" value="{{ $item->rw }}">
                                                 </div>

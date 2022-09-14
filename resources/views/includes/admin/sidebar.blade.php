@@ -137,7 +137,7 @@
                 <div class="collapse" id="collapseSurat" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Penilaian
+                        <a class="nav-link" href="{{ route('cetak.penilaian_karyawan') }}">Penilaian
                             Karyawan</a>
                     </nav>
                 </div>

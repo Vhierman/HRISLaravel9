@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EmployeeRequest;
+use App\Http\Requests\Admin\EmployeeUpdateRequest;
 use App\Models\Admin\Employees;
 use App\Models\Admin\Companies;
 use App\Models\Admin\WorkingHours;
@@ -775,7 +776,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request, $id)
+    public function update(EmployeeUpdateRequest $request, $id)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {

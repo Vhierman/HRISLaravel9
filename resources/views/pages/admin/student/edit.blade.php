@@ -144,43 +144,55 @@
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="title" class="form-label">Alamat</label>
-                                        <input type="text" class="form-control" name="alamat_siswa"
+                                        <input type="text" class="form-control" maxlength="80" name="alamat_siswa"
                                             placeholder="Masukan Alamat" value="{{ $item->alamat_siswa }}">
                                     </div>
                                     <div class="form-group mt-2">
-                                        <label for="title" class="form-label">RT</label>
-                                        <input type="text" onkeyup="angka(this);" class="form-control"
-                                            name="rt_siswa" placeholder="Masukan RT" value="{{ $item->rt_siswa }}">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" placeholder="Masukan Nomor RT" class="form-control"
+                                                    onkeyup="angka(this);" maxlength="3" name="rt_siswa"
+                                                    value="{{ $item->rt_siswa }}">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" placeholder="Masukan Nomor RW" class="form-control"
+                                                    onkeyup="angka(this);" maxlength="3" name="rw_siswa"
+                                                    value="{{ $item->rw_siswa }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group mt-2">
-                                        <label for="title" class="form-label">RW</label>
-                                        <input type="text" onkeyup="angka(this);" class="form-control"
-                                            name="rw_siswa" placeholder="Masukan RW" value="{{ $item->rw_siswa }}">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" placeholder="Masukan Nama Kelurahan"
+                                                    class="form-control" maxlength="30" name="kelurahan_siswa"
+                                                    value="{{ $item->kelurahan_siswa }}">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" placeholder="Masukan Nama Kecamatan"
+                                                    class="form-control" maxlength="30" name="kecamatan_siswa"
+                                                    value="{{ $item->kecamatan_siswa }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Kelurahan</label>
-                                        <input type="text" class="form-control" name="kelurahan_siswa"
-                                            placeholder="Masukan Kelurahan" value="{{ $item->kelurahan_siswa }}">
-                                    </div>
-                                    <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Kecamatan</label>
-                                        <input type="text" class="form-control" name="kecamatan_siswa"
-                                            placeholder="Masukan Kecamatan" value="{{ $item->kecamatan_siswa }}">
-                                    </div>
-                                    <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Kota</label>
-                                        <input type="text" class="form-control" name="kota_siswa"
-                                            placeholder="Masukan Kota" value="{{ $item->kota_siswa }}">
-                                    </div>
-                                    <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Provinsi</label>
-                                        <input type="text" class="form-control" name="provinsi_siswa"
-                                            placeholder="Masukan Provinsi" value="{{ $item->provinsi_siswa }}">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" placeholder="Masukan Nama Kota"
+                                                    class="form-control" maxlength="30" name="kota_siswa"
+                                                    value="{{ $item->kota_siswa }}">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" placeholder="Masukan Nama Provinsi"
+                                                    class="form-control" maxlength="30" name="provinsi_siswa"
+                                                    value="{{ $item->provinsi_siswa }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="title" class="form-label">Kode POS</label>
-                                        <input type="text" onkeyup="angka(this);" class="form-control"
-                                            name="kode_pos_siswa" placeholder="Masukan Kode POS" maxlength="5"
+                                        <input type="text" class="form-control" onkeyup="angka(this);" maxlength="5"
+                                            name="kode_pos_siswa" placeholder="Masukan Nomor Kode POS"
                                             value="{{ $item->kode_pos_siswa }}">
                                     </div>
 

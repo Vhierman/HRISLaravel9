@@ -73,7 +73,7 @@
                                     <div class="form-group mt-2">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" placeholder="Masukan Nomor RW" class="form-control"
+                                                <input type="text" placeholder="Masukan Nomor RT" class="form-control"
                                                     onkeyup="angka(this);" maxlength="3" name="rt_sekolah"
                                                     value="{{ old('rt_sekolah') }}">
                                             </div>
