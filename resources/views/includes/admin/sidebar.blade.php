@@ -165,14 +165,14 @@
                 <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">PKWT
+                        <a class="nav-link" href="{{ route('proses.proses_pkwt_kontrak') }}">PKWT
                             Kontrak</a>
                     </nav>
                 </div>
                 <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">PKWT
+                        <a class="nav-link" href="{{ route('proses.proses_pkwt_harian') }}">PKWT
                             Harian</a>
                     </nav>
                 </div>
