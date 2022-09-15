@@ -84,6 +84,13 @@ Route::prefix('admin')
         Route::post('proses/tampil_pkwt_harian', 'ProsesController@tampil_pkwt_harian')->name('proses.tampil_pkwt_harian');
         Route::post('proses/prosess_pkwt_harian', 'ProsesController@prosess_pkwt_harian')->name('proses.prosess_pkwt_harian');
         Route::post('proses/perpanjang_pkwt_harian', 'ProsesController@perpanjang_pkwt_harian')->name('proses.perpanjang_pkwt_harian');
+        //Rekon Salary
+        Route::get('proses/proses_rekon_salary', 'ProsesController@proses_rekon_salary')->name('proses.proses_rekon_salary');
+        Route::post('proses/tampil_rekon_salary', 'ProsesController@tampil_rekon_salary')->name('proses.tampil_rekon_salary');
+        Route::post('proses/hasil_rekon_salary', 'ProsesController@hasil_rekon_salary')->name('proses.hasil_rekon_salary');
+        Route::get('proses/export_excell_rekon_salary', 'ProsesController@export_excell_rekon_salary')->name('proses.export_excell_rekon_salary');
+        Route::get('proses/edit_salary/{employees_id}', 'ProsesController@edit_salary')->name('proses.edit_salary');
+        Route::post('proses/hasil_edit_salary/{employees_id}', 'ProsesController@hasil_edit_salary')->name('proses.hasil_edit_salary');
         //
         Route::resource('proses', 'ProsesController');
     });

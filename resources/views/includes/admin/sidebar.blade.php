@@ -185,7 +185,7 @@
                 <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Salary</a>
+                        <a class="nav-link" href="{{ route('proses.proses_rekon_salary') }}">Salary</a>
                     </nav>
                 </div>
                 {{-- Proses --}}

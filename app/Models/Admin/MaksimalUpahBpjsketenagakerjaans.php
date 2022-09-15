@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MaksimalUpahBpjskesehatan extends Model
+class MaksimalUpahBpjsketenagakerjaans extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'maksimal_upah_bpjskesehatan',
+        'maksimal_upah_bpjsketenagakerjaan',
         'input_oleh',
         'edit_oleh',
         'hapus_oleh'
@@ -21,5 +21,4 @@ class MaksimalUpahBpjskesehatan extends Model
     protected $hidden =[
         
     ];
-
 }
