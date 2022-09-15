@@ -74,15 +74,17 @@ Route::prefix('admin')
         Route::post('cetak/tampil_pkwt_harian', 'CetakController@tampil_pkwt_harian')->name('cetak.tampil_pkwt_harian');
         Route::resource('cetak', 'CetakController');
         // Process
+        //PKWT Kontrak
         Route::get('proses/proses_pkwt_kontrak', 'ProsesController@proses_pkwt_kontrak')->name('proses.proses_pkwt_kontrak');
         Route::post('proses/tampil_pkwt_kontrak', 'ProsesController@tampil_pkwt_kontrak')->name('proses.tampil_pkwt_kontrak');
-        // Route::post('proses/prosess_pkwt_kontrak/{akhir_kontrak}', 'ProsesController@prosess_pkwt_kontrak')->name('proses.prosess_pkwt_kontrak');
-        // Route::post('proses/perpanjang_pkwt_kontrak', 'ProsesController@perpanjang_pkwt_kontrak')->name('proses.perpanjang_pkwt_kontrak');
+        Route::post('proses/prosess_pkwt_kontrak/{akhir_kontrak}', 'ProsesController@prosess_pkwt_kontrak')->name('proses.prosess_pkwt_kontrak');
+        Route::post('proses/perpanjang_pkwt_kontrak', 'ProsesController@perpanjang_pkwt_kontrak')->name('proses.perpanjang_pkwt_kontrak');
         //PKWT Harian
         Route::get('proses/proses_pkwt_harian', 'ProsesController@proses_pkwt_harian')->name('proses.proses_pkwt_harian');
         Route::post('proses/tampil_pkwt_harian', 'ProsesController@tampil_pkwt_harian')->name('proses.tampil_pkwt_harian');
         Route::post('proses/prosess_pkwt_harian', 'ProsesController@prosess_pkwt_harian')->name('proses.prosess_pkwt_harian');
         Route::post('proses/perpanjang_pkwt_harian', 'ProsesController@perpanjang_pkwt_harian')->name('proses.perpanjang_pkwt_harian');
+        //
         Route::resource('proses', 'ProsesController');
     });
 

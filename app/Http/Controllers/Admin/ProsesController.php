@@ -134,10 +134,65 @@ class ProsesController extends Controller
 
     public function tampil_pkwt_kontrak(ProsesRequest $request)
     {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+        $akhir_kontrak  = $request->input('akhir_kontrak');
+
+        $items = Employees::with([
+            'divisions',
+            'positions'
+        ])->where('status_kerja', 'PKWT')
+            ->where('tanggal_akhir_kerja', $akhir_kontrak)->get();
+
+        return view('pages.admin.proses.pkwt_kontrak.tampil', [
+            'items' => $items,
+            'akhir_kontrak' => $akhir_kontrak
+        ]);
+    }
+
+    public function prosess_pkwt_kontrak($akhir_kontrak)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+        $items = Employees::where('tanggal_akhir_kerja', $akhir_kontrak)->where('status_kerja', 'PKWT')->get();
+
+        return view('pages.admin.proses.pkwt_kontrak.proses', [
+            'items'         => $items,
+            'akhir_kontrak' => $akhir_kontrak
+        ]);
+    }
+
+    public function perpanjang_pkwt_kontrak(ProsesPerpanjangPKWTKontrakRequest $request)
+    {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
+        $akhirkontrak       = $request->input('akhirkontrak');
+        $awal_kontrak       = $request->input('awal_kontrak');
+        $akhir_kontrak      = $request->input('akhir_kontrak');
+
+        $items              = Employees::where('tanggal_akhir_kerja', $akhirkontrak)->where('status_kerja', 'PKWT')->get();
+
+        foreach ($items as $item) {
+            HistoryContracts::create([
+                'employees_id'                  => $item->nik_karyawan,
+                'tanggal_awal_kontrak'          => $awal_kontrak,
+                'tanggal_akhir_kontrak'         => $akhir_kontrak,
+                'status_kontrak_kerja'          => 'PKWT',
+                'masa_kontrak'                  => '1 Bulan',
+                'jumlah_kontrak'                => 1
+            ]);
+
+            $employees  = Employees::where('nik_karyawan', $item->nik_karyawan)->where('status_kerja', 'PKWT')->first();
+            $employees->update([
+                'tanggal_akhir_kerja'   => $akhir_kontrak
+            ]);
+        }
+        Alert::success('Success Proses PKWT Kontrak', 'Oleh ' . auth()->user()->name);
+        return redirect()->route('proses.proses_pkwt_kontrak');
     }
 
 

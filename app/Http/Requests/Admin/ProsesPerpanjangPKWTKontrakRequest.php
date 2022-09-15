@@ -13,7 +13,7 @@ class ProsesPerpanjangPKWTKontrakRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,8 @@ class ProsesPerpanjangPKWTKontrakRequest extends FormRequest
     {
         return [
             //
+            'awal_kontrak'  => 'required',
+            'akhir_kontrak' => 'required'
         ];
     }
 }
