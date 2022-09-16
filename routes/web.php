@@ -135,15 +135,15 @@ Route::prefix('admin')
         Route::post('laporan/cancel_rekap_gaji', 'LaporanController@cancel_rekap_gaji')->name('laporan.cancel_rekap_gaji');
         Route::get('laporan/absensi_karyawan', 'LaporanController@absensi_karyawan')->name('laporan.absensi_karyawan');
         Route::post('laporan/tampil_absensi_karyawan', 'LaporanController@tampil_absensi_karyawan')->name('laporan.tampil_absensi_karyawan');
-        // Route::get('laporan/absensi_department_pdc', 'LaporanController@absensi_department_pdc')->name('laporan.absensi_department_pdc');
-        // Route::get('laporan/absensi_department_produksi', 'LaporanController@absensi_department_produksi')->name('laporan.absensi_department_produksi');
-        // Route::get('laporan/absensi_department_ppc', 'LaporanController@absensi_department_ppc')->name('laporan.absensi_department_ppc');
-        // Route::get('laporan/absensi_department_accicit', 'LaporanController@absensi_department_accicit')->name('laporan.absensi_department_accicit');
-        // Route::get('laporan/absensi_department_hrdgadc', 'LaporanController@absensi_department_hrdgadc')->name('laporan.absensi_department_hrdgadc');
-        // Route::get('laporan/absensi_department_marketing', 'LaporanController@absensi_department_marketing')->name('laporan.absensi_department_marketing');
-        // Route::get('laporan/absensi_department_purchasing', 'LaporanController@absensi_department_purchasing')->name('laporan.absensi_department_purchasing');
-        // Route::get('laporan/absensi_department_engineering', 'LaporanController@absensi_department_engineering')->name('laporan.absensi_department_engineering');
-        // Route::get('laporan/absensi_department_quality', 'LaporanController@absensi_department_quality')->name('laporan.absensi_department_quality');
+        Route::get('laporan/absensi_department_pdc_daihatsu', 'LaporanController@absensi_department_pdc_daihatsu')->name('laporan.absensi_department_pdc_daihatsu');
+        Route::get('laporan/absensi_department_produksi', 'LaporanController@absensi_department_produksi')->name('laporan.absensi_department_produksi');
+        Route::get('laporan/absensi_department_ppc', 'LaporanController@absensi_department_ppc')->name('laporan.absensi_department_ppc');
+        Route::get('laporan/absensi_department_accicit', 'LaporanController@absensi_department_accicit')->name('laporan.absensi_department_accicit');
+        Route::get('laporan/absensi_department_hrdgadc', 'LaporanController@absensi_department_hrdgadc')->name('laporan.absensi_department_hrdgadc');
+        Route::get('laporan/absensi_department_marketing', 'LaporanController@absensi_department_marketing')->name('laporan.absensi_department_marketing');
+        Route::get('laporan/absensi_department_purchasing', 'LaporanController@absensi_department_purchasing')->name('laporan.absensi_department_purchasing');
+        Route::get('laporan/absensi_department_engineering', 'LaporanController@absensi_department_engineering')->name('laporan.absensi_department_engineering');
+        Route::get('laporan/absensi_department_quality', 'LaporanController@absensi_department_quality')->name('laporan.absensi_department_quality');
         Route::get('laporan/karyawan_masuk', 'LaporanController@karyawan_masuk')->name('laporan.karyawan_masuk');
         Route::post('laporan/tampil_karyawan_masuk', 'LaporanController@tampil_karyawan_masuk')->name('laporan.tampil_karyawan_masuk');
         Route::get('laporan/karyawan_keluar', 'LaporanController@karyawan_keluar')->name('laporan.karyawan_keluar');
@@ -152,9 +152,8 @@ Route::prefix('admin')
         Route::get('laporan/karyawan_tetap', 'LaporanController@karyawan_tetap')->name('laporan.karyawan_tetap');
         Route::get('laporan/karyawan_harian', 'LaporanController@karyawan_harian')->name('laporan.karyawan_harian');
         Route::get('laporan/karyawan_outsourcing', 'LaporanController@karyawan_outsourcing')->name('laporan.karyawan_outsourcing');
-        // Route::get('reports/inventaris_laptop', 'ReportsController@inventaris_laptop')->name('reports.inventaris_laptop');
-        // Route::get('reports/inventaris_motor', 'ReportsController@inventaris_motor')->name('reports.inventaris_motor');
-        // Route::get('reports/inventaris_mobil', 'ReportsController@inventaris_mobil')->name('reports.inventaris_mobil');
+        Route::get('laporan/inventaris_motor', 'LaporanController@inventaris_motor')->name('laporan.inventaris_motor');
+        Route::get('laporan/inventaris_mobil', 'LaporanController@inventaris_mobil')->name('laporan.inventaris_mobil');
         Route::resource('laporan', 'LaporanController');
         //Laporan
         

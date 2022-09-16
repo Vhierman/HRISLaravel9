@@ -225,16 +225,23 @@
                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="#">PDC
+                                <a class="nav-link" href="{{ route('laporan.absensi_department_pdc_daihatsu') }}">PDC
                                     Daihatsu</a>
-                                <a class="nav-link" href="#">Produksi</a>
-                                <a class="nav-link" href="#">PPC</a>
-                                <a class="nav-link" href="#">ACC,IC,IT</a>
-                                <a class="nav-link" href="#">HRD-GA,DC</a>
-                                <a class="nav-link" href="#">Marketing</a>
-                                <a class="nav-link" href="#">Purchasing</a>
-                                <a class="nav-link" href="#">Engineering</a>
-                                <a class="nav-link" href="#">Quality</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_produksi') }}">Produksi</a>
+                                <a class="nav-link" href="{{ route('laporan.absensi_department_ppc') }}">PPC</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_accicit') }}">ACC,IC,IT</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_hrdgadc') }}">HRD-GA,DC</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_marketing') }}">Marketing</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_purchasing') }}">Purchasing</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_engineering') }}">Engineering</a>
+                                <a class="nav-link"
+                                    href="{{ route('laporan.absensi_department_quality') }}">Quality</a>
                             </nav>
                         </div>
                     </nav>
@@ -292,21 +299,16 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Inventaris Laptop</a>
+                        <a class="nav-link" href="{{ route('laporan.inventaris_motor') }}"
+                            target="_blank">Inventaris Motor</a>
                     </nav>
                 </div>
 
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Inventaris Motor</a>
-                    </nav>
-                </div>
-
-                <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Inventaris Mobil</a>
+                        <a class="nav-link" href="{{ route('laporan.inventaris_mobil') }}"
+                            target="_blank">Inventaris Mobil</a>
                     </nav>
                 </div>
                 {{-- Laporan --}}
