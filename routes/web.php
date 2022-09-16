@@ -93,6 +93,35 @@ Route::prefix('admin')
         Route::post('proses/hasil_edit_salary/{employees_id}', 'ProsesController@hasil_edit_salary')->name('proses.hasil_edit_salary');
         //
         Route::resource('proses', 'ProsesController');
+        //Overtimes
+        Route::get('overtime/lihat_overtime', 'OvertimeController@lihat_overtime')->name('overtime.lihat_overtime');
+        Route::post('overtime/tampil_overtime', 'OvertimeController@tampil_overtime')->name('overtime.tampil_overtime');
+        Route::get('overtime/form_approve_overtime', 'OvertimeController@form_approve_overtime')->name('overtime.form_approve_overtime');
+        Route::post('overtime/tampil_approve_overtime', 'OvertimeController@tampil_approve_overtime')->name('overtime.tampil_approve_overtime');
+        Route::post('overtime/proses_approve_overtime', 'OvertimeController@proses_approve_overtime')->name('overtime.proses_approve_overtime');
+        Route::get('overtime/edit_approval/{id}', 'OvertimeController@edit_approval')->name('overtime.edit_approval');
+        Route::get('overtime/form_cancel_approve_overtime', 'OvertimeController@form_cancel_approve_overtime')->name('overtime.form_cancel_approve_overtime');
+        Route::post('overtime/tampil_cancel_approve_overtime', 'OvertimeController@tampil_cancel_approve_overtime')->name('overtime.tampil_cancel_approve_overtime');
+        Route::post('overtime/proses_cancel_approve_overtime', 'OvertimeController@proses_cancel_approve_overtime')->name('overtime.proses_cancel_approve_overtime');
+        Route::get('overtime/edit_overtime', 'OvertimeController@edit_overtime')->name('overtime.edit_overtime');
+        Route::post('overtime/tampiledit_overtime', 'OvertimeController@tampiledit_overtime')->name('overtime.tampiledit_overtime');
+        Route::get('overtime/form_hapus_overtime', 'OvertimeController@form_hapus_overtime')->name('overtime.form_hapus_overtime');
+        Route::post('overtime/tampilhapus_overtime', 'OvertimeController@tampilhapus_overtime')->name('overtime.tampilhapus_overtime');
+        Route::get('overtime/form_cetak_slip_overtime', 'OvertimeController@form_cetak_slip_overtime')->name('overtime.form_cetak_slip_overtime');
+        Route::get('overtime/form_cetak_slip_karyawan_overtime', 'OvertimeController@form_cetak_slip_karyawan_overtime')->name('overtime.form_cetak_slip_karyawan_overtime');
+        Route::post('overtime/hasil_slipkaryawan_overtime', 'OvertimeController@hasil_slipkaryawan_overtime')->name('overtime.hasil_slipkaryawan_overtime');
+        Route::get('overtime/form_rekap_overtime', 'OvertimeController@form_rekap_overtime')->name('overtime.form_rekap_overtime');
+        Route::get('overtime/form_cetak_rekap_overtime_pkwtt', 'OvertimeController@form_cetak_rekap_overtime_pkwtt')->name('overtime.form_cetak_rekap_overtime_pkwtt');
+        Route::get('overtime/form_cetak_rekap_overtime_pkwt_harian', 'OvertimeController@form_cetak_rekap_overtime_pkwt_harian')->name('overtime.form_cetak_rekap_overtime_pkwt_harian');
+        Route::post('overtime/form_lihat_rekap_overtime_pkwtt', 'OvertimeController@form_lihat_rekap_overtime_pkwtt')->name('overtime.form_lihat_rekap_overtime_pkwtt');
+        Route::post('overtime/export_pdf_rekap_overtime_pkwtt', 'OvertimeController@export_pdf_rekap_overtime_pkwtt')->name('overtime.export_pdf_rekap_overtime_pkwtt');
+        Route::post('overtime/form_lihat_rekap_overtime_pkwt_harian', 'OvertimeController@form_lihat_rekap_overtime_pkwt_harian')->name('overtime.form_lihat_rekap_overtime_pkwt_harian');
+        Route::post('overtime/export_pdf_rekap_overtime_pkwt_harian', 'OvertimeController@export_pdf_rekap_overtime_pkwt_harian')->name('overtime.export_pdf_rekap_overtime_pkwt_harian');
+        Route::resource('overtime', 'OvertimeController');
+        //Overtimes
+        
+
+       
     });
 
 Auth::routes(['verify' => true]);

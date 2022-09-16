@@ -179,7 +179,7 @@
                 <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Overtimes</a>
+                        <a class="nav-link" href="{{ route('overtime.index') }}">Overtimes</a>
                     </nav>
                 </div>
                 <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
