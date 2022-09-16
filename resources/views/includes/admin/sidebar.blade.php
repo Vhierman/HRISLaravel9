@@ -208,7 +208,7 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Absensi
+                        <a class="nav-link" href="{{ route('laporan.absensi_karyawan') }}">Absensi
                             Karyawan</a>
                     </nav>
                 </div>
@@ -243,7 +243,7 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Karyawan
+                        <a class="nav-link" href="{{ route('laporan.karyawan_masuk') }}">Karyawan
                             Masuk</a>
                     </nav>
                 </div>
@@ -251,7 +251,7 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Karyawan
+                        <a class="nav-link" href="{{ route('laporan.karyawan_keluar') }}">Karyawan
                             Keluar</a>
                     </nav>
                 </div>
@@ -259,7 +259,7 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Karyawan
+                        <a class="nav-link" href="{{ route('laporan.karyawan_kontrak') }}" target="_blank">Karyawan
                             Kontrak</a>
                     </nav>
                 </div>
@@ -267,7 +267,7 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Karyawan
+                        <a class="nav-link" href="{{ route('laporan.karyawan_tetap') }}" target="_blank">Karyawan
                             Tetap</a>
                     </nav>
                 </div>
@@ -275,7 +275,7 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Karyawan
+                        <a class="nav-link" href="{{ route('laporan.karyawan_harian') }}" target="_blank">Karyawan
                             Harian</a>
                     </nav>
                 </div>
@@ -283,7 +283,8 @@
                 <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#" target="_blank">Karyawan
+                        <a class="nav-link" href="{{ route('laporan.karyawan_outsourcing') }}"
+                            target="_blank">Karyawan
                             Outsourcing</a>
                     </nav>
                 </div>
