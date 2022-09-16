@@ -71,7 +71,7 @@
                 <div class="collapse" id="collapseAbsensi" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Data Absensi</a>
+                        <a class="nav-link" href="{{ route('absensi.index') }}">Data Absensi</a>
                     </nav>
                 </div>
                 {{-- Absensi --}}

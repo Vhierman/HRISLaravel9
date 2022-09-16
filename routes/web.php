@@ -33,6 +33,14 @@ Route::prefix('admin')
         Route::resource('position', 'PositionController');
         Route::resource('working-hour', 'WorkingHourController');
         Route::resource('school', 'SchoolController');
+        //Absensi
+        Route::get('absensi/lihat_absensi', 'AbsensiController@lihat_absensi')->name('absensi.lihat_absensi');
+        Route::get('absensi/form_edit', 'AbsensiController@form_edit')->name('absensi.form_edit');
+        Route::get('absensi/form_hapus', 'AbsensiController@form_hapus')->name('absensi.form_hapus');
+        Route::post('absensi/tampil_absensi', 'AbsensiController@tampil_absensi')->name('absensi.tampil_absensi');
+        Route::post('absensi/tampil_edit', 'AbsensiController@tampil_edit')->name('absensi.tampil_edit');
+        Route::post('absensi/tampil_hapus', 'AbsensiController@tampil_hapus')->name('absensi.tampil_hapus');
+        Route::resource('absensi', 'AbsensiController');
         //Karyawan
         Route::get('employee/export_excel', 'EmployeeController@export_excel')->name('employee.export_excel');
         Route::resource('employee', 'EmployeeController');

@@ -1385,6 +1385,9 @@ class OvertimeController extends Controller
                     $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2) + 100;
                 } elseif (substr($jumlahuangditerimapembulatan, -2) <= 0) {
                     $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2);
+                }
+                elseif (substr($jumlahuangditerimapembulatan, -2) == 50) {
+                    $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2);
                 } else {
                     $total_jumlahuangditerima = 0;
                 }
@@ -1661,6 +1664,9 @@ class OvertimeController extends Controller
                 } elseif (substr($jumlahuangditerimapembulatan, -2) < 50 && substr($jumlahuangditerimapembulatan, -2) > 0) {
                     $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2) + 100;
                 } elseif (substr($jumlahuangditerimapembulatan, -2) <= 0) {
+                    $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2);
+                }
+                elseif (substr($jumlahuangditerimapembulatan, -2) == 50) {
                     $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2);
                 } else {
                     $total_jumlahuangditerima = 0;
