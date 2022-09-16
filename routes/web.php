@@ -127,6 +127,36 @@ Route::prefix('admin')
         Route::post('overtime/export_pdf_rekap_overtime_pkwt_harian', 'OvertimeController@export_pdf_rekap_overtime_pkwt_harian')->name('overtime.export_pdf_rekap_overtime_pkwt_harian');
         Route::resource('overtime', 'OvertimeController');
         //Overtimes
+        //Laporan
+        Route::get('laporan/rekap_gaji', 'LaporanController@rekap_gaji')->name('laporan.rekap_gaji');
+        Route::post('laporan/tampil_rekap_gaji', 'LaporanController@tampil_rekap_gaji')->name('laporan.tampil_rekap_gaji');
+        Route::post('laporan/export_excell_rekap_gaji', 'LaporanController@export_excell_rekap_gaji')->name('laporan.export_excell_rekap_gaji');
+        Route::post('laporan/cetak_slip_gaji', 'LaporanController@cetak_slip_gaji')->name('laporan.cetak_slip_gaji');
+        Route::post('laporan/cancel_rekap_gaji', 'LaporanController@cancel_rekap_gaji')->name('laporan.cancel_rekap_gaji');
+        // Route::get('reports/absensi_karyawan', 'ReportsController@absensi_karyawan')->name('reports.absensi_karyawan');
+        // Route::get('reports/absensi_department_pdc', 'ReportsController@absensi_department_pdc')->name('reports.absensi_department_pdc');
+        // Route::get('reports/absensi_department_produksi', 'ReportsController@absensi_department_produksi')->name('reports.absensi_department_produksi');
+        // Route::get('reports/absensi_department_ppc', 'ReportsController@absensi_department_ppc')->name('reports.absensi_department_ppc');
+        // Route::get('reports/absensi_department_accicit', 'ReportsController@absensi_department_accicit')->name('reports.absensi_department_accicit');
+        // Route::get('reports/absensi_department_hrdgadc', 'ReportsController@absensi_department_hrdgadc')->name('reports.absensi_department_hrdgadc');
+        // Route::get('reports/absensi_department_marketing', 'ReportsController@absensi_department_marketing')->name('reports.absensi_department_marketing');
+        // Route::get('reports/absensi_department_purchasing', 'ReportsController@absensi_department_purchasing')->name('reports.absensi_department_purchasing');
+        // Route::get('reports/absensi_department_engineering', 'ReportsController@absensi_department_engineering')->name('reports.absensi_department_engineering');
+        // Route::get('reports/absensi_department_quality', 'ReportsController@absensi_department_quality')->name('reports.absensi_department_quality');
+        // Route::post('reports/tampil_absensi_karyawan', 'ReportsController@tampil_absensi_karyawan')->name('reports.tampil_absensi_karyawan');
+        // Route::get('reports/karyawan_masuk', 'ReportsController@karyawan_masuk')->name('reports.karyawan_masuk');
+        // Route::post('reports/tampil_karyawan_masuk', 'ReportsController@tampil_karyawan_masuk')->name('reports.tampil_karyawan_masuk');
+        // Route::get('reports/karyawan_keluar', 'ReportsController@karyawan_keluar')->name('reports.karyawan_keluar');
+        // Route::post('reports/tampil_karyawan_keluar', 'ReportsController@tampil_karyawan_keluar')->name('reports.tampil_karyawan_keluar');
+        // Route::get('reports/karyawan_kontrak', 'ReportsController@karyawan_kontrak')->name('reports.karyawan_kontrak');
+        // Route::get('reports/karyawan_tetap', 'ReportsController@karyawan_tetap')->name('reports.karyawan_tetap');
+        // Route::get('reports/karyawan_harian', 'ReportsController@karyawan_harian')->name('reports.karyawan_harian');
+        // Route::get('reports/karyawan_outsourcing', 'ReportsController@karyawan_outsourcing')->name('reports.karyawan_outsourcing');
+        // Route::get('reports/inventaris_laptop', 'ReportsController@inventaris_laptop')->name('reports.inventaris_laptop');
+        // Route::get('reports/inventaris_motor', 'ReportsController@inventaris_motor')->name('reports.inventaris_motor');
+        // Route::get('reports/inventaris_mobil', 'ReportsController@inventaris_mobil')->name('reports.inventaris_mobil');
+        Route::resource('laporan', 'LaporanController');
+        //Laporan
         
 
        
