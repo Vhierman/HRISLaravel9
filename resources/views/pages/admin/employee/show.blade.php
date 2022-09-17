@@ -288,7 +288,10 @@
                                                     </div>
                                                 </div>
 
-                                                @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
+                                                @if (Auth::user()->roles == 'ADMIN' ||
+                                                    Auth::user()->roles == 'MANAGER HRD' ||
+                                                    Auth::user()->roles == 'MANAGER ACCOUNTING' ||
+                                                    Auth::user()->roles == 'ACCOUNTING')
                                                     <div class="row">
                                                         <div class="col-lg-5 col-md-6">
                                                             <h6 class="card-title">Gaji Pokok</h6>

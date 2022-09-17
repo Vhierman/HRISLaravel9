@@ -22,7 +22,12 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->middleware(['auth', 'admin'])
     ->group(function(){
+
+
+        Route::get('dashboard/logout', 'DashboardController@logout')->name('dashboard.logout');
         Route::get('/', 'DashboardController@index')->name('dashboard');
+        //Master
+        Route::resource('user', 'UserController');
         Route::resource('minimal-salaries', 'MinimalSalariesController');
         Route::resource('maksimal-bpjskesehatan', 'MaksimalBpjsKesehatanController');
         Route::resource('maksimal-bpjsketenagakerjaan', 'MaksimalUpahBpjsKetenagakerjaanController');

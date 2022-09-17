@@ -84,20 +84,20 @@
                             Auth::user()->roles == 'MANAGER HRD')
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-3 d-grid gap-2 mt-2">
+                                    <div class="col-md-4 d-grid gap-2 mt-1">
                                         <a href="{{ route('overtime.lihat_overtime') }}" class="btn btn-primary btn-lg">
                                             <i class="fas fa-search"></i>
                                             Lihat Data
                                         </a>
                                     </div>
-                                    <div class="col-md-3 d-grid gap-2 mt-2">
+                                    <div class="col-md-4 d-grid gap-2 mt-1">
                                         <a href="{{ route('overtime.form_cetak_slip_overtime') }}"
                                             class="btn btn-success btn-lg">
                                             <i class="fas fa-print"></i>
                                             Cetak Slip
                                         </a>
                                     </div>
-                                    <div class="col-md-3 d-grid gap-2 mt-2">
+                                    <div class="col-md-4 d-grid gap-2 mt-1">
                                         <a href="{{ route('overtime.form_rekap_overtime') }}"
                                             class="btn btn-warning btn-lg">
                                             <i class="fas fa-print"></i>

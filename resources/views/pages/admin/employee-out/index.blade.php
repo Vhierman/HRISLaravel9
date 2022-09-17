@@ -142,7 +142,9 @@
                                                         class="btn btn-info btn-sm" target="_blank">
                                                         <i class="fa fa-print"></i>
                                                     </a>
-                                                @elseif(Auth::user()->roles == 'MANAGER')
+                                                @elseif(Auth::user()->roles == 'MANAGER HRD' ||
+                                                    Auth::user()->roles == 'MANAGER ACCOUNTING' ||
+                                                    Auth::user()->roles == 'ACCOUNTING')
                                                     <a href="{{ route('employee_out.show', $item->id) }}"
                                                         class="btn btn-info btn-sm" target="_blank">
                                                         <i class="fa fa-print"></i>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\MaksimalUpahBpjsKetenagakerjaanRequest;
-use App\Models\Admin\MaksimalUpahBpjsketenagakerjaan;
+use App\Models\Admin\MaksimalUpahBpjsketenagakerjaans;
 use Alert;
 
 class MaksimalUpahBpjsKetenagakerjaanController extends Controller
@@ -22,7 +22,7 @@ class MaksimalUpahBpjsKetenagakerjaanController extends Controller
             abort(403);
         }
 
-        $items = MaksimalUpahBpjsketenagakerjaan::all();
+        $items = MaksimalUpahBpjsketenagakerjaans::all();
         return view('pages.admin.maksimal-bpjsketenagakerjaan.index',[
             'items' => $items
         ]);
@@ -82,7 +82,7 @@ class MaksimalUpahBpjsKetenagakerjaanController extends Controller
             abort(403);
         }
 
-        $item = MaksimalUpahBpjsketenagakerjaan::findOrFail($id);
+        $item = MaksimalUpahBpjsketenagakerjaans::findOrFail($id);
 
         return view('pages.admin.maksimal-bpjsketenagakerjaan.edit',[
             'item' => $item
@@ -103,7 +103,7 @@ class MaksimalUpahBpjsKetenagakerjaanController extends Controller
             abort(403);
         }
         $data = $request->all();
-        $item = MaksimalUpahBpjsketenagakerjaan::findOrFail($id);
+        $item = MaksimalUpahBpjsketenagakerjaans::findOrFail($id);
         $item->update($data);
         Alert::info('Success Edit Data Maksimal BPJS Ketenagakerjaan','Oleh '.auth()->user()->name);
         return redirect()->route('maksimal-bpjsketenagakerjaan.index');

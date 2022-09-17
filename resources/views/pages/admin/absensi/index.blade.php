@@ -48,7 +48,7 @@
                             Auth::user()->roles == 'ACCOUNTING')
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-3 d-grid gap-2 mt-2">
+                                    <div class="col-md-12 d-grid gap-2 mt-2">
                                         <a href="{{ route('absensi.lihat_absensi') }}" class="btn btn-primary btn-lg">
                                             <i class="fas fa-search"></i>
                                             Lihat Data

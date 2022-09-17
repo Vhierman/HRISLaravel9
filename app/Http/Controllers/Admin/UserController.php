@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\MaksimalBpjsKesehatanRequest;
-use App\Models\Admin\MaksimalUpahBpjskesehatans;
+use App\Http\Requests\Admin\UserRequest;
+use App\Models\User;
 use Alert;
 
-class MaksimalBpjsKesehatanController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +22,8 @@ class MaksimalBpjsKesehatanController extends Controller
             abort(403);
         }
 
-        $items = MaksimalUpahBpjskesehatans::all();
-        return view('pages.admin.maksimal-bpjskesehatan.index',[
+        $items = User::all();
+        return view('pages.admin.user.index',[
             'items' => $items
         ]);
     }
@@ -47,7 +47,7 @@ class MaksimalBpjsKesehatanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
@@ -82,10 +82,10 @@ class MaksimalBpjsKesehatanController extends Controller
             abort(403);
         }
 
-        $item = MaksimalUpahBpjskesehatans::findOrFail($id);
+        $item = User::findOrFail($id);
 
-        return view('pages.admin.maksimal-bpjskesehatan.edit',[
-            'item' => $item
+        return view('pages.admin.user.edit',[
+        'item' => $item
         ]);
     }
 
@@ -96,17 +96,18 @@ class MaksimalBpjsKesehatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MaksimalBpjsKesehatanRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
         //
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
+
         $data = $request->all();
-        $item = MaksimalUpahBpjskesehatans::findOrFail($id);
+        $item = User::findOrFail($id);
         $item->update($data);
-        Alert::info('Success Edit Data Maksimal BPJS Kesehatan','Oleh '.auth()->user()->name);
-        return redirect()->route('maksimal-bpjskesehatan.index');
+        Alert::info('Success Edit Data User','Oleh '.auth()->user()->name);
+        return redirect()->route('user.index');
     }
 
     /**
@@ -121,5 +122,10 @@ class MaksimalBpjsKesehatanController extends Controller
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
             abort(403);
         }
+        $item = User::findOrFail($id);
+
+        $item->delete();
+        Alert::error('Menghapus Data User','Oleh '.auth()->user()->name);
+        return redirect()->route('user.index');
     }
 }
