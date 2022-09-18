@@ -19,10 +19,10 @@
                 <li><a class="dropdown-item" href="#"><i class="fas fa-street-view"></i>
                         {{ Auth::user()->name }}</a>
                 </li>
-                <li><a class="dropdown-item" href="#"><i class="fas fa-tasks"></i>
+                <li><a class="dropdown-item" href="{{ route('privacypolicy') }}"><i class="fas fa-tasks"></i>
                         Privacy Policy</a></li>
                 <li>
-                <li><a class="dropdown-item" href="#"><i class="fas fa-lock"></i>
+                <li><a class="dropdown-item" href="{{ route('dashboard.ubah_password') }}"><i class="fas fa-lock"></i>
                         Change Password</a></li>
                 <li>
                     <hr class="dropdown-divider" />

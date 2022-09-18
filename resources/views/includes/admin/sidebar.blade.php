@@ -11,6 +11,29 @@
                 </a>
                 {{-- Dashboard --}}
 
+                {{-- Halaman Karyawan --}}
+                @if (Auth::user()->roles == 'KARYAWAN')
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseStudents"
+                        aria-expanded="false" aria-controls="collapseStudents">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                        Halaman Karyawan
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseStudents" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('dashboard.form_slip_lembur_karyawan') }}">Lemburan</a>
+                        </nav>
+                    </div>
+                    <div class="collapse" id="collapseStudents" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('dashboard.form_absensi_karyawan') }}">Absensi</a>
+                        </nav>
+                    </div>
+                @endif
+                {{-- Halaman Karyawan --}}
+
                 {{-- Master --}}
                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseMaster"
@@ -192,12 +215,18 @@
                 {{-- Surat --}}
 
                 {{-- Proses --}}
-                <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseProses"
-                    aria-expanded="false" aria-controls="collapseProses">
-                    <div class="sb-nav-link-icon"><i class="fas fa-paperclip"></i></div>
-                    Proses
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
+                @if (Auth::user()->roles == 'ADMIN' ||
+                    Auth::user()->roles == 'HRD' ||
+                    Auth::user()->roles == 'ACCOUNTING' ||
+                    Auth::user()->roles == 'MANAGER HRD' ||
+                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseProses"
+                        aria-expanded="false" aria-controls="collapseProses">
+                        <div class="sb-nav-link-icon"><i class="fas fa-paperclip"></i></div>
+                        Proses
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                @endif
                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                     <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">

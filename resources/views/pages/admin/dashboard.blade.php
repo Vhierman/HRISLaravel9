@@ -3,114 +3,612 @@
 @section('content')
     {{-- Content Dan Footer --}}
     <div id="layoutSidenav_content">
-
-        <main>
-            <section class="section-dashboard-top mt-3">
-                <div class="container-fluid px-4">
-
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-                        <div class="col">
-                            <div class="card radius-10 border-start border-0 border-3 border-info">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <p class="mb-0 text-secondary">Total Karyawan</p>
-                                            <h4 class="my-1 text-info">{{ $itemall }}</h4>
-                                            <p class="mb-0 font-13">Acc,BSD,PDC</p>
-                                        </div>
-                                        <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
-                                            <i class="fa fa-users"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card radius-10 border-start border-0 border-3 border-danger">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <p class="mb-0 text-secondary">Accounting Office</p>
-                                            <h4 class="my-1 text-danger">{{ $itemaw }}</h4>
-                                            <p class="mb-0 font-13">PK66 And Blok BL</p>
-                                        </div>
-                                        <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
-                                            <i class="fa fa-building"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card radius-10 border-start border-0 border-3 border-success">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <p class="mb-0 text-secondary">Head Office</p>
-                                            <h4 class="my-1 text-success">{{ $itembsd }}</h4>
-                                            <p class="mb-0 font-13">BSD</p>
-                                        </div>
-                                        <div
-                                            class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                            <i class="fa fa-city"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card radius-10 border-start border-0 border-3 border-warning">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <p class="mb-0 text-secondary">PDC</p>
-                                            <h4 class="my-1 text-warning">{{ $itempdc }}</h4>
-                                            <p class="mb-0 font-13">Daihatsu</p>
-                                        </div>
-                                        <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
-                                            <i class="fa fa-warehouse"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+        @if (Auth::user()->roles == 'KARYAWAN')
+            <main>
+                {{-- Sumber --}}
+                {{-- https://www.bootdey.com/ --}}
+                {{-- Sumber --}}
+                <div class="halaman-karyawan">
                     <div class="container">
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <div id="containerpenempatan"></div>
+                        <div class="col-lg-12">
+                            <div class="panel profile-cover">
+                                <div class="profile-cover__img">
+                                    <img src="{{ Storage::url($datakaryawan->foto_karyawan) }}" class="img-fluid" />
+                                    <h3 class="h3">{{ $datakaryawan->nama_karyawan }}</h3>
+                                </div>
+                                <div class="profile-cover__action bg--img" data-overlay="0.3">
+                                    {{-- <a class="btn btn-rounded btn-info"
+                                        href="{{ route('cetak.aktifkerja', $datakaryawan->id) }}" target=" _blank">
+                                        <i class="fas fa-address-card"></i>
+                                        <span>ID : {{ $datakaryawan->nik_karyawan }}</span>
+                                    </a> --}}
+                                    <a class="btn btn-rounded btn-info"
+                                        href="{{ route('dashboard.form_ganti_foto_karyawan') }}">
+                                        <i class="fas fa-address-card"></i>
+                                        <span>Ganti Foto Profile</span>
+                                    </a>
+                                </div>
+
+                                <div class="profile-cover__info">
+                                    <ul class="nav">
+                                        <li>Penempatan<strong>{{ $datakaryawan->divisions->penempatan }}</strong></li>
+                                        <li>Jabatan<strong>{{ $datakaryawan->positions->jabatan }}</strong></li>
+                                    </ul>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="row  mt-3">
-                            <div class="col-md-6">
-                                <div id="containerkontrak"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div id="containerstatusnikah"></div>
-                            </div>
-                        </div>
-                        <div class="row  mt-3">
-                            <div class="col-md-6">
-                                <div id="containerjeniskelamin"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div id="containeragama"></div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <div id="containerpenempatandetail"></div>
+
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Profile {{ $datakaryawan->nama_karyawan }}</h3>
+                                </div>
+
+                                <div class="panel-content panel-activity">
+
+                                    <div class="accordion" id="accordionExample">
+
+                                        {{-- Informasi --}}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingFour">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">
+                                                    Informasi
+                                                </button>
+                                            </h2>
+                                            <div id="collapseFour" class="accordion-collapse collapse"
+                                                aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Jika Biodata Diri, Status Pekerjaan, Dan Data Keluarga Ada yang
+                                                        tidak sesuai dengan data sebenarnya, Harap Menghubungi HRD-GA....!!
+                                                    </div>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Ganti Foto Profile Dengan Maksimal Size 500KB....!!
+                                                    </div>
+                                                    {{-- <img src={{ url('backend/assets/comingsoon/comingsoon2.jpg') }}
+                                                        class="img-fluid" /> --}}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Informasi --}}
+
+                                        {{-- Biodata --}}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                    Biodata Diri
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse"
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>NIK
+                                                                Karyawan</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nik_karyawan }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nama
+                                                                Lengkap</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nama_karyawan }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>No
+                                                                NPWP</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nomor_npwp }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>No
+                                                                Absen</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nomor_absen }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Email</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->email_karyawan }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>No
+                                                                HP</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->nomor_handphone }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Tempat
+                                                                Lahir</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->tempat_lahir }}">
+                                                        </div>
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Tanggal
+                                                                Lahir</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ \Carbon\Carbon::parse($datakaryawan->tanggal_lahir)->isoformat('D MMMM Y') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Agama</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->agama }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Jenis
+                                                                Kelamin</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->jenis_kelamin }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Pendidikan
+                                                                Terakhir</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->pendidikan_terakhir }}">
+                                                        </div>
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Golongan
+                                                                Darah</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->golongan_darah }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Alamat</b></label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->alamat }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>RT</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->rt }}">
+                                                        </div>
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>RW</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->rw }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Kelurahan</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->kelurahan }}">
+                                                        </div>
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Kecamatan</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->kecamatan }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Kabupaten/Kota</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->kota }}">
+                                                        </div>
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Provinsi</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->provinsi }}">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Biodata --}}
+
+                                        {{-- Pekerjaan --}}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                    Status Pekerjaan
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nomor
+                                                                Rekening</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->nomor_rekening }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nomor
+                                                                Kesehatan</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nomor_jkn }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nomor
+                                                                BPJSTK</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nomor_jht }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Status
+                                                                Kerja</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->status_kerja }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Mulai
+                                                                Kerja</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ \Carbon\Carbon::parse($datakaryawan->tanggal_mulai_kerja)->isoformat('D MMMM Y') }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Akhir
+                                                                Kerja</b></label>
+                                                        @if ($datakaryawan->status_kerja == 'PKWTT')
+                                                            @php
+                                                                $akhirkerja = 'PKWTT';
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $akhirkerja = \Carbon\Carbon::parse($datakaryawan->tanggal_akhir_kerja)->isoformat('D MMMM Y');
+                                                            @endphp
+                                                        @endif
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $akhirkerja }}">
+                                                        </div>
+                                                    </div>
+
+                                                    @if ($historykontrak != null)
+                                                        <div class="timeline-kontrak">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <h4 class="card-title">History Kontrak</h4>
+                                                                            <div class="mt-5">
+
+                                                                                <div class="timeline">
+                                                                                    @php
+                                                                                        $no = 0;
+                                                                                    @endphp
+                                                                                    @foreach ($datahistorykontraks as $datahistorykontrak)
+                                                                                        @php
+                                                                                            $no++;
+                                                                                        @endphp
+                                                                                        @if ($no % 2 == 0)
+                                                                                            <div
+                                                                                                class="timeline-wrapper timeline-inverted timeline-wrapper-success">
+                                                                                                <div
+                                                                                                    class="timeline-badge">
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="timeline-panel">
+                                                                                                    <div
+                                                                                                        class="timeline-heading">
+                                                                                                        <h6
+                                                                                                            class="timeline-title">
+                                                                                                            {{ $datahistorykontrak->status_kontrak_kerja }}
+                                                                                                        </h6>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="timeline-body">
+                                                                                                        <p>{{ \Carbon\Carbon::parse($datahistorykontrak->tanggal_akhir_kontrak)->isoformat('D MMMM Y') }}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="timeline-footer d-flex align-items-center flex-wrap">
+                                                                                                        <i
+                                                                                                            class="mdi mdi-heart-outline text-muted mr-1"></i>
+                                                                                                        <span>{{ $datahistorykontrak->masa_kontrak }}</span>
+                                                                                                    </div>
+                                                                                                    <a href="{{ route('cetak.pkwt', $datahistorykontrak->id) }}"
+                                                                                                        class="btn btn-primary btn-sm"
+                                                                                                        target="_blank">
+                                                                                                        <i
+                                                                                                            class="fa fa-print"></i>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @else
+                                                                                            <div
+                                                                                                class="timeline-wrapper timeline-wrapper-primary">
+                                                                                                <div
+                                                                                                    class="timeline-badge">
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="timeline-panel">
+                                                                                                    <div
+                                                                                                        class="timeline-heading">
+                                                                                                        <h6
+                                                                                                            class="timeline-title">
+                                                                                                            {{ $datahistorykontrak->status_kontrak_kerja }}
+                                                                                                        </h6>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="timeline-body">
+                                                                                                        <p>{{ \Carbon\Carbon::parse($datahistorykontrak->tanggal_akhir_kontrak)->isoformat('D MMMM Y') }}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="timeline-footer d-flex align-items-center flex-wrap">
+                                                                                                        <i
+                                                                                                            class="mdi mdi-heart-outline text-muted mr-1"></i>
+                                                                                                        <span>{{ $datahistorykontrak->masa_kontrak }}</span>
+                                                                                                    </div>
+                                                                                                    <a href="{{ route('cetak.pkwt', $datahistorykontrak->id) }}"
+                                                                                                        class="btn btn-primary btn-sm"
+                                                                                                        target="_blank">
+                                                                                                        <i
+                                                                                                            class="fa fa-print"></i>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Pekerjaan --}}
+
+                                        {{-- Keluarga --}}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingThree">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    Data Keluarga
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nomor
+                                                                KK</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->nomor_kartu_keluarga }}">
+                                                        </div>
+                                                        <label for="staticEmail"
+                                                            class="col-sm-2 col-form-label"><b>Status</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->status_nikah }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nama
+                                                                Ayah</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nama_ayah }}">
+                                                        </div>
+                                                        <label for="staticEmail" class="col-sm-2 col-form-label"><b>Nama
+                                                                Ibu</b></label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                id="staticEmail" value="{{ $datakaryawan->nama_ibu }}">
+                                                        </div>
+                                                    </div>
+
+
+                                                    @if ($datakaryawan->status_nikah == 'Menikah' && $historykeluarga != null)
+                                                        <div class="timeline-keluarga">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <h4 class="card-title mb-5">History Keluarga
+                                                                            </h4>
+
+                                                                            <div class="hori-timeline" dir="ltr">
+                                                                                <ul class="list-inline events">
+                                                                                    @foreach ($datahistorykeluargas as $datahistorykeluarga)
+                                                                                        <li
+                                                                                            class="list-inline-item event-list">
+                                                                                            <div
+                                                                                                class="event-date bg-soft-primary text-primary">
+                                                                                                {{ $datahistorykeluarga->hubungan_keluarga }}
+                                                                                            </div>
+                                                                                            <h5 class="font-size-16">
+                                                                                                {{ $datahistorykeluarga->nama_history_keluarga }}
+                                                                                            </h5>
+                                                                                            <p class="text-muted">
+                                                                                                {{ $datahistorykeluarga->nik_history_keluarga }}
+                                                                                            </p>
+                                                                                            <p class="text-muted">
+                                                                                                {{ \Carbon\Carbon::parse($datahistorykeluarga->tanggal_lahir_history_keluarga)->isoformat('D MMMM Y') }}
+                                                                                            </p>
+                                                                                        </li>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- end card -->
+                                                                </div>
+                                                            </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Keluarga --}}
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </section>
+            </main>
+        @elseif (Auth::user()->roles == 'LEADER')
+        @else
+            <main>
+                <section class="section-dashboard-top mt-3">
+                    <div class="container-fluid px-4">
 
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+                            <div class="col">
+                                <div class="card radius-10 border-start border-0 border-3 border-info">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="mb-0 text-secondary">Total Karyawan</p>
+                                                <h4 class="my-1 text-info">{{ $itemall }}</h4>
+                                                <p class="mb-0 font-13">Acc,BSD,PDC</p>
+                                            </div>
+                                            <div
+                                                class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
+                                                <i class="fa fa-users"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card radius-10 border-start border-0 border-3 border-danger">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="mb-0 text-secondary">Accounting Office</p>
+                                                <h4 class="my-1 text-danger">{{ $itemaw }}</h4>
+                                                <p class="mb-0 font-13">PK66 And Blok BL</p>
+                                            </div>
+                                            <div
+                                                class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
+                                                <i class="fa fa-building"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card radius-10 border-start border-0 border-3 border-success">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="mb-0 text-secondary">Head Office</p>
+                                                <h4 class="my-1 text-success">{{ $itembsd }}</h4>
+                                                <p class="mb-0 font-13">BSD</p>
+                                            </div>
+                                            <div
+                                                class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
+                                                <i class="fa fa-city"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card radius-10 border-start border-0 border-3 border-warning">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="mb-0 text-secondary">PDC</p>
+                                                <h4 class="my-1 text-warning">{{ $itempdc }}</h4>
+                                                <p class="mb-0 font-13">Daihatsu</p>
+                                            </div>
+                                            <div
+                                                class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
+                                                <i class="fa fa-warehouse"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        </main>
+                        <div class="container">
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <div id="containerpenempatan"></div>
+                                </div>
+                            </div>
+                            <div class="row  mt-3">
+                                <div class="col-md-6">
+                                    <div id="containerkontrak"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="containerstatusnikah"></div>
+                                </div>
+                            </div>
+                            <div class="row  mt-3">
+                                <div class="col-md-6">
+                                    <div id="containerjeniskelamin"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="containeragama"></div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <div id="containerpenempatandetail"></div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </section>
+            </main>
+        @endif
 
         {{-- End Content --}}
     </div>
@@ -338,7 +836,7 @@
     </script>
     {{-- Chart Penempatan --}}
 
-    {{-- Chart KOntrak --}}
+    {{-- Chart Kontrak --}}
     <script>
         var kontrak = {{ json_encode($itemkontrak) }};
         var tetap = {{ json_encode($itemtetap) }};
