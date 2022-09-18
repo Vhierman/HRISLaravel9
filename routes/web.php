@@ -26,6 +26,9 @@ Route::prefix('admin')
 
         Route::get('dashboard/logout', 'DashboardController@logout')->name('dashboard.logout');
         Route::get('/', 'DashboardController@index')->name('dashboard');
+        // Chart Department
+        Route::resource('struktur-hrd', 'StrukturHRDController');
+        // Chart Department
         //Master
         Route::resource('user', 'UserController');
         Route::resource('minimal-salaries', 'MinimalSalariesController');
