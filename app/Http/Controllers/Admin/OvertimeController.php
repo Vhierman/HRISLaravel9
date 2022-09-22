@@ -1339,8 +1339,8 @@ class OvertimeController extends Controller
             $totaljumlahuangditerima = 0;
             $totalhasiluangditerima = 0;
 
-            $bulanawal   = Carbon::parse($awal)->isoformat('M');
-            $bulanakhir  = Carbon::parse($akhir)->isoformat('M');
+            $bulanawal   = Carbon::parse($awal)->isoformat('MM');
+            $bulanakhir  = Carbon::parse($akhir)->isoformat('MM');
 
             foreach ($items as $item) {
 
@@ -1357,6 +1357,7 @@ class OvertimeController extends Controller
                     ->where('overtimes.employees_id', $item->employees_id)
                     ->where('overtimes.acc_hrd', '<>', null)
                     ->where('overtimes.deleted_at', null)
+                    ->where('rekap_salaries.deleted_at', null)
                     ->where('employees.golongans_id', $golongan)
                     ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
                     ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
@@ -1620,8 +1621,8 @@ class OvertimeController extends Controller
             $totaljumlahuangditerima = 0;
             $totalhasiluangditerima = 0;
 
-            $bulanawal   = Carbon::parse($awal)->isoformat('M');
-            $bulanakhir  = Carbon::parse($akhir)->isoformat('M');
+            $bulanawal   = Carbon::parse($awal)->isoformat('MM');
+            $bulanakhir  = Carbon::parse($akhir)->isoformat('MM');
 
             foreach ($items as $item) {
 
@@ -1638,6 +1639,7 @@ class OvertimeController extends Controller
                     ->where('overtimes.employees_id', $item->employees_id)
                     ->where('overtimes.acc_hrd', '<>', null)
                     ->where('overtimes.deleted_at', null)
+                    ->where('rekap_salaries.deleted_at', null)
                     ->where('employees.golongans_id', $golongan)
                     ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
                     ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)

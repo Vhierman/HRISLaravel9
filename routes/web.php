@@ -42,6 +42,7 @@ Route::prefix('admin')
         Route::resource('minimal-salaries', 'MinimalSalariesController');
         Route::resource('maksimal-bpjskesehatan', 'MaksimalBpjsKesehatanController');
         Route::resource('maksimal-bpjsketenagakerjaan', 'MaksimalUpahBpjsKetenagakerjaanController');
+        Route::resource('upah_lembur_perjam', 'UpahLemburPerjamController');
         Route::resource('company', 'CompanyController');
         Route::resource('golongan', 'GolonganController');
         Route::resource('area', 'AreaController');

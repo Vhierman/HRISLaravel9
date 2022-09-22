@@ -102,8 +102,8 @@
 
                                         @php
                                             
-                                            $bulanawal = \Carbon\Carbon::parse($awal)->isoformat('M');
-                                            $bulanakhir = \Carbon\Carbon::parse($akhir)->isoformat('M');
+                                            $bulanawal = \Carbon\Carbon::parse($awal)->isoformat('MM');
+                                            $bulanakhir = \Carbon\Carbon::parse($akhir)->isoformat('MM');
                                             
                                             $collections = DB::table('overtimes')
                                                 ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
@@ -113,6 +113,7 @@
                                                 ->where('overtimes.employees_id', $item->employees_id)
                                                 ->where('overtimes.acc_hrd', '<>', null)
                                                 ->where('overtimes.deleted_at', null)
+                                                ->where('rekap_salaries.deleted_at', null)
                                                 ->whereBetween('tanggal_lembur', [$awal, $akhir])
                                                 ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
                                                 ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
