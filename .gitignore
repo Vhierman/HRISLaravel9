@@ -1,3 +1,5 @@
 .env
 .env.example
 .htaccess
+public/storage/assets/
+storage/app/public/assets/
