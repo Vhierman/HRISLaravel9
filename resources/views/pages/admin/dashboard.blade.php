@@ -507,69 +507,41 @@
 
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
-                                <div class="card radius-10 border-start border-0 border-3 border-info">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <p class="mb-0 text-secondary">Total Karyawan</p>
-                                                <h4 class="my-1 text-info">{{ $itemall }}</h4>
-                                                <p class="mb-0 font-13">Acc,BSD,PDC</p>
-                                            </div>
-                                            <div
-                                                class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
-                                                <i class="fa fa-users"></i>
-                                            </div>
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body"><i class="fas fa-city"></i> Jumlah Karyawan ALL</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white"><i class="fas fa-users"></i> {{ $itemall }}
+                                            Acc,BSD,PDC
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card radius-10 border-start border-0 border-3 border-danger">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <p class="mb-0 text-secondary">Accounting Office</p>
-                                                <h4 class="my-1 text-danger">{{ $itemaw }}</h4>
-                                                <p class="mb-0 font-13">PK66 And Blok BL</p>
-                                            </div>
-                                            <div
-                                                class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
-                                                <i class="fa fa-building"></i>
-                                            </div>
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body"><i class="fas fa-city"></i> Accounting Office</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white"><i class="fas fa-users"></i> {{ $itemaw }}
+                                            PK66,BL25
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card radius-10 border-start border-0 border-3 border-success">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <p class="mb-0 text-secondary">Head Office</p>
-                                                <h4 class="my-1 text-success">{{ $itembsd }}</h4>
-                                                <p class="mb-0 font-13">BSD</p>
-                                            </div>
-                                            <div
-                                                class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                                <i class="fa fa-city"></i>
-                                            </div>
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body"><i class="fas fa-city"></i> Head Office</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white"><i class="fas fa-users"></i> {{ $itembsd }}
+                                            BSD
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card radius-10 border-start border-0 border-3 border-warning">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <p class="mb-0 text-secondary">PDC</p>
-                                                <h4 class="my-1 text-warning">{{ $itempdc }}</h4>
-                                                <p class="mb-0 font-13">Daihatsu</p>
-                                            </div>
-                                            <div
-                                                class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
-                                                <i class="fa fa-warehouse"></i>
-                                            </div>
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body"><i class="fas fa-city"></i>PDC</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white"><i class="fas fa-users"></i> {{ $itempdc }}
+                                            Daihatsu
                                         </div>
                                     </div>
                                 </div>
