@@ -505,8 +505,8 @@
                 <section class="section-dashboard-top mt-3">
                     <div class="container-fluid px-4">
 
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-                            <div class="col">
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
                                 <div class="card radius-10 border-start border-0 border-3 border-info">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -523,7 +523,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-xl-3 col-md-6">
                                 <div class="card radius-10 border-start border-0 border-3 border-danger">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -540,7 +540,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-xl-3 col-md-6">
                                 <div class="card radius-10 border-start border-0 border-3 border-success">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -557,7 +557,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-xl-3 col-md-6">
                                 <div class="card radius-10 border-start border-0 border-3 border-warning">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
