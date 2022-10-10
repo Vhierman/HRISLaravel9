@@ -219,6 +219,7 @@
                 {{-- Proses --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
                     Auth::user()->roles == 'HRD' ||
+                    Auth::user()->roles == 'LEADER' ||
                     Auth::user()->roles == 'ACCOUNTING' ||
                     Auth::user()->roles == 'MANAGER HRD' ||
                     Auth::user()->roles == 'MANAGER ACCOUNTING')
