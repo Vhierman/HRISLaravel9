@@ -262,7 +262,8 @@
                                                                 Kesehatan</b></label>
                                                         <div class="col-sm-4">
                                                             <input type="text" readonly class="form-control-plaintext"
-                                                                id="staticEmail" value="{{ $datakaryawan->nomor_jkn }}">
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->nomor_bpjskesehatan }}">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -270,7 +271,8 @@
                                                                 BPJSTK</b></label>
                                                         <div class="col-sm-4">
                                                             <input type="text" readonly class="form-control-plaintext"
-                                                                id="staticEmail" value="{{ $datakaryawan->nomor_jht }}">
+                                                                id="staticEmail"
+                                                                value="{{ $datakaryawan->nomor_bpjsketenagakerjaan }}">
                                                         </div>
                                                         <label for="staticEmail" class="col-sm-2 col-form-label"><b>Status
                                                                 Kerja</b></label>
