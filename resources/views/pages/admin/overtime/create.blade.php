@@ -39,6 +39,12 @@
                                         <input type="hidden" class="form-control" name="input_oleh" placeholder="Name"
                                             value="{{ Auth::user()->name }}">
 
+                                        <div class="form-group mt-2">
+                                            <label for="title" class="form-label">Tanggal Lembur</label>
+                                            <input type="date" class="form-control" name="tanggal_lembur"
+                                                placeholder="dd/mm/yyyy" value="{{ old('tanggal_lembur') }}">
+                                        </div>
+
                                         <label for="title" class="form-label">Nama Karyawan</label>
                                         <select class="selectpicker" name="employees_id[]" data-width="100%"
                                             data-live-search="true" multiple required>
@@ -50,11 +56,6 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Tanggal Lembur</label>
-                                        <input type="date" class="form-control" name="tanggal_lembur"
-                                            placeholder="dd/mm/yyyy" value="{{ old('tanggal_lembur') }}">
-                                    </div>
                                     <div class="form-group  mt-2">
                                         <label for="jenis_lembur">Jenis Lembur</label>
                                         <select name="jenis_lembur" class="form-select">
