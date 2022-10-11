@@ -27,10 +27,14 @@
     {{-- Footer --}}
     @include('includes.footer')
     {{-- Footer --}}
-    
+
     {{-- Script --}}
     @include('includes.script')
     {{-- Script --}}
+
+    {{-- Stack --}}
+    @stack('addon-script')
+    {{-- Stack --}}
 </body>
 
 </html>

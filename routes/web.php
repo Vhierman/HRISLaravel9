@@ -51,6 +51,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/facilities', 'FacilitiesController@index')->name('facilities');
+Route::get('/products', 'ProductsController@index')->name('products');
 
 // Halaman Admin
 Route::prefix('admin')

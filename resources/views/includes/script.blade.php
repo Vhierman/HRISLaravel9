@@ -10,6 +10,7 @@
 <script src="{{ url('frontend/libraries/scrollontop/scrollontop.js') }}"></script>
 <!-- AOS Animation -->
 <script src="{{ url('frontend/libraries/scrollanimation/aos.js') }}"></script>
+
 <script>
     AOS.init();
 </script>

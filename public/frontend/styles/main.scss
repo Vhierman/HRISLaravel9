@@ -258,9 +258,9 @@ body {
     }
 
     h1 {
-        color: #fff;
-        text-shadow: 2px 2px #0051ff;
-        font-family: 'Playfair Display', serif;
+        color: #1f04b9;
+        text-shadow: 1px 1px #fff;
+        font-family: 'Roboto', sans-serif;
         font-weight: bold;
     }
 
@@ -290,6 +290,7 @@ body {
 }
 // End Header Facilities
 
+//Content Facilities
 .section-content-facilities{
     min-height: 610px;
     margin-top: -80px;
@@ -310,7 +311,7 @@ body {
             padding-bottom: 30px;
         }
         .col{
-            max-width: 80%;
+            // max-width: 80%;
             transition: 0.5s;
             &:hover{
                 transform: translateY(-10px);
@@ -322,6 +323,12 @@ body {
         text-align: justify;
     }
 }
+//Content Facilities
+
+// Section Products
+
+// Section Products
+
 
 // Scroll On Top
 #topBtn {

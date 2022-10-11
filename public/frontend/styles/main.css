@@ -199,9 +199,9 @@ body {
   background-size: cover;
 }
 .section-header-facilities h1 {
-  color: #fff;
-  text-shadow: 2px 2px #0051ff;
-  font-family: "Playfair Display", serif;
+  color: #1f04b9;
+  text-shadow: 1px 1px #fff;
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
 }
 .section-header-facilities .section-stats {
@@ -246,7 +246,6 @@ body {
   padding-bottom: 30px;
 }
 .section-content-facilities .album .col {
-  max-width: 80%;
   transition: 0.5s;
 }
 .section-content-facilities .album .col:hover {
