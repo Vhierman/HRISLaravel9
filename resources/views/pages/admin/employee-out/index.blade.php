@@ -116,8 +116,8 @@
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_keluar_karyawan_keluar)->isoformat('DD-MM-Y') }}
                                             </td>
                                             <td>{{ $item->status_kerja_karyawan_keluar }}</td>
-                                            <td>{{ $item->nomor_jkn_karyawan_keluar }}</td>
-                                            <td>{{ $item->nomor_jht_karyawan_keluar }}</td>
+                                            <td>{{ $item->nomor_bpjskesehatan_karyawan_keluar }}</td>
+                                            <td>{{ $item->nomor_bpjsketenagakerjaan_karyawan_keluar }}</td>
                                             <td align=center>
                                                 <a type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#ViewKaryawanKeluar"
