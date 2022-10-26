@@ -45,7 +45,7 @@
                                             <option value="">--Pilih Karyawan--</option>
                                             @foreach ($items as $item)
                                                 <option value="{{ $item->nik_karyawan }}">
-                                                    {{ $item->nama_karyawan . ' / ' . $item->divisions->penempatan }}
+                                                    {{ $item->nama_karyawan . ' / ' . $item->positions->jabatan . ' / ' . $item->divisions->penempatan }}
                                                 </option>
                                             @endforeach
                                         </select>
