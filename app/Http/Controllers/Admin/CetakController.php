@@ -145,13 +145,13 @@ class CetakController extends Controller
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(15);
-        $this->fpdf->Cell(50, 10, 'Jabatan / Penempatan ', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : ' . $item->positions->jabatan . ' / ' . $item->divisions->penempatan . '', 0, 0, 'L');
+        $this->fpdf->Cell(50, 10, 'NIK ', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : ' . $item->nik_karyawan. '', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(15);
-        $this->fpdf->Cell(50, 10, 'Status Kerja ', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : ' . $item->status_kerja . '', 0, 0, 'L');
+        $this->fpdf->Cell(50, 10, 'Jabatan / Penempatan ', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : ' . $item->positions->jabatan . ' / ' . $item->divisions->penempatan . '', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(15);
