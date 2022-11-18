@@ -166,13 +166,40 @@ class HistoryContractController extends Controller
             abort(403);
         }
 
+        //Hitung Bulan
+        $date1          = date_create($request->input('tanggal_awal_kontrak')); 
+        $date2          = date_create($request->input('tanggal_akhir_kontrak')); 
+        $interval       = date_diff($date1,$date2);
+        $masa_kontrak   = $interval->m+1;
+        if ($masa_kontrak == 12) {
+            $masakontrak = "1 Tahun";
+        }
+        elseif ($masa_kontrak > 12) {
+            $masakontrak = "Salah";
+        }
+        else{
+            $masakontrak = $masa_kontrak." Bulan";
+        }
+        //Hitung Bulan
+
+        $employees                  = HistoryContracts::where('id', $id)->first();
+        $employees->update([
+            'employees_id'          => $request->input('nik_karyawan'),
+            'tanggal_awal_kontrak'  => $request->input('tanggal_awal_kontrak'),
+            'tanggal_akhir_kontrak' => $request->input('tanggal_akhir_kontrak'),
+            'status_kontrak_kerja'  => $request->input('status_kontrak_kerja'),
+            'masa_kontrak'          => $masakontrak,
+            'jumlah_kontrak'        => 1,
+            'edit_oleh'             => $request->input('input_oleh')
+        ]);
+
         $itemhistory    = HistoryContracts::findOrFail($id);
         $nikkaryawan    = $itemhistory->employees_id;
         $itemkaryawan   = Employees::where('nik_karyawan', $nikkaryawan)->first();
 
-        $data = $request->all();
-        $item = HistoryContracts::findOrFail($id);
-        $item->update($data);
+        // $data = $request->all();
+        // $item = HistoryContracts::findOrFail($id);
+        // $item->update($data);
         Alert::info('Success Edit Data History Kontrak','Oleh '.auth()->user()->name);
         return redirect()->route('employee.show',$itemkaryawan->id);
     }
