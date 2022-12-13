@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use App\Models\Admin\Attendances;
 use App\Models\Admin\Employees;
+use App\Models\Admin\Overtimes;
 use App\Models\Admin\Areas;
 use App\Models\Admin\Divisions;
 use App\Models\Admin\Positions;
