@@ -187,7 +187,10 @@ Route::prefix('admin')
         Route::post('laporan/cetak_slip_gaji', 'LaporanController@cetak_slip_gaji')->name('laporan.cetak_slip_gaji');
         Route::post('laporan/cancel_rekap_gaji', 'LaporanController@cancel_rekap_gaji')->name('laporan.cancel_rekap_gaji');
         Route::get('laporan/rekap_absensi', 'LaporanController@rekap_absensi')->name('laporan.rekap_absensi');
-        Route::post('laporan/tampil_rekap_absensi', 'LaporanController@tampil_rekap_absensi')->name('laporan.tampil_rekap_absensi');
+        Route::get('laporan/rekap_perbulan', 'LaporanController@rekap_perbulan')->name('laporan.rekap_perbulan');
+        Route::get('laporan/rekap_pertahun', 'LaporanController@rekap_pertahun')->name('laporan.rekap_pertahun');
+        Route::post('laporan/tampil_rekap_absensi_perbulan', 'LaporanController@tampil_rekap_absensi_perbulan')->name('laporan.tampil_rekap_absensi_perbulan');
+        Route::post('laporan/tampil_rekap_absensi_pertahun', 'LaporanController@tampil_rekap_absensi_pertahun')->name('laporan.tampil_rekap_absensi_pertahun');
         Route::get('laporan/absensi_karyawan', 'LaporanController@absensi_karyawan')->name('laporan.absensi_karyawan');
         Route::post('laporan/tampil_absensi_karyawan', 'LaporanController@tampil_absensi_karyawan')->name('laporan.tampil_absensi_karyawan');
         Route::get('laporan/absensi_department_pdc_daihatsu', 'LaporanController@absensi_department_pdc_daihatsu')->name('laporan.absensi_department_pdc_daihatsu');
