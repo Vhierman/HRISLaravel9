@@ -15,7 +15,8 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Data Absensi
+                        Data Absensi Periode
+                        {{ \Carbon\Carbon::parse($awal)->isoformat('DD-MM-Y') . ' s/d ' . \Carbon\Carbon::parse($akhir)->isoformat('DD-MM-Y') }}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -24,7 +25,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Karyawan</th>
-                                        <th>Jenis</th>
+                                        <th>Gol</th>
                                         <th>Penempatan</th>
                                         <th>Status</th>
                                         <th>Tanggal Absen</th>

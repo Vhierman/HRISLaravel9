@@ -550,58 +550,58 @@ class LaporanController extends Controller
         $awal           = $request->input('tanggal_awal');
         $akhir          = $request->input('tanggal_akhir');
 
-        // $absens = Attendances::with([
-        //     'employees'
-        // ])
-        //     ->whereIn('golongans_id', [1,2,4])
-        //     ->whereBetween('tanggal_absen', [$awal, $akhir])
-        //     ->where('keterangan_absen','Sakit')
-        //     ->get();
-
         $itemsakit = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->whereIn('golongans_id', [1,2,4])
-            ->where('attendances.deleted_at',NULL)
-            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->where('keterangan_absen','Sakit')
+            ->where('attendances.deleted_at',NULL)
+            ->where('employees.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
+
         $itemijin = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->whereIn('golongans_id', [1,2,4])
-            ->where('attendances.deleted_at',NULL)
-            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->where('keterangan_absen','Ijin')
+            ->where('attendances.deleted_at',NULL)
+            ->where('employees.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemalpa = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->whereIn('golongans_id', [1,2,4])
-            ->where('attendances.deleted_at',NULL)
-            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->where('keterangan_absen','Alpa')
+            ->where('attendances.deleted_at',NULL)
+            ->where('employees.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemcutitahunan = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->whereIn('golongans_id', [1,2,4])
-            ->where('attendances.deleted_at',NULL)
-            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->where('keterangan_absen','Cuti Tahunan')
+            ->where('attendances.deleted_at',NULL)
+            ->where('employees.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemcutikhusus = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->whereIn('golongans_id', [1,2,4])
-            ->where('attendances.deleted_at',NULL)
-            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->where('keterangan_absen','Cuti Khusus')
+            ->where('attendances.deleted_at',NULL)
+            ->where('employees.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         
         $totalcuti = $itemcutitahunan+$itemcutikhusus;
 
         return view('pages.admin.laporan.rekap_absensi.tampil', [
+            'awal'  => $awal,
+            'akhir' => $akhir,
             'sakit' => $itemsakit,
             'ijin'  => $itemijin,
             'alpa'  => $itemalpa,

@@ -15,7 +15,8 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Rekap Absensi
+                        Rekap Absensi Periode
+                        {{ \Carbon\Carbon::parse($awal)->isoformat('DD-MM-Y') . ' s/d ' . \Carbon\Carbon::parse($akhir)->isoformat('DD-MM-Y') }}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -35,10 +36,10 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $no++ }}</td>
+                                        <td>{{ $cuti }}</td>
                                         <td>{{ $sakit }}</td>
                                         <td>{{ $ijin }}</td>
                                         <td>{{ $alpa }}</td>
-                                        <td>{{ $cuti }}</td>
                                     </tr>
 
                                 </tbody>
