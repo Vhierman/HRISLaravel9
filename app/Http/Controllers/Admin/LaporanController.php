@@ -23,6 +23,7 @@ use App\Http\Requests\Admin\RekapGajiRequest;
 use App\Http\Requests\Admin\LaporanAbsensiKaryawanRequest;
 use App\Http\Requests\Admin\LaporanKaryawanMasukRequest;
 use App\Http\Requests\Admin\LaporanKaryawanKeluarRequest;
+use App\Http\Requests\Admin\RekapAbsensiRequest;
 use Carbon\Carbon;
 use Storage;
 use Alert;
@@ -530,6 +531,84 @@ class LaporanController extends Controller
         }
     }
     //ABSENSI KARYAWAN
+
+    //REKAP ABSENSI
+    public function rekap_absensi()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        return view('pages.admin.laporan.rekap_absensi.index');
+    }
+    public function tampil_rekap_absensi(RekapAbsensiRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'ACCOUNTING' && auth()->user()->roles != 'MANAGER ACCOUNTING') {
+            abort(403);
+        }
+        
+        $awal           = $request->input('tanggal_awal');
+        $akhir          = $request->input('tanggal_akhir');
+
+        // $absens = Attendances::with([
+        //     'employees'
+        // ])
+        //     ->whereIn('golongans_id', [1,2,4])
+        //     ->whereBetween('tanggal_absen', [$awal, $akhir])
+        //     ->where('keterangan_absen','Sakit')
+        //     ->get();
+
+        $itemsakit = 
+            DB::table('attendances')
+            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->whereIn('golongans_id', [1,2,4])
+            ->where('attendances.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
+            ->where('keterangan_absen','Sakit')
+            ->count();
+        $itemijin = 
+            DB::table('attendances')
+            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->whereIn('golongans_id', [1,2,4])
+            ->where('attendances.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
+            ->where('keterangan_absen','Ijin')
+            ->count();
+        $itemalpa = 
+            DB::table('attendances')
+            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->whereIn('golongans_id', [1,2,4])
+            ->where('attendances.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
+            ->where('keterangan_absen','Alpa')
+            ->count();
+        $itemcutitahunan = 
+            DB::table('attendances')
+            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->whereIn('golongans_id', [1,2,4])
+            ->where('attendances.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
+            ->where('keterangan_absen','Cuti Tahunan')
+            ->count();
+        $itemcutikhusus = 
+            DB::table('attendances')
+            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->whereIn('golongans_id', [1,2,4])
+            ->where('attendances.deleted_at',NULL)
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
+            ->where('keterangan_absen','Cuti Khusus')
+            ->count();
+        
+        $totalcuti = $itemcutitahunan+$itemcutikhusus;
+
+        return view('pages.admin.laporan.rekap_absensi.tampil', [
+            'sakit' => $itemsakit,
+            'ijin'  => $itemijin,
+            'alpa'  => $itemalpa,
+            'cuti'  => $totalcuti
+        ]);
+    }
+    //REKAP ABSENSI
 
     //ABSENSI DEPARTMENT
 

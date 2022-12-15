@@ -310,6 +310,12 @@
                                 Karyawan</a>
                         </nav>
                     </div>
+                    <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('laporan.rekap_absensi') }}">Rekap Absensi</a>
+                        </nav>
+                    </div>
                     <div class="collapse" id="collapseLaporan" aria-labelledby="headingTwo"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
