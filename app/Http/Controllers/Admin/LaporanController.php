@@ -564,7 +564,7 @@ class LaporanController extends Controller
         $itemsakit = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -574,7 +574,7 @@ class LaporanController extends Controller
         $itemijin = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Ijin')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -583,7 +583,7 @@ class LaporanController extends Controller
         $itemalpa = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Alpa')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -592,7 +592,7 @@ class LaporanController extends Controller
         $itemcutitahunan = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Cuti Tahunan')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -601,7 +601,7 @@ class LaporanController extends Controller
         $itemcutikhusus = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Cuti Khusus')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -646,7 +646,7 @@ class LaporanController extends Controller
             $sakitjanuari2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -656,7 +656,7 @@ class LaporanController extends Controller
             $ijinjanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -666,7 +666,7 @@ class LaporanController extends Controller
             $alpajanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -676,7 +676,7 @@ class LaporanController extends Controller
             $cutitahunanjanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -686,7 +686,7 @@ class LaporanController extends Controller
             $cutikhususjanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -700,7 +700,7 @@ class LaporanController extends Controller
             $sakitfebruari2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -710,7 +710,7 @@ class LaporanController extends Controller
             $ijinfebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -720,7 +720,7 @@ class LaporanController extends Controller
             $alpafebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -730,7 +730,7 @@ class LaporanController extends Controller
             $cutitahunanfebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -740,7 +740,7 @@ class LaporanController extends Controller
             $cutikhususfebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -754,7 +754,7 @@ class LaporanController extends Controller
             $sakitmaret2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -764,7 +764,7 @@ class LaporanController extends Controller
             $ijinmaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -774,7 +774,7 @@ class LaporanController extends Controller
             $alpamaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -784,7 +784,7 @@ class LaporanController extends Controller
             $cutitahunanmaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -794,7 +794,7 @@ class LaporanController extends Controller
             $cutikhususmaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -808,7 +808,7 @@ class LaporanController extends Controller
             $sakitapril2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -818,7 +818,7 @@ class LaporanController extends Controller
             $ijinapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -828,7 +828,7 @@ class LaporanController extends Controller
             $alpaapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -838,7 +838,7 @@ class LaporanController extends Controller
             $cutitahunanapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -848,7 +848,7 @@ class LaporanController extends Controller
             $cutikhususapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -862,7 +862,7 @@ class LaporanController extends Controller
             $sakitmei2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -872,7 +872,7 @@ class LaporanController extends Controller
             $ijinmei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -882,7 +882,7 @@ class LaporanController extends Controller
             $alpamei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -892,7 +892,7 @@ class LaporanController extends Controller
             $cutitahunanmei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -902,7 +902,7 @@ class LaporanController extends Controller
             $cutikhususmei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -916,7 +916,7 @@ class LaporanController extends Controller
             $sakitjuni2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -926,7 +926,7 @@ class LaporanController extends Controller
             $ijinjuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -936,7 +936,7 @@ class LaporanController extends Controller
             $alpajuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -946,7 +946,7 @@ class LaporanController extends Controller
             $cutitahunanjuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -956,7 +956,7 @@ class LaporanController extends Controller
             $cutikhususjuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -970,7 +970,7 @@ class LaporanController extends Controller
             $sakitjuli2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -980,7 +980,7 @@ class LaporanController extends Controller
             $ijinjuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -990,7 +990,7 @@ class LaporanController extends Controller
             $alpajuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1000,7 +1000,7 @@ class LaporanController extends Controller
             $cutitahunanjuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1010,7 +1010,7 @@ class LaporanController extends Controller
             $cutikhususjuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1024,7 +1024,7 @@ class LaporanController extends Controller
             $sakitagustus2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -1034,7 +1034,7 @@ class LaporanController extends Controller
             $ijinagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1044,7 +1044,7 @@ class LaporanController extends Controller
             $alpaagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1054,7 +1054,7 @@ class LaporanController extends Controller
             $cutitahunanagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1064,7 +1064,7 @@ class LaporanController extends Controller
             $cutikhususagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1078,7 +1078,7 @@ class LaporanController extends Controller
             $sakitseptember2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+            
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -1088,7 +1088,7 @@ class LaporanController extends Controller
             $ijinseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1098,7 +1098,7 @@ class LaporanController extends Controller
             $alpaseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+                
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1108,7 +1108,7 @@ class LaporanController extends Controller
             $cutitahunanseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+         
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1118,7 +1118,7 @@ class LaporanController extends Controller
             $cutikhususseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+            
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1132,7 +1132,7 @@ class LaporanController extends Controller
             $sakitoktober2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+         
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -1142,7 +1142,7 @@ class LaporanController extends Controller
             $ijinoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+             
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1152,7 +1152,7 @@ class LaporanController extends Controller
             $alpaoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+         
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1162,7 +1162,7 @@ class LaporanController extends Controller
             $cutitahunanoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+               
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1172,7 +1172,7 @@ class LaporanController extends Controller
             $cutikhususoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+             
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1186,7 +1186,7 @@ class LaporanController extends Controller
             $sakitnovember2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
+    
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -1196,7 +1196,7 @@ class LaporanController extends Controller
             $ijinnovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+             
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1206,7 +1206,7 @@ class LaporanController extends Controller
             $alpanovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
+               
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1216,7 +1216,6 @@ class LaporanController extends Controller
             $cutitahunannovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1226,7 +1225,6 @@ class LaporanController extends Controller
             $cutikhususnovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1240,7 +1238,6 @@ class LaporanController extends Controller
             $sakitdesember2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->whereIn('golongans_id', [1,2,4])
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
@@ -1250,7 +1247,6 @@ class LaporanController extends Controller
             $ijindesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1260,7 +1256,6 @@ class LaporanController extends Controller
             $alpadesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1270,7 +1265,6 @@ class LaporanController extends Controller
             $cutitahunandesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
@@ -1280,7 +1274,6 @@ class LaporanController extends Controller
             $cutikhususdesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->whereIn('golongans_id', [1,2,4])
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
