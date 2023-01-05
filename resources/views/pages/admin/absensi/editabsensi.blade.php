@@ -16,7 +16,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Edit Absensi
+                        Edit Absensi Karyawan
                     </div>
 
                     @if ($errors->any())

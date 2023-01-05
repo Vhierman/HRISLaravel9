@@ -15,7 +15,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Tambah Data Absensi Karyawan
+                        Tambah Data Absensi Prakerin
                     </div>
 
                     @if ($errors->any())
@@ -30,7 +30,7 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('absensi.store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('absensipkl.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
 
@@ -40,12 +40,12 @@
                                             value="{{ Auth::user()->name }}">
 
                                         <label for="title" class="form-label">Nama Karyawan</label>
-                                        <select class="selectpicker" name="employees_id" data-width="100%"
+                                        <select class="selectpicker" name="students_id" data-width="100%"
                                             data-live-search="true" required>
-                                            <option value="">--Pilih Karyawan--</option>
+                                            <option value="">--Pilih Siswa--</option>
                                             @foreach ($items as $item)
-                                                <option value="{{ $item->nik_karyawan }}">
-                                                    {{ $item->nama_karyawan . ' / ' . $item->positions->jabatan . ' / ' . $item->divisions->penempatan }}
+                                                <option value="{{ $item->nis_siswa }}">
+                                                    {{ $item->nama_siswa . ' / ' . $item->divisions->penempatan }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -70,31 +70,14 @@
                                             <option value="Alpa"
                                                 @if (old('keterangan_absen') == 'Alpa') {{ 'selected' }} @endif>Alpa
                                             </option>
-                                            <option value="Cuti Tahunan"
-                                                @if (old('keterangan_absen') == 'Cuti Tahunan') {{ 'selected' }} @endif>Cuti Tahunan
-                                            </option>
-                                            <option value="Cuti Khusus"
-                                                @if (old('keterangan_absen') == 'Cuti Khusus') {{ 'selected' }} @endif>Cuti Khusus
-                                            </option>
                                         </select>
-                                    </div>
-
-
-                                    <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Keterangan Cuti Khusus</label>
-                                        <span class="badge bg-danger">
-                                            Diisi jika Karyawan Cuti Khusus, Jika Tidak Kosongkan Saja...!
-                                        </span>
-                                        <input type="text" class="form-control" name="keterangan_cuti_khusus"
-                                            placeholder="Masukan Keterangan Cuti Khusus"
-                                            value="{{ old('keterangan_cuti_khusus') }}">
                                     </div>
 
                                     <div class="d-grid gap-2 mt-3">
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Simpan
                                         </button>
-                                        <a href="{{ route('absensi.index') }}" class="btn btn-danger btn-block">
+                                        <a href="{{ route('absensipkl.index') }}" class="btn btn-danger btn-block">
                                             Cancel
                                         </a>
                                     </div>

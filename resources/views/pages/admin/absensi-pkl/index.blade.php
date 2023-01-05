@@ -10,7 +10,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Data Absensi Karyawan
+                        Data Absensi Siswa Prakerin
                     </div>
 
                     <div class="card shadow">
@@ -18,25 +18,25 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3 d-grid gap-2 mt-2">
-                                        <a href="{{ route('absensi.lihat_absensi') }}" class="btn btn-primary btn-lg">
+                                        <a href="{{ route('absensipkl.lihat_absensi') }}" class="btn btn-primary btn-lg">
                                             <i class="fas fa-search"></i>
                                             Lihat Data
                                         </a>
                                     </div>
                                     <div class="col-md-3 d-grid gap-2 mt-2">
-                                        <a href="{{ route('absensi.create') }}" class="btn btn-success btn-lg">
+                                        <a href="{{ route('absensipkl.create') }}" class="btn btn-success btn-lg">
                                             <i class="fas fa-plus"></i>
                                             Tambah Data
                                         </a>
                                     </div>
                                     <div class="col-md-3 d-grid gap-2 mt-2">
-                                        <a href="{{ route('absensi.form_edit') }}" class="btn btn-warning btn-lg">
+                                        <a href="{{ route('absensipkl.form_edit') }}" class="btn btn-warning btn-lg">
                                             <i class="fas fa-sync-alt"></i>
                                             Edit Data
                                         </a>
                                     </div>
                                     <div class="col-md-3 d-grid gap-2 mt-2">
-                                        <a href="{{ route('absensi.form_hapus') }}" class="btn btn-danger btn-lg">
+                                        <a href="{{ route('absensipkl.form_hapus') }}" class="btn btn-danger btn-lg">
                                             <i class="fas fa-trash-alt"></i>
                                             Hapus Data
                                         </a>
@@ -49,7 +49,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12 d-grid gap-2 mt-2">
-                                        <a href="{{ route('absensi.lihat_absensi') }}" class="btn btn-primary btn-lg">
+                                        <a href="{{ route('absensipkl.lihat_absensi') }}" class="btn btn-primary btn-lg">
                                             <i class="fas fa-search"></i>
                                             Lihat Data
                                         </a>

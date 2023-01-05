@@ -16,7 +16,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Edit Absensi Karyawan
+                        Hapus Absensi Prakerin
                     </div>
 
                     @if ($errors->any())
@@ -31,23 +31,23 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('absensi.update', $items->id) }}" method="post"
+                            <form action="{{ route('absensipkl.destroy', $items->id) }}" method="post"
                                 enctype="multipart/form-data">
-                                @method('PUT')
                                 @csrf
+                                @method('delete')
                                 <div class="form-group">
-                                    <input type="hidden" readonly class="form-control" name="edit_oleh" placeholder="Name"
+                                    <input type="hidden" readonly class="form-control" name="hapus_oleh" placeholder="Name"
                                         value="{{ Auth::user()->name }}">
 
                                     <div class="form-group mt-2">
-                                        <label for="title" class="form-label">NIK Karyawan</label>
-                                        <input type="text" class="form-control" name="employees_id" readonly
-                                            value="{{ $items->employees->nik_karyawan }}">
+                                        <label for="title" class="form-label">NIS Siswa</label>
+                                        <input type="text" class="form-control" name="students_id" readonly
+                                            value="{{ $items->students->nis_siswa }}">
                                     </div>
                                     <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Nama Karyawan</label>
-                                        <input type="text" class="form-control" name="nama_karyawan" readonly
-                                            value="{{ $items->employees->nama_karyawan }}">
+                                        <label for="title" class="form-label">Nama Siswa</label>
+                                        <input type="text" class="form-control" name="nama_siswa" readonly
+                                            value="{{ $items->students->nama_siswa }}">
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="title" class="form-label">Tanggal Absen</label>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-group  mt-2">
                                         <label for="keterangan_absen">Keterangan Absen</label>
-                                        <select name="keterangan_absen" class="form-select">
+                                        <select name="keterangan_absen" class="form-select" disabled>
                                             <option value="">Pilih Keterangan Absen</option>
                                             <option value="Sakit"
                                                 @if ($items->keterangan_absen == 'Sakit') {{ 'selected="selected"' }} @endif>
@@ -67,30 +67,14 @@
                                             <option value="Alpa"
                                                 @if ($items->keterangan_absen == 'Alpa') {{ 'selected="selected"' }} @endif>
                                                 Alpa</option>
-                                            <option value="Cuti Tahunan"
-                                                @if ($items->keterangan_absen == 'Cuti Tahunan') {{ 'selected="selected"' }} @endif>
-                                                Cuti Tahunan</option>
-                                            <option value="Cuti Khusus"
-                                                @if ($items->keterangan_absen == 'Cuti Khusus') {{ 'selected="selected"' }} @endif>
-                                                Cuti Khusus</option>
                                         </select>
-                                    </div>
-
-                                    <div class="form-group mt-2">
-                                        <label for="title" class="form-label">Keterangan Cuti Khusus</label>
-                                        <span class="badge bg-danger">
-                                            Diisi jika Karyawan Cuti Khusus, Jika Tidak Kosongkan Saja...!
-                                        </span>
-                                        <input type="text" class="form-control" name="keterangan_cuti_khusus"
-                                            placeholder="Masukan Keterangan Cuti Khusus"
-                                            value="{{ $items->keterangan_cuti_khusus }}">
                                     </div>
 
                                     <div class="d-grid gap-2 mt-3">
                                         <button type="submit" class="btn btn-primary btn-block">
-                                            Update Data
+                                            Delete Data
                                         </button>
-                                        <a href="{{ route('absensi.index') }}" class="btn btn-danger btn-block">
+                                        <a href="{{ route('absensipkl.index') }}" class="btn btn-danger btn-block">
                                             Cancel
                                         </a>
                                     </div>

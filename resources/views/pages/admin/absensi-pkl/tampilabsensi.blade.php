@@ -15,7 +15,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Data Absensi Karyawan Periode
+                        Data Absensi Siswa Prakerin Periode
                         {{ \Carbon\Carbon::parse($awal)->isoformat('DD-MM-Y') . ' s/d ' . \Carbon\Carbon::parse($akhir)->isoformat('DD-MM-Y') }}
                     </div>
                     <div class="card-body">
@@ -24,13 +24,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Karyawan</th>
-                                        <th>Gol</th>
+                                        <th>Nama Siswa</th>
                                         <th>Penempatan</th>
-                                        <th>Status</th>
+                                        <th>Sekolah</th>
                                         <th>Tanggal Absen</th>
                                         <th>Jenis Absen</th>
-                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,14 +38,12 @@
                                     @foreach ($items as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $item->nama_karyawan }}</td>
-                                            <td>{{ $item->golongan }}</td>
+                                            <td>{{ $item->nama_siswa }}</td>
                                             <td>{{ $item->penempatan }}</td>
-                                            <td>{{ $item->status_kerja }}</td>
+                                            <td>{{ $item->nama_sekolah }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->isoformat('DD-MM-Y') }}
                                             </td>
                                             <td>{{ $item->keterangan_absen }}</td>
-                                            <td>{{ $item->keterangan_cuti_khusus }}</td>
                                         </tr>
                                     @endforeach
 

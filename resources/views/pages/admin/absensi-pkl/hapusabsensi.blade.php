@@ -16,7 +16,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Hapus Absensi Karyawan
+                        Hapus Absensi Prakerin
                     </div>
 
                     @if ($errors->any())
@@ -31,17 +31,18 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('absensi.tampil_hapus') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('absensipkl.tampil_hapus') }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
 
-                                    <label for="title" class="form-label">Nama Karyawan</label>
-                                    <select class="selectpicker" name="employees_id" data-width="100%"
+                                    <label for="title" class="form-label">Nama Siswa</label>
+                                    <select class="selectpicker" name="students_id" data-width="100%"
                                         data-live-search="true" required>
-                                        <option value="">Pilih Karyawan</option>
+                                        <option value="">Pilih Siswa</option>
                                         @foreach ($items as $item)
-                                            <option value="{{ $item->nik_karyawan }}">
-                                                {{ $item->nama_karyawan . ' / ' . $item->divisions->penempatan . ' / ' . $item->positions->jabatan }}
+                                            <option value="{{ $item->nis_siswa }}">
+                                                {{ $item->nama_siswa . ' / ' . $item->divisions->penempatan }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -56,7 +57,7 @@
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Cari Data
                                         </button>
-                                        <a href="{{ route('absensi.index') }}" class="btn btn-danger btn-block">
+                                        <a href="{{ route('absensipkl.index') }}" class="btn btn-danger btn-block">
                                             Cancel
                                         </a>
                                     </div>

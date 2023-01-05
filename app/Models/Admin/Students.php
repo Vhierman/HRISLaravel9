@@ -48,4 +48,9 @@ class Students extends Model
     public function schools(){
         return $this->belongsTo(Schools::class,'schools_id','id');
     }
+
+    // From Table Karyawan
+    public function attendances_pkls() {
+        return $this->hasMany(AttendancesPkls::class,'students_id','id');
+    }
 }

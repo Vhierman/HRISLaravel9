@@ -86,7 +86,7 @@ Route::prefix('admin')
         Route::resource('position', 'PositionController');
         Route::resource('working-hour', 'WorkingHourController');
         Route::resource('school', 'SchoolController');
-        //Absensi
+        //Absensi Karyawan
         Route::get('absensi/lihat_absensi', 'AbsensiController@lihat_absensi')->name('absensi.lihat_absensi');
         Route::get('absensi/form_edit', 'AbsensiController@form_edit')->name('absensi.form_edit');
         Route::get('absensi/form_hapus', 'AbsensiController@form_hapus')->name('absensi.form_hapus');
@@ -94,6 +94,14 @@ Route::prefix('admin')
         Route::post('absensi/tampil_edit', 'AbsensiController@tampil_edit')->name('absensi.tampil_edit');
         Route::post('absensi/tampil_hapus', 'AbsensiController@tampil_hapus')->name('absensi.tampil_hapus');
         Route::resource('absensi', 'AbsensiController');
+        //Absensi PKL
+        Route::get('absensipkl/lihat_absensi', 'AbsensiPklController@lihat_absensi')->name('absensipkl.lihat_absensi');
+        Route::get('absensipkl/form_edit', 'AbsensiPklController@form_edit')->name('absensipkl.form_edit');
+        Route::get('absensipkl/form_hapus', 'AbsensiPklController@form_hapus')->name('absensipkl.form_hapus');
+        Route::post('absensipkl/tampil_absensi', 'AbsensiPklController@tampil_absensi')->name('absensipkl.tampil_absensi');
+        Route::post('absensipkl/tampil_edit', 'AbsensiPklController@tampil_edit')->name('absensipkl.tampil_edit');
+        Route::post('absensipkl/tampil_hapus', 'AbsensiPklController@tampil_hapus')->name('absensipkl.tampil_hapus');
+        Route::resource('absensipkl', 'AbsensiPklController');
         //Karyawan
         Route::get('employee/export_excel', 'EmployeeController@export_excel')->name('employee.export_excel');
         Route::resource('employee', 'EmployeeController');
