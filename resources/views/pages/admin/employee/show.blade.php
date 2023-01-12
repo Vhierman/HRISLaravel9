@@ -853,6 +853,7 @@
                                             <th>NIK</th>
                                             <th>No BPJS</th>
                                             <th>Nama</th>
+                                            <th>Jen Kel</th>
                                             <th>Tempat Tgl Lahir</th>
                                             @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                                 <th>Action</th>
@@ -870,6 +871,7 @@
                                                 <td>{{ $historyfamily->nik_history_keluarga }}</td>
                                                 <td>{{ $historyfamily->nomor_bpjs_kesehatan_history_keluarga }}</td>
                                                 <td>{{ $historyfamily->nama_history_keluarga }}</td>
+                                                <td>{{ $historyfamily->jenis_kelamin_history_keluarga }}</td>
                                                 <td>{{ $historyfamily->tempat_lahir_history_keluarga . '-' . \Carbon\Carbon::parse($historyfamily->tanggal_lahir_history_keluarga)->isoformat('D MMMM Y') }}
                                                 </td>
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
