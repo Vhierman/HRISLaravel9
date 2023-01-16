@@ -19,7 +19,7 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   overflow: hidden;
-  background: url("../assets/profile/bgprofile2.jpg") no-repeat;
+  background: url("../assets/profile/bgprofile3.jpg") no-repeat;
   background-size: cover;
 }
 .halaman-karyawan .container .profile-cover__action > .btn {
