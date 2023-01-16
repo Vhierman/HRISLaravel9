@@ -56,7 +56,7 @@ class EmployeeUpdateRequest extends FormRequest
             'nama_ibu'                      => 'required|string',
             'nama_ayah'                     => 'required|string',
             'tanggal_mulai_kerja'           => 'required|date',
-            'tanggal_akhir_kerja'           => 'required|date',
+            // 'tanggal_akhir_kerja'           => 'required|date',
             'status_kerja'                  => 'required|string|in:PKWT,PKWTT,Harian,Outsourcing',
             'nama_bank'                     => 'required',
             'nomor_rekening'                => 'required|integer'
