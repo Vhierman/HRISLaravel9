@@ -1669,10 +1669,10 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', '', '11');
             $this->fpdf->Cell(57, 5, 'akan memberikan upah sebesar ', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', 'B', '11');
-            $this->fpdf->Cell(70, 5, 'Rp.203.824,- (dua ratus tiga ribu ', 0, 0, 'L');
+            $this->fpdf->Cell(70, 5, 'Rp.216.736,- (dua ratus enam belas ribu ', 0, 0, 'L');
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            $this->fpdf->Cell(65, 5, 'delapan ratus dua puluh empat) ', 0, 0, 'L');
+            $this->fpdf->Cell(65, 5, 'tujuh ratus tiga puluh enam) ', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', '', '11');
             $this->fpdf->Cell(50, 5, 'rupiah setiap hari kehadiran', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', 'B', '11');
@@ -2477,10 +2477,10 @@ class CetakController extends Controller
                 $this->fpdf->SetFont('Arial', '', '11');
                 $this->fpdf->Cell(57, 5, 'akan memberikan upah sebesar ', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', 'B', '11');
-                $this->fpdf->Cell(70, 5, 'Rp.203.824,- (dua ratus tiga ribu ', 0, 0, 'L');
+                $this->fpdf->Cell(70, 5, 'Rp.216.736,- (dua ratus enam belas ribu ', 0, 0, 'L');
                 $this->fpdf->Ln();
                 $this->fpdf->Cell(20);
-                $this->fpdf->Cell(65, 5, 'delapan ratus dua puluh empat) ', 0, 0, 'L');
+                $this->fpdf->Cell(65, 5, 'tujuh ratus tiga puluh enam) ', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', '', '11');
                 $this->fpdf->Cell(50, 5, 'rupiah setiap hari kehadiran', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', 'B', '11');
