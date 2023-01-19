@@ -20,8 +20,8 @@
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Excell Karyawan
                     </a>
                 @elseif (Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a href="{{ route('employee.export_excel') }}" target="_blank" class="btn btn-success shadow-sm mb-3">
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Excell Karyawan
                     </a>
@@ -40,6 +40,7 @@
                                         <th>No</th>
                                         <th>Nama Karyawan</th>
                                         <th>NIK Karyawan</th>
+                                        <th>GOL</th>
                                         <th>Penempatan</th>
                                         <th>Status Kerja</th>
                                         <th>Awal Kerja</th>
@@ -81,6 +82,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->nama_karyawan }}</td>
                                             <td>{{ $item->nik_karyawan }}</td>
+                                            <td>{{ $item->golongans->golongan }}</td>
                                             <td>{{ $item->divisions->penempatan }}</td>
                                             <td>{{ $statuskerja }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai_kerja)->isoformat('DD-MM-Y') }}

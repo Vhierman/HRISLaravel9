@@ -4,12 +4,17 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
 
-                {{-- Dashboard --}}
-                <a class="nav-link" href="{{ route('dashboard') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Dashboard
-                </a>
-                {{-- Dashboard --}}
+                @if (Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
+                    {{-- Dashboard --}}
+                    <a class="nav-link" href="{{ route('dashboard') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                    {{-- Dashboard --}}
+                @endif
 
                 {{-- Halaman Karyawan --}}
                 @if (Auth::user()->roles == 'KARYAWAN')
@@ -36,6 +41,19 @@
 
                 {{-- Master --}}
                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseDashboard"
+                        aria-expanded="false" aria-controls="collapseDashboard">
+                        <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
+                        Dashboard
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseDashboard" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard Karyawan</a>
+                            <a class="nav-link" href="{{ route('dashboard-harian.index') }}">Dashboard Harian</a>
+                        </nav>
+                    </div>
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseMaster"
                         aria-expanded="false" aria-controls="collapseMaster">
                         <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
@@ -68,11 +86,11 @@
 
                 {{-- Karyawan --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'LEADER' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseEmployee"
                         aria-expanded="false" aria-controls="collapseEmployee">
                         <div class="sb-nav-link-icon"><i class="fas fa-snowboarding"></i></div>
@@ -97,11 +115,11 @@
 
                 {{-- Absensi --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'LEADER' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseAbsensi"
                         aria-expanded="false" aria-controls="collapseAbsensi">
                         <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
@@ -125,11 +143,11 @@
 
                 {{-- Siswa Prakerin --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'LEADER' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseStudents"
                         aria-expanded="false" aria-controls="collapseStudents">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
@@ -147,10 +165,10 @@
 
                 {{-- Inventaris --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING' ||
-                    Auth::user()->roles == 'ACCOUNTING')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING' ||
+                        Auth::user()->roles == 'ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseHistory"
                         aria-expanded="false" aria-controls="collapseHistory">
                         <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div>
@@ -171,9 +189,9 @@
 
                 {{-- Training --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'LEADER')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTraining"
                         aria-expanded="false" aria-controls="collapseTraining">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
@@ -224,11 +242,11 @@
 
                 {{-- Proses --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'LEADER' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseProses"
                         aria-expanded="false" aria-controls="collapseProses">
                         <div class="sb-nav-link-icon"><i class="fas fa-paperclip"></i></div>
@@ -255,11 +273,11 @@
                     </div>
                 @endif
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'LEADER' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
@@ -268,9 +286,9 @@
                     </div>
                 @endif
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <div class="collapse" id="collapseProses" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
@@ -282,10 +300,10 @@
 
                 {{-- Laporan --}}
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLaporan"
                         aria-expanded="false" aria-controls="collapseLaporan">
                         <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
@@ -294,9 +312,9 @@
                     </a>
                 @endif
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
@@ -305,10 +323,10 @@
                     </div>
                 @endif
                 @if (Auth::user()->roles == 'ADMIN' ||
-                    Auth::user()->roles == 'HRD' ||
-                    Auth::user()->roles == 'MANAGER HRD' ||
-                    Auth::user()->roles == 'ACCOUNTING' ||
-                    Auth::user()->roles == 'MANAGER ACCOUNTING')
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'ACCOUNTING' ||
+                        Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">

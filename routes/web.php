@@ -70,6 +70,7 @@ Route::prefix('admin')
         Route::post('dashboard/hasil_ganti_foto_karyawan', 'DashboardController@hasil_ganti_foto_karyawan')->name('dashboard.hasil_ganti_foto_karyawan');
         Route::get('dashboard/logout', 'DashboardController@logout')->name('dashboard.logout');
         Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::resource('dashboard-harian', 'DashboardHarianController');
         // Chart Department
         Route::resource('struktur-hrd', 'StrukturHRDController');
         // Chart Department

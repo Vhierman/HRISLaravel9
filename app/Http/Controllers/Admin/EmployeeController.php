@@ -53,6 +53,7 @@ class EmployeeController extends Controller
         if ($divisi == 11) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [11, 19, 20,21,22])->get();
@@ -61,6 +62,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 19) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [19, 20,21,22])->get();
@@ -69,6 +71,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 2) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [2])->get();
@@ -77,6 +80,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 7) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [7])->get();
@@ -85,6 +89,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 8) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [8])->get();
@@ -93,6 +98,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 9) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [9])->get();
@@ -101,6 +107,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 10) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->whereIn('divisions_id', [12,13,14,15,18])->get();
@@ -109,6 +116,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 4) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->get();
@@ -117,6 +125,7 @@ class EmployeeController extends Controller
         elseif ($divisi == 1) {
             $items = Employees::with([
                 'areas',
+                'golongans',
                 'divisions',
                 'positions'
                 ])->get();
