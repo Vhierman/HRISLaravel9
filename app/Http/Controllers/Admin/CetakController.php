@@ -1096,9 +1096,15 @@ class CetakController extends Controller
 
             $this->fpdf->SetFont('Arial', 'B', '9');
             $this->fpdf->Ln(40);
+            //TTD
+            // $this->fpdf->Cell(20);
+            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 150,170,30);
+            // $this->fpdf->Ln(5);
+            //TTD
             $this->fpdf->Cell(20);
             $this->fpdf->Cell(70, 5, '( ' . $karyawan->nama_karyawan . ' )', 0, 0, 'C');
 
+            
             $this->fpdf->Cell(30);
             $this->fpdf->Cell(70, 5, '( RUDIYANTO )', 0, 0, 'C');
 
@@ -1511,7 +1517,12 @@ class CetakController extends Controller
             $this->fpdf->Cell(36, 6, 'PIHAK KEDUA.', 0, 0, 'L');
     
     
-    
+            //TTD
+            $this->fpdf->Ln();
+            $this->fpdf->Cell(20);
+            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
+            $this->fpdf->Ln(5);
+            //TTD
             $this->fpdf->Ln(100);
     
             $this->fpdf->Ln(50);
@@ -1691,7 +1702,12 @@ class CetakController extends Controller
             $this->fpdf->Cell(20);
             $this->fpdf->Cell(170, 5, 'kontrak kerja berakhir.', 0, 0, 'L');
     
-    
+            //TTD
+            $this->fpdf->Ln();
+            $this->fpdf->Cell(20);
+            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,265,30);
+            $this->fpdf->Ln(5);
+            //TTD
             $this->fpdf->Ln(100);
     
             $this->fpdf->Ln(50);
@@ -1886,7 +1902,12 @@ class CetakController extends Controller
             $this->fpdf->Ln();
             $this->fpdf->Cell(30);
             $this->fpdf->Cell(160, 5, '      kerja.', 0, 0, 'L');
-    
+            //TTD
+            $this->fpdf->Ln();
+            $this->fpdf->Cell(20);
+            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
+            $this->fpdf->Ln(5);
+            //TTD
             $this->fpdf->Ln(100);
     
             $this->fpdf->Ln(50);
@@ -1988,7 +2009,12 @@ class CetakController extends Controller
             $this->fpdf->Cell(70, 5, '', 0, 0, 'C');
             $this->fpdf->Cell(50, 5, 'PIHAK KEDUA', 0, 0, 'C');
     
-            $this->fpdf->Ln(40);
+            $this->fpdf->Ln(30);
+            //TTD
+            $this->fpdf->Cell(20);
+            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,188,30);
+            $this->fpdf->Ln(5);
+            //TTD
             $this->fpdf->SetFont('Arial', 'B', '11');
             $this->fpdf->Cell(20);
             $this->fpdf->Cell(50, 5, '( Rudiyanto )', 0, 0, 'C');

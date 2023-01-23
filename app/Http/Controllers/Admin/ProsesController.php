@@ -105,6 +105,22 @@ class ProsesController extends Controller
         $awal_kontrak       = $request->input('awal_kontrak');
         $akhir_kontrak      = $request->input('akhir_kontrak');
 
+        //Hitung Bulan
+        $date1          = date_create($request->input('awal_kontrak')); 
+        $date2          = date_create($request->input('akhir_kontrak')); 
+        $interval       = date_diff($date1,$date2);
+        $masa_kontrak   = $interval->m+1;
+        if ($masa_kontrak == 12) {
+            $masakontrak = "1 Tahun";
+        }
+        elseif ($masa_kontrak > 12) {
+            $masakontrak = "Salah";
+        }
+        else{
+            $masakontrak = $masa_kontrak." Bulan";
+        }
+        //Hitung Bulan
+
         $items              = Employees::where('tanggal_akhir_kerja', $akhirkontrak)->where('status_kerja', 'Harian')->where('golongans_id', $golongan)->get();
 
         foreach ($items as $item) {
@@ -113,7 +129,7 @@ class ProsesController extends Controller
                 'tanggal_awal_kontrak'          => $awal_kontrak,
                 'tanggal_akhir_kontrak'         => $akhir_kontrak,
                 'status_kontrak_kerja'          => 'Harian',
-                'masa_kontrak'                  => '1 Bulan',
+                'masa_kontrak'                  => $masakontrak,
                 'jumlah_kontrak'                => 1
             ]);
 
@@ -179,6 +195,23 @@ class ProsesController extends Controller
         $awal_kontrak       = $request->input('awal_kontrak');
         $akhir_kontrak      = $request->input('akhir_kontrak');
 
+        //Hitung Bulan
+        $date1          = date_create($request->input('awal_kontrak')); 
+        $date2          = date_create($request->input('akhir_kontrak')); 
+        $interval       = date_diff($date1,$date2);
+        $masa_kontrak   = $interval->m+1;
+        if ($masa_kontrak == 12) {
+            $masakontrak = "1 Tahun";
+        }
+        elseif ($masa_kontrak > 12) {
+            $masakontrak = "Salah";
+        }
+        else{
+            $masakontrak = $masa_kontrak." Bulan";
+        }
+        //Hitung Bulan
+
+
         $items              = Employees::where('tanggal_akhir_kerja', $akhirkontrak)->where('status_kerja', 'PKWT')->get();
 
         foreach ($items as $item) {
@@ -187,7 +220,7 @@ class ProsesController extends Controller
                 'tanggal_awal_kontrak'          => $awal_kontrak,
                 'tanggal_akhir_kontrak'         => $akhir_kontrak,
                 'status_kontrak_kerja'          => 'PKWT',
-                'masa_kontrak'                  => '1 Bulan',
+                'masa_kontrak'                  => $masakontrak,
                 'jumlah_kontrak'                => 1
             ]);
 
