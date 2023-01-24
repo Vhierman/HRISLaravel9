@@ -44,19 +44,11 @@ class DashboardHarianController extends Controller
         $itemsunter = Employees::with([
             'areas'
         ])->where('areas_id', 3)->whereIn('golongans_id', [3])->count();
-        $itemcibinong = Employees::with([
-            'areas'
-        ])->where('areas_id', 4)->whereIn('golongans_id', [3])->count();
-        $itemcibitung = Employees::with([
-            'areas'
-        ])->where('areas_id', 5)->whereIn('golongans_id', [3])->count();
-        $itemkarawangtimur = Employees::with([
-            'areas'
-        ])->where('areas_id', 6)->whereIn('golongans_id', [3])->count();
+        
         $itembl = Employees::with([
             'areas'
         ])->where('areas_id', 7)->whereIn('golongans_id', [3])->count();
-        $itempdc = $itemsunter + $itemcibinong + $itemcibitung + $itemkarawangtimur;
+        $itempdc = $itemsunter;
         $itemall = $itembsd + $itempdc ;
         //Jumlah Karyawan
         // Chart Penempatan
@@ -86,7 +78,7 @@ class DashboardHarianController extends Controller
         ])->where('divisions_id', 18)->whereIn('golongans_id', [3])->count();
         $itempdcdaihatsusunter = Employees::with([
             'divisions'
-        ])->where('divisions_id', 19)->whereIn('golongans_id', [1,2,4])->count();
+        ])->where('divisions_id', 19)->whereIn('golongans_id', [3])->count();
         // Chart Penempatan
         // Chart Status Menikah
         $itemsingle = Employees::all()
