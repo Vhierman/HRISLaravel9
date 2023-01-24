@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-xl-4 col-md-6">
                             <div class="card bg-dark text-white mb-4">
-                                <div class="card-body"><i class="fas fa-city"></i> Sunter,Cibinong,Cibitung</div>
+                                <div class="card-body"><i class="fas fa-city"></i> Sunter</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <div class="small text-white"><i class="fas fa-users"></i> {{ $itempdc }}
                                         Daihatsu
