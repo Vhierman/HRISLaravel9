@@ -154,6 +154,12 @@ Route::prefix('admin')
         Route::post('proses/tampil_pkwt_harian', 'ProsesController@tampil_pkwt_harian')->name('proses.tampil_pkwt_harian');
         Route::post('proses/prosess_pkwt_harian', 'ProsesController@prosess_pkwt_harian')->name('proses.prosess_pkwt_harian');
         Route::post('proses/perpanjang_pkwt_harian', 'ProsesController@perpanjang_pkwt_harian')->name('proses.perpanjang_pkwt_harian');
+        //PKWT Shift Harian
+        Route::get('proses/proses_pkwt_shift_harian', 'ProsesController@proses_pkwt_shift_harian')->name('proses.proses_pkwt_shift_harian');
+        Route::post('proses/perpanjang_pkwt_shift_harian', 'ProsesController@perpanjang_pkwt_shift_harian')->name('proses.perpanjang_pkwt_shift_harian');
+        //PKWT Shift Kontrak
+        Route::get('proses/proses_pkwt_shift_kontrak', 'ProsesController@proses_pkwt_shift_kontrak')->name('proses.proses_pkwt_shift_kontrak');
+        Route::post('proses/perpanjang_pkwt_shift_kontrak', 'ProsesController@perpanjang_pkwt_shift_kontrak')->name('proses.perpanjang_pkwt_shift_kontrak');
         //Rekon Salary
         Route::get('proses/proses_rekon_salary', 'ProsesController@proses_rekon_salary')->name('proses.proses_rekon_salary');
         Route::post('proses/tampil_rekon_salary', 'ProsesController@tampil_rekon_salary')->name('proses.tampil_rekon_salary');

@@ -48,6 +48,10 @@
                                             class="btn btn-danger btn-block">
                                             Cancel
                                         </a>
+                                        <a href="{{ route('proses.proses_pkwt_shift_kontrak') }}"
+                                            class="btn btn-success btn-block">
+                                            Proses Manual / Shift
+                                        </a>
                                     </div>
                                 </div>
                             </form>

@@ -10,13 +10,13 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Prosess</li>
-                    <li class="breadcrumb-item active">PKWT Harian</li>
+                    <li class="breadcrumb-item active">PKWT Shift</li>
                 </ol>
 
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        PKWT Harian
+                        PKWT Shift
                     </div>
 
                     @if ($errors->any())
@@ -31,23 +31,25 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('proses.tampil_pkwt_harian') }}" method="post"
+                            <form action="{{ route('proses.perpanjang_pkwt_shift_harian') }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
 
-                                    <div class="form-group">
-                                        <label for="golongan">Data</label>
-                                        <select name="golongan" class="form-select">
-                                            <option value="">Pilih Data</option>
-                                            <option value="2"
-                                                @if (old('golongan') == '2') {{ 'selected' }} @endif>
-                                                Susan
+                                    <label for="title" class="form-label">Nama Karyawan</label>
+                                    <select class="selectpicker" name="employees_id[]" data-width="100%"
+                                        data-live-search="true" multiple required>
+                                        @foreach ($items as $item)
+                                            <option value="{{ $item->nik_karyawan }}">
+                                                {{ $item->nama_karyawan . ' / ' . $item->positions->jabatan . ' / ' . $item->divisions->penempatan }}
                                             </option>
-                                            <option value="3"
-                                                @if (old('golongan') == '3') {{ 'selected' }} @endif>Ghufron
-                                            </option>
-                                        </select>
+                                        @endforeach
+                                    </select>
+
+                                    <div class="form-group mt-2">
+                                        <label for="title" class="form-label">Awal Kontrak</label>
+                                        <input type="date" class="form-control" name="awal_kontrak"
+                                            placeholder="DD-MM-YYYY" value="{{ old('awal_kontrak') }}">
                                     </div>
 
                                     <div class="form-group mt-2">
@@ -58,14 +60,11 @@
 
                                     <div class="d-grid gap-2 mt-3">
                                         <button type="submit" class="btn btn-primary btn-block">
-                                            Process
+                                            Proses Perpanjangan
                                         </button>
-                                        <a href="{{ route('proses.proses_pkwt_harian') }}" class="btn btn-danger btn-block">
-                                            Cancel
-                                        </a>
                                         <a href="{{ route('proses.proses_pkwt_shift_harian') }}"
-                                            class="btn btn-success btn-block">
-                                            Proses Manual / Shift
+                                            class="btn btn-danger btn-block">
+                                            Cancel
                                         </a>
                                     </div>
 

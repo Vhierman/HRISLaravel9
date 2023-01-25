@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use App\Models\Admin\Employees;
+use App\Models\Admin\Companies;
 use App\Models\Admin\Areas;
 use App\Models\Admin\Divisions;
 use App\Models\Admin\Positions;
@@ -20,6 +21,7 @@ use App\Http\Requests\Admin\ProsesRequest;
 use App\Http\Requests\Admin\ProsesPKWTHarianRequest;
 use App\Http\Requests\Admin\ProsesPerpanjangPKWTHarianRequest;
 use App\Http\Requests\Admin\ProsesPerpanjangPKWTKontrakRequest;
+use App\Http\Requests\Admin\ProsesPerpanjangPKWTShiftRequest;
 use App\Http\Requests\Admin\RekonSalaryTampilRequest;
 use App\Http\Requests\Admin\EditSalaryRequest;
 use Illuminate\Http\Request;
@@ -233,6 +235,148 @@ class ProsesController extends Controller
         return redirect()->route('proses.proses_pkwt_kontrak');
     }
     //PKWT KONTRAK
+
+    //PKWT SHIFT HARIAN
+    public function proses_pkwt_shift_harian()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $items = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->get();
+
+        return view('pages.admin.proses.pkwt_shift_harian.index', [
+            'items'     => $items
+        ]);
+    }
+
+    public function perpanjang_pkwt_shift_harian(ProsesPerpanjangPKWTShiftRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $employees_id       = $request->input('employees_id');
+        $awal_kontrak       = $request->input('awal_kontrak');
+        $akhir_kontrak      = $request->input('akhir_kontrak');
+
+        //Hitung Bulan
+        $date1          = date_create($request->input('awal_kontrak')); 
+        $date2          = date_create($request->input('akhir_kontrak')); 
+        $interval       = date_diff($date1,$date2);
+        $masa_kontrak   = $interval->m+1;
+        if ($masa_kontrak == 12) {
+            $masakontrak = "1 Tahun";
+        }
+        elseif ($masa_kontrak > 12) {
+            $masakontrak = "Salah";
+        }
+        else{
+            $masakontrak = $masa_kontrak." Bulan";
+        }
+        //Hitung Bulan
+
+        foreach ($employees_id as $key => $name) {
+                
+            $insert = [
+                'employees_id'          => $request->input('employees_id')[$key],
+                'tanggal_awal_kontrak'  => $awal_kontrak,
+                'tanggal_akhir_kontrak' => $akhir_kontrak,
+                'status_kontrak_kerja'  => 'Harian',
+                'masa_kontrak'          => $masakontrak,
+                'jumlah_kontrak'        => 1
+            ];
+
+            HistoryContracts::create($insert);
+
+            $employees  = Employees::where('nik_karyawan', $request->input('employees_id')[$key])->first();
+            $employees->update([
+                'tanggal_akhir_kerja'   => $akhir_kontrak
+            ]);
+
+        }
+
+        
+
+        Alert::success('Success Proses PKWT Shift', 'Oleh ' . auth()->user()->name);
+        return redirect()->route('proses.proses_pkwt_shift_harian');
+    }
+    //PKWT SHIFT HARIAN
+
+    //PKWT SHIFT KONTRAK
+    public function proses_pkwt_shift_kontrak()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $items = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [1, 2, 3])->get();
+
+        return view('pages.admin.proses.pkwt_shift_harian.index', [
+            'items'     => $items
+        ]);
+    }
+
+    public function perpanjang_pkwt_shift_kontrak(ProsesPerpanjangPKWTShiftRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $employees_id       = $request->input('employees_id');
+        $awal_kontrak       = $request->input('awal_kontrak');
+        $akhir_kontrak      = $request->input('akhir_kontrak');
+
+        //Hitung Bulan
+        $date1          = date_create($request->input('awal_kontrak')); 
+        $date2          = date_create($request->input('akhir_kontrak')); 
+        $interval       = date_diff($date1,$date2);
+        $masa_kontrak   = $interval->m+1;
+        if ($masa_kontrak == 12) {
+            $masakontrak = "1 Tahun";
+        }
+        elseif ($masa_kontrak > 12) {
+            $masakontrak = "Salah";
+        }
+        else{
+            $masakontrak = $masa_kontrak." Bulan";
+        }
+        //Hitung Bulan
+
+        foreach ($employees_id as $key => $name) {
+                
+            $insert = [
+                'employees_id'          => $request->input('employees_id')[$key],
+                'tanggal_awal_kontrak'  => $awal_kontrak,
+                'tanggal_akhir_kontrak' => $akhir_kontrak,
+                'status_kontrak_kerja'  => 'PKWT',
+                'masa_kontrak'          => $masakontrak,
+                'jumlah_kontrak'        => 1
+            ];
+
+            HistoryContracts::create($insert);
+
+            $employees  = Employees::where('nik_karyawan', $request->input('employees_id')[$key])->first();
+            $employees->update([
+                'tanggal_akhir_kerja'   => $akhir_kontrak
+            ]);
+
+        }
+
+        Alert::success('Success Proses PKWT Shift', 'Oleh ' . auth()->user()->name);
+        return redirect()->route('proses.proses_pkwt_shift_kontrak');
+    }
+    //PKWT SHIFT KONTRAK
 
     //SALARY
     public function proses_rekon_salary()
