@@ -213,7 +213,7 @@ class EmployeeOutController extends Controller
             'tempat_lahir_karyawan_keluar'              => $item->tempat_lahir,
             'tanggal_lahir_karyawan_keluar'             => $item->tanggal_lahir,
             'nomor_bpjsketenagakerjaan_karyawan_keluar' => $item->nomor_bpjsketenagakerjaan,
-            'nomor_bpjskesehatan_karyawan_keluar'       => $item->nomor_bpjskesehatan_karyawan,
+            'nomor_bpjskesehatan_karyawan_keluar'       => $item->nomor_bpjskesehatan,
             'nomor_rekening_karyawan_keluar'            => $item->nomor_rekening,
             'pendidikan_terakhir_karyawan_keluar'       => $item->pendidikan_terakhir,
             'jenis_kelamin_karyawan_keluar'             => $item->jenis_kelamin,
