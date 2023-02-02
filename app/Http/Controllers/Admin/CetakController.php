@@ -2012,7 +2012,7 @@ class CetakController extends Controller
             $this->fpdf->Ln(30);
             //TTD
             $this->fpdf->Cell(20);
-            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,188,30);
+            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoStempelFinal.png' , 17,188,70);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->SetFont('Arial', 'B', '11');
