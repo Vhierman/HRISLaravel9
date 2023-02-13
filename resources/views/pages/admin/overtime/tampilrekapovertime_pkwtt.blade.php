@@ -104,6 +104,8 @@
                                             
                                             $bulanawal = \Carbon\Carbon::parse($awal)->isoformat('MM');
                                             $bulanakhir = \Carbon\Carbon::parse($akhir)->isoformat('MM');
+                                            $tahunawal = \Carbon\Carbon::parse($awal)->isoformat('YYYY');
+                                            $tahunakhir = \Carbon\Carbon::parse($akhir)->isoformat('YYYY');
                                             
                                             $collections = DB::table('overtimes')
                                                 ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
@@ -117,6 +119,8 @@
                                                 ->whereBetween('tanggal_lembur', [$awal, $akhir])
                                                 ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
                                                 ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
+                                                ->whereYear('rekap_salaries.periode_awal', $tahunawal)
+                                                ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
                                                 ->first();
                                         @endphp
                                         @php

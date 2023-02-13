@@ -887,10 +887,12 @@ class OvertimeController extends Controller
 
         $bulanawal   = Carbon::parse($awal)->isoformat('M');
         $bulanakhir  = Carbon::parse($akhir)->isoformat('M');
+        $tahunawal   = Carbon::parse($awal)->isoformat('YYYY');
+        $tahunakhir  = Carbon::parse($akhir)->isoformat('YYYY');
 
         $itemcoversatu  =   RekapSalaries::with([
             'employees'
-        ])->where('employees_id', $employees_id)->whereMonth('periode_awal', $bulanawal)->whereMonth('periode_akhir', $bulanakhir)->first();
+        ])->where('employees_id', $employees_id)->whereMonth('periode_awal', $bulanawal)->whereMonth('periode_akhir', $bulanakhir)->whereYear('periode_awal', $tahunawal)->whereYear('periode_akhir', $tahunakhir)->first();
 
         // $items = 
         //         DB::table('overtimes')
@@ -1341,6 +1343,8 @@ class OvertimeController extends Controller
 
             $bulanawal   = Carbon::parse($awal)->isoformat('MM');
             $bulanakhir  = Carbon::parse($akhir)->isoformat('MM');
+            $tahunawal   = Carbon::parse($awal)->isoformat('YYYY');
+            $tahunakhir  = Carbon::parse($akhir)->isoformat('YYYY');
 
             foreach ($items as $item) {
 
@@ -1361,7 +1365,10 @@ class OvertimeController extends Controller
                     ->where('employees.golongans_id', $golongan)
                     ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
                     ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
+                    ->whereYear('rekap_salaries.periode_awal', $tahunawal)
+                    ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
                     ->whereBetween('tanggal_lembur', [$awal, $akhir])
+
                     ->first();
 
                 $namakaryawan = $collections->nama_karyawan;
@@ -1623,6 +1630,8 @@ class OvertimeController extends Controller
 
             $bulanawal   = Carbon::parse($awal)->isoformat('MM');
             $bulanakhir  = Carbon::parse($akhir)->isoformat('MM');
+            $tahunawal   = Carbon::parse($awal)->isoformat('YYYY');
+            $tahunakhir  = Carbon::parse($akhir)->isoformat('YYYY');
 
             foreach ($items as $item) {
 
@@ -1643,6 +1652,8 @@ class OvertimeController extends Controller
                     ->where('employees.golongans_id', $golongan)
                     ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
                     ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
+                    ->whereYear('rekap_salaries.periode_awal', $tahunawal)
+                    ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
                     ->whereBetween('tanggal_lembur', [$awal, $akhir])
                     ->first();
 
