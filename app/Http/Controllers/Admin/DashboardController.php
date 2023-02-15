@@ -755,8 +755,8 @@ class DashboardController extends Controller
             ->whereBetween('tanggal_lembur', [$awal, $akhir])
             ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
             ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
-            ->whereYear('periode_awal', $tahunawal)
-            ->whereYear('periode_akhir', $tahunakhir)
+            ->whereYear('rekap_salaries.periode_awal', $tahunawal)
+            ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
             ->first();
 
         if ($itemcover == null) {
