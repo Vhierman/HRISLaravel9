@@ -739,6 +739,8 @@ class DashboardController extends Controller
 
         $bulanawal   = Carbon::parse($awal)->isoformat('M');
         $bulanakhir  = Carbon::parse($akhir)->isoformat('M');
+        $tahunawal   = Carbon::parse($awal)->isoformat('YYYY');
+        $tahunakhir  = Carbon::parse($akhir)->isoformat('YYYY');
 
         $itemcover =
             DB::table('overtimes')
@@ -753,6 +755,8 @@ class DashboardController extends Controller
             ->whereBetween('tanggal_lembur', [$awal, $akhir])
             ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
             ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
+            ->whereYear('periode_awal', $tahunawal)
+            ->whereYear('periode_akhir', $tahunakhir)
             ->first();
 
         if ($itemcover == null) {
