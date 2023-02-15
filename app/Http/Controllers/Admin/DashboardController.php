@@ -15,6 +15,7 @@ use App\Models\Admin\Positions;
 use App\Models\Admin\Overtimes;
 use App\Models\Admin\Attendances;
 use App\Models\Admin\HistorySalaries;
+use App\Models\Admin\RekapSalaries;
 use App\Http\Requests\Employees\OvertimeRequest;
 use App\Http\Requests\Employees\FotoKaryawanRequest;
 use App\Http\Requests\ChangePasswordRequest;
@@ -742,22 +743,27 @@ class DashboardController extends Controller
         $tahunawal   = Carbon::parse($awal)->isoformat('YYYY');
         $tahunakhir  = Carbon::parse($akhir)->isoformat('YYYY');
 
+        // dd($tahunakhir);
         $itemcover =
-            DB::table('overtimes')
-            ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
-            ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
-            ->join('areas', 'areas.id', '=', 'employees.areas_id')
-            ->join('positions', 'positions.id', '=', 'employees.positions_id')
-            ->join('rekap_salaries', 'rekap_salaries.employees_id', '=', 'employees.nik_karyawan')
-            ->where('overtimes.acc_hrd', '<>', NULL)
-            ->where('overtimes.employees_id', $nik_karyawan)
-            ->where('overtimes.deleted_at', NULL)
-            ->whereBetween('tanggal_lembur', [$awal, $akhir])
-            ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
-            ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
-            ->whereYear('rekap_salaries.periode_awal', $tahunawal)
-            ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
-            ->first();
+        RekapSalaries::with([
+            'employees'
+        ])->where('employees_id', $nik_karyawan)->whereMonth('periode_awal', $bulanawal)->whereMonth('periode_akhir', $bulanakhir)->whereYear('periode_awal', $tahunawal)->whereYear('periode_akhir', $tahunakhir)->first();
+
+            // DB::table('overtimes')
+            // ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+            // ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+            // ->join('areas', 'areas.id', '=', 'employees.areas_id')
+            // ->join('positions', 'positions.id', '=', 'employees.positions_id')
+            // ->join('rekap_salaries', 'rekap_salaries.employees_id', '=', 'employees.nik_karyawan')
+            // ->where('overtimes.acc_hrd', '<>', NULL)
+            // ->where('overtimes.employees_id', $nik_karyawan)
+            // ->where('overtimes.deleted_at', NULL)
+            // ->whereBetween('tanggal_lembur', [$awal, $akhir])
+            // ->whereMonth('rekap_salaries.periode_awal', $bulanawal)
+            // ->whereMonth('rekap_salaries.periode_akhir', $bulanakhir)
+            // ->whereYear('rekap_salaries.periode_awal', $tahunawal)
+            // ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
+            // ->first();
 
         if ($itemcover == null) {
             Alert::error('Data Tidak Ditemukan');
