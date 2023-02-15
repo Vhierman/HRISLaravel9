@@ -735,19 +735,39 @@ class DashboardController extends Controller
         }
 
         $nik_karyawan   = auth()->user()->nik;
+
+       
+
         $awal           = $request->input('awal');
         $akhir          = $request->input('akhir');
 
-        $bulanawal   = Carbon::parse($awal)->isoformat('M');
-        $bulanakhir  = Carbon::parse($akhir)->isoformat('M');
+        $itemcover      =   Employees::with([
+            'areas',
+            'divisions',
+            'positions',
+        ])->where('nik_karyawan', $nik_karyawan)->first();
+
+        $itemcoverdua   =   Overtimes::with([
+            'employees',
+        ])
+            ->where('acc_hrd', '<>', NULL)
+            ->where('employees_id', $nik_karyawan)
+            ->where('deleted_at', NULL)
+            ->whereBetween('tanggal_lembur', [$awal, $akhir])
+            ->first();
+
+        $bulanawal   = Carbon::parse($awal)->isoformat('MM');
+        $bulanakhir  = Carbon::parse($akhir)->isoformat('MM');
         $tahunawal   = Carbon::parse($awal)->isoformat('YYYY');
         $tahunakhir  = Carbon::parse($akhir)->isoformat('YYYY');
 
         // dd($tahunakhir);
-        $itemcover =
+        $itemcoversatu =
         RekapSalaries::with([
             'employees'
         ])->where('employees_id', $nik_karyawan)->whereMonth('periode_awal', $bulanawal)->whereMonth('periode_akhir', $bulanakhir)->whereYear('periode_awal', $tahunawal)->whereYear('periode_akhir', $tahunakhir)->first();
+
+
 
             // DB::table('overtimes')
             // ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
@@ -770,17 +790,27 @@ class DashboardController extends Controller
             return redirect()->route('dashboard.form_slip_lembur_karyawan');
         } else {
 
-            $items =
-                DB::table('overtimes')
-                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
-                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
-                ->join('areas', 'areas.id', '=', 'employees.areas_id')
-                ->where('overtimes.acc_hrd', '<>', NULL)
-                ->where('overtimes.employees_id', $nik_karyawan)
-                ->where('overtimes.deleted_at', NULL)
-                ->whereBetween('tanggal_lembur', [$awal, $akhir])
-                ->orderBy('tanggal_lembur')
-                ->get();
+            // $items =
+            //     DB::table('overtimes')
+            //     ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+            //     ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+            //     ->join('areas', 'areas.id', '=', 'employees.areas_id')
+            //     ->where('overtimes.acc_hrd', '<>', NULL)
+            //     ->where('overtimes.employees_id', $nik_karyawan)
+            //     ->where('overtimes.deleted_at', NULL)
+            //     ->whereBetween('tanggal_lembur', [$awal, $akhir])
+            //     ->orderBy('tanggal_lembur')
+            //     ->get();
+
+                $items =     Overtimes::with([
+                    'employees',
+                ])
+                    ->where('acc_hrd', '<>', NULL)
+                    ->where('employees_id', $nik_karyawan)
+                    ->where('deleted_at', NULL)
+                    ->whereBetween('tanggal_lembur', [$awal, $akhir])
+                    ->orderBy('tanggal_lembur')
+                    ->get();
 
             $this->fpdf = new FPDF('P', 'cm', array(21, 28));
             $this->fpdf->setTopMargin(0.2);
@@ -794,7 +824,7 @@ class DashboardController extends Controller
             $this->fpdf->Ln(0.4);
             $this->fpdf->SetFont('Arial', '', '9');
             $this->fpdf->Cell(0.1);
-            $this->fpdf->Cell(10, 1, $itemcover->area . " - " . $itemcover->penempatan . "", 0, 0, 'L');
+            $this->fpdf->Cell(10, 1, $itemcover->areas->area . " - " . $itemcover->divisions->penempatan . "", 0, 0, 'L');
 
             $this->fpdf->SetFont('Arial', 'B', '10');
             $this->fpdf->Ln(0.4);
@@ -811,7 +841,7 @@ class DashboardController extends Controller
 
             $this->fpdf->Ln(0.4);
             $this->fpdf->Cell(0.1);
-            $this->fpdf->Cell(7, 0.5, "Bagian   : " . $itemcover->jabatan . " / " . $itemcover->penempatan . "", 0, 0, 'L');
+            $this->fpdf->Cell(7, 0.5, "Bagian   : " . $itemcover->positions->jabatan . " / " . $itemcover->divisions->penempatan . "", 0, 0, 'L');
 
             $this->fpdf->Ln(0.5);
 
@@ -908,7 +938,7 @@ class DashboardController extends Controller
             }
 
             $jumlahjamlembur        = $jumlahjampertama + $jumlahjamkedua + $jumlahjamketiga + $jumlahjamkeempat;
-            $jumlahuanglembur       = $jumlahjamlembur * $itemcover->upah_lembur_perjam;
+            $jumlahuanglembur       = $jumlahjamlembur * $itemcoversatu->upah_lembur_perjam;
             $jumlahuangditerima     = $jumlahuanglembur + $jumlahuangmakanlembur;
 
             $this->fpdf->Ln(0.4);
@@ -934,7 +964,7 @@ class DashboardController extends Controller
             $this->fpdf->Cell(0.1);
             $this->fpdf->Cell(5, 0.2, 'Upah Lembur Perjam', 0, 0, 'L');
             $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
-            $this->fpdf->Cell(3, 0.2, number_format($itemcover->upah_lembur_perjam), 0, 0, 'R');
+            $this->fpdf->Cell(3, 0.2, number_format($itemcoversatu->upah_lembur_perjam), 0, 0, 'R');
 
             $this->fpdf->SetFont('Arial', 'B', '7');
             $this->fpdf->Cell(1.5);
