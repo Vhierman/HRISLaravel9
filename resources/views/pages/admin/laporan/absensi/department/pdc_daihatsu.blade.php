@@ -75,7 +75,7 @@
                 type: 'column'
             },
             title: {
-                text: 'LAPORAN ABSENSI PDC DAIHATSU SUNTER TAHUN 2022'
+                text: 'LAPORAN ABSENSI PDC DAIHATSU SUNTER TAHUN 2023'
             },
             subtitle: {
                 text: ''

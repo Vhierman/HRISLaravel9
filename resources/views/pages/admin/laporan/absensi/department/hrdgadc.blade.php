@@ -75,7 +75,7 @@
                 type: 'column'
             },
             title: {
-                text: 'LAPORAN ABSENSI HRD-GA, DOCUMENT CONTROL TAHUN 2022'
+                text: 'LAPORAN ABSENSI HRD-GA, DOCUMENT CONTROL TAHUN 2023'
             },
             subtitle: {
                 text: ''
