@@ -41,6 +41,7 @@
                                         <th>Nama Karyawan</th>
                                         <th>NIK Karyawan</th>
                                         <th>GOL</th>
+                                        <th>Jabatan</th>
                                         <th>Penempatan</th>
                                         <th>Status Kerja</th>
                                         <th>Awal Kerja</th>
@@ -83,6 +84,7 @@
                                             <td>{{ $item->nama_karyawan }}</td>
                                             <td>{{ $item->nik_karyawan }}</td>
                                             <td>{{ $item->golongans->golongan }}</td>
+                                            <td>{{ $item->positions->jabatan }}</td>
                                             <td>{{ $item->divisions->penempatan }}</td>
                                             <td>{{ $statuskerja }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai_kerja)->isoformat('DD-MM-Y') }}
