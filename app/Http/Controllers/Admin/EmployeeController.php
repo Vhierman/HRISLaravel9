@@ -28,6 +28,7 @@ use App\Models\Admin\InventoryCars;
 use App\Models\Admin\MinimalSalaries;
 use App\Models\Admin\MaksimalUpahBpjskesehatan;
 use App\Models\Admin\MaksimalUpahBpjsketenagakerjaan;
+use Carbon\Carbon;
 use File;
 use Storage;
 use Alert;
@@ -717,6 +718,20 @@ class EmployeeController extends Controller
             'areas'
             ])->where('employees_id', $nikkaryawan)->get();
         //
+        
+        //Masa Kerja
+        $tanggal_sekarang = Carbon::now();
+        $tanggal_mulai_kerja = Carbon::parse($item->tanggal_mulai_kerja);
+        $interval       = date_diff($tanggal_sekarang,$tanggal_mulai_kerja);
+        $masa_kontrak   = $interval->y+1;
+
+        //Umur
+        $tanggal_lahir  = Carbon::parse($item->tanggal_lahir);
+        $intervaldua    = date_diff($tanggal_sekarang,$tanggal_lahir);
+        $umur           = $intervaldua->y+1;
+    
+
+        // dd($tanggal_mulai_kerja);
 
         //History Training Internal
         $historytraininginternals = HistoryTrainingInternals::with([
@@ -758,22 +773,412 @@ class EmployeeController extends Controller
         $this->fpdf->Cell(5);
         $this->fpdf->Image($path, 140,18,50);
         //FOTO KARYAWAN
-
-        $this->fpdf->Ln(5);
-        $this->fpdf->SetFont('Arial', 'B', '20');
+        
+        $jumlahnama = strlen($item->nama_karyawan);
+        if ($jumlahnama<=20)
+        {
+        $this->fpdf->Ln();
+        $this->fpdf->SetFont('Arial', 'B', '25');
         $this->fpdf->SetTextColor(255,255,255);
-        $this->fpdf->Cell(5);
+        $this->fpdf->Cell(2);
         $this->fpdf->Cell(120, 5, strtoupper($item->nama_karyawan), 0, 1, 'L');
+        }
+        else
+        {
         $this->fpdf->Ln();
-        $this->fpdf->SetFont('Arial', 'B', '15');
-        $this->fpdf->Cell(5);
-        $this->fpdf->Cell(120, 5, $item->positions->jabatan, 0, 1, 'L');
+        $this->fpdf->SetFont('Arial', 'B', '16');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(2);
+        $this->fpdf->Cell(120, 5, strtoupper($item->nama_karyawan), 0, 1, 'L');
+        }
+
+        $jumlahjabatan = strlen($item->positions->jabatan);
+        if ($jumlahjabatan<=20)
+        {
         $this->fpdf->Ln();
-        $this->fpdf->SetFont('Arial', 'B', '15');
+        $this->fpdf->SetFont('Arial', 'B', '20');
+        $this->fpdf->Cell(2);
+        $this->fpdf->Cell(120, 5, strtoupper($item->positions->jabatan), 0, 1, 'L');
+        }
+        else{
+        $this->fpdf->Ln();
+        $this->fpdf->SetFont('Arial', 'B', '8');
+        $this->fpdf->Cell(2);
+        $this->fpdf->Cell(120, 5, strtoupper($item->positions->jabatan), 0, 1, 'L');
+        }
+
+        $this->fpdf->Ln();
+        $this->fpdf->SetFont('Arial', 'B', '20');
+        $this->fpdf->Cell(2);
+        $this->fpdf->Cell(120, 5, strtoupper($item->divisions->penempatan), 0, 1, 'L');
+
+        $status_kerja    = $item->status_kerja;
+        if ($status_kerja == 'PKWTT') {
+            $statuskerja = 'Tetap';
+        } 
+        elseif ($status_kerja == 'PKWT') {
+            $statuskerja = 'Kontrak';
+        }
+        else{
+            $statuskerja = $item->status_kerja;
+        }
+        
+
+        $this->fpdf->Ln();
+        $this->fpdf->SetFont('Arial', 'B', '18');
+        $this->fpdf->Cell(2);
+        $this->fpdf->Cell(120, 5, 'Karyawan '.$statuskerja, 0, 1, 'L');
+
+        // $this->fpdf->Ln();
+        // $this->fpdf->SetFont('Arial', 'B', '18');
+        // $this->fpdf->Cell(2);
+        // $this->fpdf->Cell(120, 5, 'Masa Kerja '.$masa_kontrak.' Tahun', 0, 1, 'L');
+        
+        $this->fpdf->Ln(30);
+        $this->fpdf->SetFont('Arial', 'B', '18');
+        $this->fpdf->SetTextColor(0,0,128);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'CONTACT', 0, 1, 'L');
+
+        $this->fpdf->Ln(4);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'NIK', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->nik_karyawan, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Tempat Tanggal Lahir', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->tempat_lahir.', '.\Carbon\Carbon::parse($item->tanggal_lahir)->isoformat('D MMMM Y'), 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Umur', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $umur.' Tahun', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Nomor Handphone', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->nomor_handphone, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Email', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->SetFont('Arial', '', '10');
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->email_karyawan, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Agama', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->agama, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Jenis Kelamin', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->jenis_kelamin, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Pendidikan Terakhir', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->pendidikan_terakhir, 0, 1, 'L');
+
+        $this->fpdf->Ln(7);
+        $this->fpdf->SetFont('Arial', 'B', '18');
+        $this->fpdf->SetTextColor(0,0,128);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'TEMPAT TINGGAL', 0, 1, 'L');
+
+        $this->fpdf->Ln(4);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Alamat', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->alamat, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Rt/Rw', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->rt.'/'.$item->rw, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Kelurahan', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->kelurahan, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Kecamatan', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->kecamatan, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Kabupaten/Kota', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->kota, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', '13');
+        $this->fpdf->SetTextColor(47,79,79);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, 'Provinsi', 0, 1, 'L');
+        $this->fpdf->Ln(1);
+        $this->fpdf->Cell(115);
+        $this->fpdf->Cell(50, 5, $item->provinsi, 0, 1, 'L');
+        
+        //Shape Kiri Satu
+        $this->fpdf->Cell(-200);
+        $this->fpdf->Ln(5);
         $this->fpdf->Cell(5);
-        $this->fpdf->Cell(120, 5, $item->divisions->penempatan, 0, 1, 'L');
+        $this->fpdf->Image('backend/assets/cv/ShapeKiriDua.png' , 0,75,100);
+        $this->fpdf->Ln();
+        //Shape Kiri Satu
+
+        $this->fpdf->Ln(-207);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '20');
+        $this->fpdf->SetTextColor(0,0,128);
+        $this->fpdf->Cell(90, 5, 'PEKERJAAN', 0, 1, 'L');
+        $this->fpdf->Ln();
+
+        $this->fpdf->Ln(4);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Tanggal Mulai Kerja', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, \Carbon\Carbon::parse($item->tanggal_mulai_kerja)->isoformat('D MMMM Y'), 0, 1, 'L');
+
+        $statuskerja    = $item->status_kerja;
+        if ($statuskerja != 'PKWTT') {
+            $this->fpdf->Ln(2);
+            $this->fpdf->Cell(1);
+            $this->fpdf->SetFont('Arial', 'B', '13');
+            $this->fpdf->SetTextColor(255,255,255);
+            $this->fpdf->Cell(100, 5, 'Tanggal Akhir Kerja', 0, 1, 'L');
+
+            $this->fpdf->Ln(2);
+            $this->fpdf->Cell(1);
+            $this->fpdf->SetFont('Arial', '', '11');
+            $this->fpdf->SetTextColor(255,255,255);
+            $this->fpdf->Cell(100, 5, \Carbon\Carbon::parse($item->tanggal_akhir_kerja)->isoformat('D MMMM Y'), 0, 1, 'L');
+        } else {
+            $this->fpdf->Ln(2);
+            $this->fpdf->Cell(1);
+            $this->fpdf->SetFont('Arial', 'B', '13');
+            $this->fpdf->SetTextColor(255,255,255);
+            $this->fpdf->Cell(100, 5, 'Tanggal Akhir Kerja', 0, 1, 'L');
+
+            $this->fpdf->Ln(2);
+            $this->fpdf->Cell(1);
+            $this->fpdf->SetFont('Arial', '', '11');
+            $this->fpdf->SetTextColor(255,255,255);
+            $this->fpdf->Cell(100, 5, '-', 0, 1, 'L');
+        }
         
-        
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Masa Kerja', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $masa_kontrak.' Tahun', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Nomor Rekening', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->nomor_rekening, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'No BPJS Kesehatan', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->nomor_bpjskesehatan, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'No BPJS Ketenagakerjaan', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->nomor_bpjsketenagakerjaan, 0, 1, 'L');
+
+        //Shape Kiri Dua
+        $this->fpdf->Ln(5);
+        $this->fpdf->Cell(-220);
+        $this->fpdf->Cell(5);
+        $this->fpdf->Image('backend/assets/cv/ShapeKiriDua.png' , 0,193,100);
+        $this->fpdf->Ln();
+        //Shape Kiri Dua
+
+        $this->fpdf->Ln(17);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '20');
+        $this->fpdf->SetTextColor(0,0,128);
+        $this->fpdf->Cell(90, 5, 'KELUARGA', 0, 1, 'L');
+        $this->fpdf->Ln();
+
+        $this->fpdf->Ln(4);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Nomor Kartu Keluarga', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->nomor_kartu_keluarga, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Status', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->status_nikah, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Nama Ayah', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->nama_ayah, 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'Nama Ibu', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $item->nama_ibu, 0, 1, 'L');
+
+        //Rumus Mengambil status PTKP (tk,k/0,k1,k/2,k3)
+        $hitungkeluarga = HistoryFamilies::with([
+            'employees'
+            ])->where('employees_id', $item->nik_karyawan)->count();
+        if ($hitungkeluarga == null) {
+            $jumlahkeluarga = 0;
+        }
+        else{
+            $jumlahkeluarga = $hitungkeluarga-1;
+        }
+
+        if ($item->status_nikah == "Single") {
+            $statuspajak = "tk/";
+        }
+        else{
+            $statuspajak = "k/";
+        }
+        $statusptkp = $statuspajak.$jumlahkeluarga;
+        //Rumus Mengambil status PTKP (tk,k/0,k1,k/2,k3)
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'B', '13');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, 'PTKP', 0, 1, 'L');
+
+        $this->fpdf->Ln(2);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', '', '11');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(100, 5, $statusptkp, 0, 1, 'L');
+
+
+        $this->fpdf->Ln(11);
+        $this->fpdf->Cell(1);
+        $this->fpdf->SetFont('Arial', 'BI', '15');
+        $this->fpdf->SetTextColor(255,0,0);
+        $this->fpdf->Cell(90, 5, 'PT PRIMA KOMPONEN INDONESIA', 0, 1, 'L');
+        $this->fpdf->Ln();
 
         $this->fpdf->Output();
 
