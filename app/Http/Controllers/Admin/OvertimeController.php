@@ -1433,7 +1433,7 @@ class OvertimeController extends Controller
             $this->fpdf->Cell(0.1);
             $this->fpdf->Cell(5, 0.2, 'Mengetahui', 0, 0, 'L');
 
-            $this->fpdf->Cell(6, 0.2, 'Tangerang, ........................................,2022', 0, 0, 'L');
+            $this->fpdf->Cell(6, 0.2, 'Tangerang, ........................................,2023', 0, 0, 'L');
 
             $this->fpdf->Cell(3);
             $this->fpdf->Cell(5.4, 0.2, 'Diperiksa', 0, 0, 'L');
@@ -1457,10 +1457,10 @@ class OvertimeController extends Controller
 
             $this->fpdf->Ln(0.1);
             $this->fpdf->Cell(0.1);
-            $this->fpdf->Cell(5, 0.2, '( Deputy General Manager Accounting, IC, Finance, IT )', 0, 0, 'L');
+            $this->fpdf->Cell(5, 0.2, '(Wakil Direktur Accounting,Finance,IC,&IT)', 0, 0, 'L');
 
             $this->fpdf->Cell(9);
-            $this->fpdf->Cell(5, 0.2, '( Manager HRD - GA )', 0, 0, 'L');
+            $this->fpdf->Cell(5, 0.2, '(General Manager HRD-GA)', 0, 0, 'L');
 
             $this->fpdf->Output();
             exit;
@@ -1718,7 +1718,7 @@ class OvertimeController extends Controller
             $this->fpdf->Cell(0.1);
             $this->fpdf->Cell(5, 0.2, 'Mengetahui', 0, 0, 'L');
 
-            $this->fpdf->Cell(6, 0.2, 'Tangerang, ........................................,2022', 0, 0, 'L');
+            $this->fpdf->Cell(6, 0.2, 'Tangerang, ........................................,2023', 0, 0, 'L');
 
             $this->fpdf->Cell(3);
             $this->fpdf->Cell(5.4, 0.2, 'Diperiksa', 0, 0, 'L');
@@ -1742,10 +1742,10 @@ class OvertimeController extends Controller
 
             $this->fpdf->Ln(0.1);
             $this->fpdf->Cell(0.1);
-            $this->fpdf->Cell(5, 0.2, '( Deputy General Manager Accounting, IC, Finance, IT )', 0, 0, 'L');
+            $this->fpdf->Cell(5, 0.2, '(Wakil Direktur Accounting,Finance,IC,&IT)', 0, 0, 'L');
 
             $this->fpdf->Cell(9);
-            $this->fpdf->Cell(5, 0.2, '( Manager HRD - GA )', 0, 0, 'L');
+            $this->fpdf->Cell(5, 0.2, '(General Manager HRD-GA)', 0, 0, 'L');
 
             $this->fpdf->Output();
             exit;

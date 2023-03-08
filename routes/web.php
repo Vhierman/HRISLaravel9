@@ -105,6 +105,7 @@ Route::prefix('admin')
         Route::resource('absensipkl', 'AbsensiPklController');
         //Karyawan
         Route::get('employee/export_excel', 'EmployeeController@export_excel')->name('employee.export_excel');
+        Route::get('employee/detail_employees/{nik_karyawan}', 'EmployeeController@detail_employees')->name('employee.detail_employees');
         Route::resource('employee', 'EmployeeController');
         //Karyawan Keluar
         Route::get('employee_out/export_excel', 'EmployeeOutController@export_excel')->name('employee_out.export_excel');

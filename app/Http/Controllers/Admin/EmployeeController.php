@@ -6,6 +6,7 @@ use App\Exports\EmployeesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Http\Requests\Admin\EmployeeUpdateRequest;
@@ -38,6 +39,14 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $fpdf;
+ 
+    public function __construct()
+    {
+        $this->fpdf = new Fpdf;
+    }
+
     public function index()
     {
         //
@@ -672,6 +681,106 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function detail_employees($id)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'LEADER' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+
+        //Employees
+        // $item           = Employees::where('nik_karyawan', $id)->first();
+
+        $item = Employees::with([
+            'areas',
+            'golongans',
+            'divisions',
+            'positions'
+            ])->where('nik_karyawan', $id)->first();
+        
+        // dd($item->nama_karyawan);
+
+        $nikkaryawan    = $item->nik_karyawan;
+
+        //History Kontrak
+        $historycontracts = HistoryContracts::with([
+            'employees'
+            ])->where('employees_id', $nikkaryawan)
+            ->orderBy('tanggal_awal_kontrak', 'ASC')->get();
+        
+        //History Jabatan
+        $historyjabatans = HistoryPositions::with([
+            'employees',
+            'divisions',
+            'positions',
+            'companies',
+            'areas'
+            ])->where('employees_id', $nikkaryawan)->get();
+        //
+
+        //History Training Internal
+        $historytraininginternals = HistoryTrainingInternals::with([
+            'employees'
+            ])->where('employees_id', $nikkaryawan)->get();
+        //
+
+        //History Training Eksternal
+        $historytrainingeksternals = HistoryTrainingEksternals::with([
+            'employees'
+            ])->where('employees_id', $nikkaryawan)->get();
+        //
+
+        //History History Families
+        $historyfamilies = HistoryFamilies::with([
+            'employees'
+            ])->where('employees_id', $nikkaryawan)->get();
+        
+        $path = base_path('public/storage/'.$item->foto_karyawan);
+
+        $this->fpdf = new FPDF('P', 'mm', 'A4');
+        $this->fpdf->setTopMargin(2);
+        $this->fpdf->setLeftMargin(2);
+        $this->fpdf->SetAutoPageBreak(false);
+        $this->fpdf->AddPage();
+
+        $this->fpdf->Cell(205, 293, '', 0, 0, 'C');
+        $this->fpdf->SetFont('Arial', 'B', '8');
+
+        //BG
+        $this->fpdf->Cell(-200);
+        $this->fpdf->Ln(5);
+        $this->fpdf->Cell(5);
+        $this->fpdf->Image('backend/assets/cv/bgCVDua.png' , 0,0,212);
+        //BG
+
+        //FOTO KARYAWAN
+        $this->fpdf->Ln(5);
+        $this->fpdf->Cell(5);
+        $this->fpdf->Image($path, 140,18,50);
+        //FOTO KARYAWAN
+
+        $this->fpdf->Ln(5);
+        $this->fpdf->SetFont('Arial', 'B', '20');
+        $this->fpdf->SetTextColor(255,255,255);
+        $this->fpdf->Cell(5);
+        $this->fpdf->Cell(120, 5, strtoupper($item->nama_karyawan), 0, 1, 'L');
+        $this->fpdf->Ln();
+        $this->fpdf->SetFont('Arial', 'B', '15');
+        $this->fpdf->Cell(5);
+        $this->fpdf->Cell(120, 5, $item->positions->jabatan, 0, 1, 'L');
+        $this->fpdf->Ln();
+        $this->fpdf->SetFont('Arial', 'B', '15');
+        $this->fpdf->Cell(5);
+        $this->fpdf->Cell(120, 5, $item->divisions->penempatan, 0, 1, 'L');
+        
+        
+
+        $this->fpdf->Output();
+
+        exit;
+
+    }
+
     public function show($id)
     {
         //
@@ -718,7 +827,7 @@ class EmployeeController extends Controller
             'employees'
             ])->where('employees_id', $nikkaryawan)->get();
 
-        //History Training Eksternal
+        //History History Families
         $historyfamilies = HistoryFamilies::with([
             'employees'
             ])->where('employees_id', $nikkaryawan)->get();

@@ -96,6 +96,10 @@
                                                     class="btn btn-primary btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
+                                                <a href="{{ route('employee.detail_employees', $item->nik_karyawan) }}"
+                                                    class="btn btn-info btn-sm" target="_blank">
+                                                    <i class="fa fa-print"></i>
+                                                </a>
 
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                                     <a href="{{ route('employee.edit', $item->id) }}"
