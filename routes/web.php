@@ -68,6 +68,8 @@ Route::prefix('admin')
         Route::post('dashboard/cetak_absensi_karyawan', 'DashboardController@cetak_absensi_karyawan')->name('dashboard.cetak_absensi_karyawan');
         Route::get('dashboard/form_ganti_foto_karyawan', 'DashboardController@form_ganti_foto_karyawan')->name('dashboard.form_ganti_foto_karyawan');
         Route::post('dashboard/hasil_ganti_foto_karyawan', 'DashboardController@hasil_ganti_foto_karyawan')->name('dashboard.hasil_ganti_foto_karyawan');
+        Route::get('dashboard/training_internal', 'DashboardController@training_internal')->name('dashboard.training_internal');
+        Route::get('dashboard/training_eksternal', 'DashboardController@training_eksternal')->name('dashboard.training_eksternal');
         Route::get('dashboard/logout', 'DashboardController@logout')->name('dashboard.logout');
         Route::get('/', 'DashboardController@index')->name('dashboard');
         Route::resource('dashboard-harian', 'DashboardHarianController');

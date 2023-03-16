@@ -20,6 +20,8 @@ use App\Http\Requests\Employees\OvertimeRequest;
 use App\Http\Requests\Employees\FotoKaryawanRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Models\Admin\HistoryContracts;
+use App\Models\Admin\HistoryTrainingInternals;
+use App\Models\Admin\HistoryTrainingEksternals;
 use App\Models\Admin\HistoryFamilies;
 use Carbon\Carbon;
 use File;
@@ -39,6 +41,42 @@ class DashboardController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('/'); // ini untuk redirect setelah logout
+    }
+
+    public function training_internal()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'LEADER' && auth()->user()->roles != 'KARYAWAN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        $nik_karyawan   = auth()->user()->nik;
+
+        
+        //History Training Internal
+        $items = HistoryTrainingInternals::with([
+            'employees'
+            ])->where('employees_id', $nik_karyawan)->get();
+            
+        return view ('pages.employees.training_internal.index',[
+            'items'  => $items
+        ]);
+    }
+
+    public function training_eksternal()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'LEADER' && auth()->user()->roles != 'KARYAWAN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        $nik_karyawan   = auth()->user()->nik;
+
+        
+        //History Training Eksternals
+        $items = HistoryTrainingEksternals::with([
+            'employees'
+            ])->where('employees_id', $nik_karyawan)->get();
+            
+        return view ('pages.employees.training_eksternal.index',[
+            'items'  => $items
+        ]);
     }
 
     public function index(Request $request)

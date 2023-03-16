@@ -36,6 +36,19 @@
                             <a class="nav-link" href="{{ route('dashboard.form_absensi_karyawan') }}">Absensi</a>
                         </nav>
                     </div>
+                    <div class="collapse" id="collapseStudents" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('dashboard.training_internal') }}">Training Internal</a>
+                        </nav>
+                    </div>
+                    <div class="collapse" id="collapseStudents" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('dashboard.training_eksternal') }}">Training
+                                Eksternal</a>
+                        </nav>
+                    </div>
                 @endif
                 {{-- Halaman Karyawan --}}
 
