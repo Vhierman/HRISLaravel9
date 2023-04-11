@@ -1234,8 +1234,8 @@ class OvertimeController extends Controller
 
         $items = DB::table('overtimes')
             ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
-            ->groupBy('employees_id', 'nama_karyawan','golongans_id', 'status_kerja', 'divisions_id')
-            ->select('employees_id', 'nama_karyawan', 'golongans_id', 'status_kerja', DB::raw('sum(jumlah_jam_pertama) as jumlah_jam_pertama'), DB::raw('sum(jumlah_jam_kedua) as jumlah_jam_kedua'), DB::raw('sum(jumlah_jam_ketiga) as jumlah_jam_ketiga'), DB::raw('sum(jumlah_jam_keempat) as jumlah_jam_keempat'), DB::raw('sum(uang_makan_lembur) as uang_makan_lembur'))
+            ->groupBy('employees_id', 'nama_karyawan','golongans_id', 'status_kerja','nomor_rekening', 'divisions_id')
+            ->select('employees_id', 'nama_karyawan', 'nomor_rekening','golongans_id', 'status_kerja', DB::raw('sum(jumlah_jam_pertama) as jumlah_jam_pertama'), DB::raw('sum(jumlah_jam_kedua) as jumlah_jam_kedua'), DB::raw('sum(jumlah_jam_ketiga) as jumlah_jam_ketiga'), DB::raw('sum(jumlah_jam_keempat) as jumlah_jam_keempat'), DB::raw('sum(uang_makan_lembur) as uang_makan_lembur'))
             ->whereIn('divisions_id', $divisi)
             ->where('overtimes.acc_hrd', '<>', NULL)
             ->where('overtimes.deleted_at', NULL)
@@ -1281,40 +1281,49 @@ class OvertimeController extends Controller
             $this->fpdf->Cell(0.1);
             $this->fpdf->SetFont('Arial', '', '8');
             $this->fpdf->SetFillColor(255, 255, 255); // Warna sel tabel header
-            $this->fpdf->Cell(1, 0.9, 'No', 1, 0, 'C', 1);
-            $this->fpdf->Cell(4, 0.9, 'Nama Karyawan', 1, 0, 'C', 1);
+            $this->fpdf->Cell(0.6, 0.9, 'No', 1, 0, 'C', 1);
+            $this->fpdf->Cell(3.5, 0.9, 'Nama Karyawan', 1, 0, 'C', 1);
             $this->fpdf->Cell(3, 0.9, 'Penempatan', 1, 0, 'C', 1);
             $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
             $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
-            $this->fpdf->Cell(3, 0.9, 'Jumlah Uang Lembur', 1, 0, 'C', 1);
-            $this->fpdf->Cell(2, 0.9, '', 1, 0, 'C', 1);
+            $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
+            $this->fpdf->Cell(3, 0.9, 'Jumlah Uang Lembur', 1, 0, 'C');
+            $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
             $this->fpdf->Cell(2, 0.9, '', 1, 0, 'C', 1);
             $this->fpdf->Cell(2, 0.9, '', 1, 0, 'C', 1);
 
             $this->fpdf->Ln(0.1);
-            $this->fpdf->Cell(8.1);
-            $this->fpdf->Cell(1.5, 0.5, 'Jam', 0, 0, 'C');
+            $this->fpdf->Cell(7.5);
+            $this->fpdf->Cell(1, 0.5, 'Nomor', 0, 0, 'C');
+
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(7.5);
+            $this->fpdf->Cell(1, 0.5, 'Rekening', 0, 0, 'C');
+
+            $this->fpdf->Ln(-0.3);
+            $this->fpdf->Cell(9);
+            $this->fpdf->Cell(1, 0.5, 'Jam', 0, 0, 'C');
 
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(8.1);
-            $this->fpdf->Cell(1.5, 0.5, 'Lembur', 0, 0, 'C');
+            $this->fpdf->Cell(9);
+            $this->fpdf->Cell(1, 0.5, 'Lembur', 0, 0, 'C');
 
             $this->fpdf->Ln(-0.4);
-            $this->fpdf->Cell(9.6);
+            $this->fpdf->Cell(10.2);
             $this->fpdf->SetFont('Arial', '', '6.5');
             $this->fpdf->Cell(1.5, 0.5, 'Upah Lembur', 0, 0, 'C');
 
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(9.6);
+            $this->fpdf->Cell(10.2);
             $this->fpdf->Cell(1.5, 0.5, 'Perjam', 0, 0, 'C');
 
             $this->fpdf->Ln(-0.4);
-            $this->fpdf->Cell(14.3);
+            $this->fpdf->Cell(14.7);
             $this->fpdf->SetFont('Arial', '', '7');
             $this->fpdf->Cell(1.5, 0.5, 'Uang Makan', 0, 0, 'C');
 
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(14.3);
+            $this->fpdf->Cell(14.7);
             $this->fpdf->Cell(1.5, 0.5, 'Lembur', 0, 0, 'C');
 
             $this->fpdf->Ln(-0.4);
@@ -1374,6 +1383,7 @@ class OvertimeController extends Controller
                 $namakaryawan = $collections->nama_karyawan;
                 $jabatan = $collections->jabatan;
                 $penempatan = $collections->penempatan;
+                $nomorrekening = $collections->nomor_rekening;
                 $area = $collections->area;
                 $nomorrekening = $collections->nomor_rekening;
                 $upahlemburperjam = $collections->upah_lembur_perjam;
@@ -1404,14 +1414,15 @@ class OvertimeController extends Controller
                 $this->fpdf->SetFont('Arial', '', '7');
                 $this->fpdf->Ln(0.4);
                 $this->fpdf->Cell(0.1);
-                $this->fpdf->Cell(1, 0.4, $no, 1, 0, 'C');
-                $this->fpdf->Cell(4, 0.4, $namakaryawan, 1, 0, 'L');
+                $this->fpdf->Cell(0.6, 0.4, $no, 1, 0, 'C');
+                $this->fpdf->Cell(3.5, 0.4, $namakaryawan, 1, 0, 'L');
                 $this->fpdf->Cell(3, 0.4, $penempatan, 1, 0, 'L');
+                $this->fpdf->Cell(1.5, 0.4, $nomorrekening, 1, 0, 'C');
                 $this->fpdf->Cell(1.5, 0.4, $jumlahjam, 1, 0, 'C');
 
                 $this->fpdf->Cell(1.5, 0.4, number_format($upahlemburperjam), 1, 0, 'C');
                 $this->fpdf->Cell(3, 0.4, number_format($jumlahuanglembur), 1, 0, 'R');
-                $this->fpdf->Cell(2, 0.4, number_format($uangmakanlembur), 1, 0, 'R');
+                $this->fpdf->Cell(1.5, 0.4, number_format($uangmakanlembur), 1, 0, 'R');
                 $this->fpdf->Cell(2, 0.4, number_format($jumlahuangditerima), 1, 0, 'R');
                 $this->fpdf->Cell(2, 0.4, number_format($total_jumlahuangditerima), 1, 0, 'R');
 
@@ -1422,9 +1433,9 @@ class OvertimeController extends Controller
                 $totalhasiluangditerima += $total_jumlahuangditerima;
             }
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(11.1);
+            $this->fpdf->Cell(11.7);
             $this->fpdf->Cell(3, 0.4, number_format($totaljumlahuanglembur), 1, 0, 'R');
-            $this->fpdf->Cell(2, 0.4, number_format($totaluangmakanlembur), 1, 0, 'R');
+            $this->fpdf->Cell(1.5, 0.4, number_format($totaluangmakanlembur), 1, 0, 'R');
             $this->fpdf->Cell(2, 0.4, number_format($totaljumlahuangditerima), 1, 0, 'R');
             $this->fpdf->Cell(2, 0.4, number_format($totalhasiluangditerima), 1, 0, 'R');
 
@@ -1568,40 +1579,49 @@ class OvertimeController extends Controller
             $this->fpdf->Cell(0.1);
             $this->fpdf->SetFont('Arial', '', '8');
             $this->fpdf->SetFillColor(255, 255, 255); // Warna sel tabel header
-            $this->fpdf->Cell(1, 0.9, 'No', 1, 0, 'C', 1);
-            $this->fpdf->Cell(4, 0.9, 'Nama Karyawan', 1, 0, 'C', 1);
+            $this->fpdf->Cell(0.6, 0.9, 'No', 1, 0, 'C', 1);
+            $this->fpdf->Cell(3.5, 0.9, 'Nama Karyawan', 1, 0, 'C', 1);
             $this->fpdf->Cell(3, 0.9, 'Penempatan', 1, 0, 'C', 1);
             $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
             $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
-            $this->fpdf->Cell(3, 0.9, 'Jumlah Uang Lembur', 1, 0, 'C', 1);
-            $this->fpdf->Cell(2, 0.9, '', 1, 0, 'C', 1);
+            $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
+            $this->fpdf->Cell(3, 0.9, 'Jumlah Uang Lembur', 1, 0, 'C');
+            $this->fpdf->Cell(1.5, 0.9, '', 1, 0, 'C', 1);
             $this->fpdf->Cell(2, 0.9, '', 1, 0, 'C', 1);
             $this->fpdf->Cell(2, 0.9, '', 1, 0, 'C', 1);
 
             $this->fpdf->Ln(0.1);
-            $this->fpdf->Cell(8.1);
-            $this->fpdf->Cell(1.5, 0.5, 'Jam', 0, 0, 'C');
+            $this->fpdf->Cell(7.5);
+            $this->fpdf->Cell(1, 0.5, 'Nomor', 0, 0, 'C');
+
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(7.5);
+            $this->fpdf->Cell(1, 0.5, 'Rekening', 0, 0, 'C');
+
+            $this->fpdf->Ln(-0.3);
+            $this->fpdf->Cell(9);
+            $this->fpdf->Cell(1, 0.5, 'Jam', 0, 0, 'C');
 
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(8.1);
-            $this->fpdf->Cell(1.5, 0.5, 'Lembur', 0, 0, 'C');
+            $this->fpdf->Cell(9);
+            $this->fpdf->Cell(1, 0.5, 'Lembur', 0, 0, 'C');
 
             $this->fpdf->Ln(-0.4);
-            $this->fpdf->Cell(9.6);
+            $this->fpdf->Cell(10.2);
             $this->fpdf->SetFont('Arial', '', '6.5');
             $this->fpdf->Cell(1.5, 0.5, 'Upah Lembur', 0, 0, 'C');
 
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(9.6);
+            $this->fpdf->Cell(10.2);
             $this->fpdf->Cell(1.5, 0.5, 'Perjam', 0, 0, 'C');
 
             $this->fpdf->Ln(-0.4);
-            $this->fpdf->Cell(14.3);
+            $this->fpdf->Cell(14.7);
             $this->fpdf->SetFont('Arial', '', '7');
             $this->fpdf->Cell(1.5, 0.5, 'Uang Makan', 0, 0, 'C');
 
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(14.3);
+            $this->fpdf->Cell(14.7);
             $this->fpdf->Cell(1.5, 0.5, 'Lembur', 0, 0, 'C');
 
             $this->fpdf->Ln(-0.4);
@@ -1689,14 +1709,15 @@ class OvertimeController extends Controller
                 $this->fpdf->SetFont('Arial', '', '7');
                 $this->fpdf->Ln(0.4);
                 $this->fpdf->Cell(0.1);
-                $this->fpdf->Cell(1, 0.4, $no, 1, 0, 'C');
-                $this->fpdf->Cell(4, 0.4, $namakaryawan, 1, 0, 'L');
+                $this->fpdf->Cell(0.6, 0.4, $no, 1, 0, 'C');
+                $this->fpdf->Cell(3.5, 0.4, $namakaryawan, 1, 0, 'L');
                 $this->fpdf->Cell(3, 0.4, $penempatan, 1, 0, 'L');
+                $this->fpdf->Cell(1.5, 0.4, $nomorrekening, 1, 0, 'C');
                 $this->fpdf->Cell(1.5, 0.4, $jumlahjam, 1, 0, 'C');
 
                 $this->fpdf->Cell(1.5, 0.4, number_format($upahlemburperjam), 1, 0, 'C');
                 $this->fpdf->Cell(3, 0.4, number_format($jumlahuanglembur), 1, 0, 'R');
-                $this->fpdf->Cell(2, 0.4, number_format($uangmakanlembur), 1, 0, 'R');
+                $this->fpdf->Cell(1.5, 0.4, number_format($uangmakanlembur), 1, 0, 'R');
                 $this->fpdf->Cell(2, 0.4, number_format($jumlahuangditerima), 1, 0, 'R');
                 $this->fpdf->Cell(2, 0.4, number_format($total_jumlahuangditerima), 1, 0, 'R');
 
@@ -1707,9 +1728,9 @@ class OvertimeController extends Controller
                 $totalhasiluangditerima += $total_jumlahuangditerima;
             }
             $this->fpdf->Ln(0.4);
-            $this->fpdf->Cell(11.1);
+            $this->fpdf->Cell(11.7);
             $this->fpdf->Cell(3, 0.4, number_format($totaljumlahuanglembur), 1, 0, 'R');
-            $this->fpdf->Cell(2, 0.4, number_format($totaluangmakanlembur), 1, 0, 'R');
+            $this->fpdf->Cell(1.5, 0.4, number_format($totaluangmakanlembur), 1, 0, 'R');
             $this->fpdf->Cell(2, 0.4, number_format($totaljumlahuangditerima), 1, 0, 'R');
             $this->fpdf->Cell(2, 0.4, number_format($totalhasiluangditerima), 1, 0, 'R');
 
