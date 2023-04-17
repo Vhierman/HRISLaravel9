@@ -40,6 +40,7 @@
                                         <th>No</th>
                                         <th>Nama Karyawan</th>
                                         <th>NIK Karyawan</th>
+                                        <th>Umur</th>
                                         <th>GOL</th>
                                         <th>Jabatan</th>
                                         <th>Penempatan</th>
@@ -52,8 +53,14 @@
                                 <tbody>
                                     @php
                                         $no = 1;
+                                        
                                     @endphp
                                     @foreach ($items as $item)
+                                        @php
+                                            $today = \Carbon\Carbon::today();
+                                            $b_day = \Carbon\Carbon::parse($item->tanggal_lahir); // Tanggal Lahir
+                                            $umur = $b_day->diffInYears($today);
+                                        @endphp
                                         @if ($item->status_kerja == 'PKWTT')
                                             @php
                                                 $tanggal_akhir_kerja = $item->status_kerja;
@@ -77,12 +84,14 @@
                                         @else
                                             @php
                                                 $tanggal_akhir_kerja = \Carbon\Carbon::parse($item->tanggal_akhir_kerja)->isoformat('DD-MM-Y');
+                                                
                                             @endphp
                                         @endif
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->nama_karyawan }}</td>
                                             <td>{{ $item->nik_karyawan }}</td>
+                                            <td>{{ $umur }}</td>
                                             <td>{{ $item->golongans->golongan }}</td>
                                             <td>{{ $item->positions->jabatan }}</td>
                                             <td>{{ $item->divisions->penempatan }}</td>
