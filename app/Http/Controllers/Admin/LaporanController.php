@@ -194,7 +194,7 @@ class LaporanController extends Controller
         $this->fpdf->Ln(0.4);
         $this->fpdf->SetFont('Arial', '', '9');
         $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(10, 1, "Jl.Kawasan Industri Taman Tekno, Blok F2. No.10-11, F1J", 0, 0, 'L');
+        $this->fpdf->Cell(10, 1, "Jl.Kawasan Industri Taman Tekno, Blok F2. No.10-11, F1J, F1 A2", 0, 0, 'L');
         $this->fpdf->Ln(0.4);
         $this->fpdf->Cell(0.1);
         $this->fpdf->Cell(10, 1, "Setu, Setu, Tangerang Selatan, 15314.", 0, 0, 'L');
@@ -364,7 +364,7 @@ class LaporanController extends Controller
 
         $this->fpdf->Ln(0.3);
         $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(1.8, 1, "( Manager HRD - GA )", 0, 0, 'L');
+        $this->fpdf->Cell(1.8, 1, "( General Manager HRD - GA )", 0, 0, 'L');
         $this->fpdf->Cell(11.5);
         $this->fpdf->Cell(1.8, 1, "( " . $judul->positions->jabatan . " " .  $judul->divisions->penempatan . " )", 0, 0, 'C');
 
