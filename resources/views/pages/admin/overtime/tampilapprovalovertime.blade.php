@@ -60,6 +60,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Karyawan</th>
+                                        <th>NIK Karyawan</th>
                                         <th>Penempatan</th>
                                         <th>Tanggal Lembur</th>
                                         <th>Jenis Lembur</th>
@@ -81,6 +82,7 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->nama_karyawan }}</td>
+                                            <td>{{ $item->nik_karyawan }}</td>
                                             <td>{{ $item->penempatan }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_lembur)->isoformat('DD-MM-Y') }}
                                             </td>

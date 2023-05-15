@@ -25,6 +25,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Karyawan</th>
+                                        <th>NIK Karyawan</th>
                                         <th>Gol</th>
                                         <th>Penempatan</th>
                                         <th>Status</th>
@@ -41,6 +42,7 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->nama_karyawan }}</td>
+                                            <td>{{ $item->nik_karyawan }}</td>
                                             <td>{{ $item->golongan }}</td>
                                             <td>{{ $item->penempatan }}</td>
                                             <td>{{ $item->status_kerja }}</td>
