@@ -9,13 +9,13 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Master</li>
-                    <li class="breadcrumb-item active">Minimal Upah</li>
+                    <li class="breadcrumb-item active">Minimal Upah Perbulan</li>
                 </ol>
 
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Data Minimal Upah
+                        Data Minimal Upah Perbulan
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -23,7 +23,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Minimal Upah</th>
+                                        <th>Minimal Upah Perbulan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

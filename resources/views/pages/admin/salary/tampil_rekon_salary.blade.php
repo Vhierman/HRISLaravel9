@@ -101,6 +101,7 @@
                                         <th>Golongan</th>
                                         <th>Penempatan</th>
                                         <th>Jumlah Upah</th>
+                                        <th>Potongan Absen</th>
                                         <th>Upah Lembur Perjam</th>
                                         <th>Take Home Pay</th>
                                         <th>Action</th>
@@ -111,6 +112,28 @@
                                         $no = 1;
                                     @endphp
                                     @foreach ($items as $item)
+                                        @php
+                                            $nik = $item->nik_karyawan;
+                                            
+                                            $konversibulanawal = \Carbon\Carbon::parse($awal)->isoformat('MM');
+                                            $konversitahunawal = \Carbon\Carbon::parse($awal)->isoformat('YYYY');
+                                            $tanggal_awal = $konversitahunawal . '-' . $konversibulanawal . '-' . '16';
+                                            
+                                            $konversibulanakhir = \Carbon\Carbon::parse($akhir)->isoformat('MM');
+                                            $konversitahunakhir = \Carbon\Carbon::parse($akhir)->isoformat('YYYY');
+                                            $tanggal_akhir = $konversitahunakhir . '-' . $konversibulanakhir . '-' . '15';
+                                            
+                                            $potabsen = DB::table('attendances')
+                                                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                                                ->groupBy('employees_id', 'nama_karyawan', 'nik_karyawan', 'lama_absen')
+                                                ->select('employees_id', 'nama_karyawan', 'nik_karyawan', 'lama_absen', DB::raw('sum(lama_absen) as lama_absen'))
+                                                ->where('attendances.employees_id', $nik)
+                                                ->where('attendances.deleted_at', null)
+                                                ->where('employees.deleted_at', null)
+                                                ->whereBetween('tanggal_absen', [$tanggal_awal, $tanggal_akhir])
+                                                ->first();
+                                        @endphp
+
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->nik_karyawan }}</td>
@@ -118,6 +141,12 @@
                                             <td>{{ $item->golongan }}</td>
                                             <td>{{ $item->penempatan }}</td>
                                             <td>{{ number_format($item->jumlah_upah) }}</td>
+                                            @if ($potabsen == null)
+                                                <td>{{ 0 }}</td>
+                                            @else
+                                                <td>{{ $potabsen->lama_absen }}</td>
+                                            @endif
+
                                             <td>{{ number_format($item->upah_lembur_perjam) }}</td>
                                             <td>{{ number_format($item->take_home_pay) }}</td>
                                             <td align=center>

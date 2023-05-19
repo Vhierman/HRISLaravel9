@@ -9,13 +9,13 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Master</li>
-                    <li class="breadcrumb-item active">Minimal Upah</li>
+                    <li class="breadcrumb-item active">Minimal Upah Perbulan</li>
                 </ol>
 
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Edit Data Minimal Upah
+                        Edit Data Minimal Upah Perbulan
                     </div>
 
                     @if ($errors->any())
@@ -38,7 +38,7 @@
                                     <input type="hidden" readonly class="form-control" name="edit_oleh" placeholder="Name"
                                         value="{{ Auth::user()->name }}">
 
-                                    <label for="title" class="form-label">Minimal Upah</label>
+                                    <label for="title" class="form-label">Minimal Upah Perbulan</label>
                                     <input type="text" class="form-control" name="minimal_upah"
                                         placeholder="Masukan Minimal Upah" onkeyup="angka(this);"
                                         value="{{ $item->minimal_upah }}">

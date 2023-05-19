@@ -78,7 +78,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('user.index') }}">User</a>
                             <a class="nav-link" href="{{ route('minimal-salaries.index') }}">Minimal
-                                Upah</a>
+                                Upah Perbulan</a>
                             <a class="nav-link" href="{{ route('maksimal-bpjskesehatan.index') }}">Maksimal Upah
                                 BPJS Kesehatan</a>
                             <a class="nav-link" href="{{ route('maksimal-bpjsketenagakerjaan.index') }}">Maksimal

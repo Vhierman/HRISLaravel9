@@ -404,7 +404,7 @@ class ProsesController extends Controller
             ->join('positions', 'positions.id', '=', 'employees.positions_id')
             ->where('history_salaries.deleted_at', '=', null)
             ->get();
-
+            
         $salary = RekapSalaries::where('periode_awal', $awal)->first();
 
         if ($salary != null) {
