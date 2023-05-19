@@ -398,6 +398,7 @@ class ProsesController extends Controller
         $items =
             DB::table('history_salaries')
             ->join('employees', 'employees.nik_karyawan', '=', 'history_salaries.employees_id')
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
             ->join('areas', 'areas.id', '=', 'employees.areas_id')
             ->join('positions', 'positions.id', '=', 'employees.positions_id')
