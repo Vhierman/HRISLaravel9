@@ -36,7 +36,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <div class="alert alert-danger" role="alert">
-                                        Khusus Bulan Ini Periode Lembur Mulai Tanggal 11 April - 15 Mei.
+                                        Periode Lembur Mulai Tanggal 16 - 15.
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="title" class="form-label">Mulai dari</label>
