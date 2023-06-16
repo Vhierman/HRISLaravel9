@@ -149,7 +149,7 @@
                                             <td>{{ $item->nik_karyawan }}</td>
                                             <td>{{ $item->nama_karyawan }}</td>
                                             <td>{{ $item->golongan }}</td>
-                                            <td>{{ $item->status_kontrak_kerja }}</td>
+                                            <td>{{ $item->status_kerja }}</td>
                                             <td>{{ $item->penempatan }}</td>
                                             <td>{{ number_format($item->jumlah_upah) }}</td>
                                             <td>{{ number_format($item->upah_lembur_perjam) }}</td>
