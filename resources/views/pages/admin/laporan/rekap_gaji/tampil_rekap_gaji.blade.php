@@ -108,6 +108,7 @@
                                         <th>NIK Karyawan</th>
                                         <th>Nama Karyawan</th>
                                         <th>Golongan</th>
+                                        <th>Status</th>
                                         <th>Penempatan</th>
                                         <th>Jumlah Upah</th>
                                         <th>Upah Lembur Perjam</th>
@@ -148,6 +149,7 @@
                                             <td>{{ $item->nik_karyawan }}</td>
                                             <td>{{ $item->nama_karyawan }}</td>
                                             <td>{{ $item->golongan }}</td>
+                                            <td>{{ $item->status_kontrak_kerja }}</td>
                                             <td>{{ $item->penempatan }}</td>
                                             <td>{{ number_format($item->jumlah_upah) }}</td>
                                             <td>{{ number_format($item->upah_lembur_perjam) }}</td>
