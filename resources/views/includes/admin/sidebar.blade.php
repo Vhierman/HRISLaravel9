@@ -49,7 +49,7 @@
                                 Eksternal</a>
                         </nav>
                     </div>
-                    <a class="nav-link" href="https://wa.me/6287817893836?text=Hallo Admin Saya Ingin Bertanya..?"
+                    <a class="nav-link" href="https://wa.me/628152551696?text=Hallo BOR Saya Ingin Bertanya..?"
                         target="_blank">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Kritik & Saran
