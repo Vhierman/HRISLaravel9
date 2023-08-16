@@ -78,10 +78,19 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 d-grid gap-2 mt-2">
+                                        <a href="{{ route('overtime.form_hapus_overtime_date') }}"
+                                            class="btn btn-dark btn-lg">
+                                            <i class="fas fa-trash-alt"></i>
+                                            Hapus Data Berdasarkan Tanggal
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         @elseif(Auth::user()->roles == 'ACCOUNTING' ||
-                            Auth::user()->roles == 'MANAGER ACCOUNTING' ||
-                            Auth::user()->roles == 'MANAGER HRD')
+                                Auth::user()->roles == 'MANAGER ACCOUNTING' ||
+                                Auth::user()->roles == 'MANAGER HRD')
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-4 d-grid gap-2 mt-1">

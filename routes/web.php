@@ -178,6 +178,7 @@ Route::prefix('admin')
         Route::get('overtime/form_approve_overtime', 'OvertimeController@form_approve_overtime')->name('overtime.form_approve_overtime');
         Route::post('overtime/tampil_approve_overtime', 'OvertimeController@tampil_approve_overtime')->name('overtime.tampil_approve_overtime');
         Route::post('overtime/proses_approve_overtime', 'OvertimeController@proses_approve_overtime')->name('overtime.proses_approve_overtime');
+        Route::post('overtime/proses_delete_overtime_date', 'OvertimeController@proses_delete_overtime_date')->name('overtime.proses_delete_overtime_date');
         Route::get('overtime/edit_approval/{id}', 'OvertimeController@edit_approval')->name('overtime.edit_approval');
         Route::get('overtime/form_cancel_approve_overtime', 'OvertimeController@form_cancel_approve_overtime')->name('overtime.form_cancel_approve_overtime');
         Route::post('overtime/tampil_cancel_approve_overtime', 'OvertimeController@tampil_cancel_approve_overtime')->name('overtime.tampil_cancel_approve_overtime');
@@ -185,7 +186,9 @@ Route::prefix('admin')
         Route::get('overtime/edit_overtime', 'OvertimeController@edit_overtime')->name('overtime.edit_overtime');
         Route::post('overtime/tampiledit_overtime', 'OvertimeController@tampiledit_overtime')->name('overtime.tampiledit_overtime');
         Route::get('overtime/form_hapus_overtime', 'OvertimeController@form_hapus_overtime')->name('overtime.form_hapus_overtime');
+        Route::get('overtime/form_hapus_overtime_date', 'OvertimeController@form_hapus_overtime_date')->name('overtime.form_hapus_overtime_date');
         Route::post('overtime/tampilhapus_overtime', 'OvertimeController@tampilhapus_overtime')->name('overtime.tampilhapus_overtime');
+        Route::post('overtime/tampilhapus_overtime_date', 'OvertimeController@tampilhapus_overtime_date')->name('overtime.tampilhapus_overtime_date');
         Route::get('overtime/form_cetak_slip_overtime', 'OvertimeController@form_cetak_slip_overtime')->name('overtime.form_cetak_slip_overtime');
         Route::get('overtime/form_cetak_slip_karyawan_overtime', 'OvertimeController@form_cetak_slip_karyawan_overtime')->name('overtime.form_cetak_slip_karyawan_overtime');
         Route::post('overtime/hasil_slipkaryawan_overtime', 'OvertimeController@hasil_slipkaryawan_overtime')->name('overtime.hasil_slipkaryawan_overtime');

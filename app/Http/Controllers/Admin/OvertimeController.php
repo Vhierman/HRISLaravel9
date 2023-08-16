@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CariOvertimeRequest;
+use App\Http\Requests\Admin\CariOvertimeDateRequest;
 use App\Http\Requests\Admin\OvertimeRequest;
 use App\Http\Requests\Admin\EditOvertimeRequest;
+use App\Http\Requests\Admin\EditOvertimeDateRequest;
 use App\Http\Requests\Admin\SlipKaryawanOvertimeRequest;
 use App\Http\Requests\Admin\RekapOvertimePKWTTRequest;
 use App\Http\Requests\Admin\RekapOvertimePkwtHarianRequest;
@@ -344,6 +346,37 @@ class OvertimeController extends Controller
             ]);
 
         Alert::success('Success Approve Data Lembur', 'Oleh ' . auth()->user()->name);
+        return redirect()->route('overtime.index');
+    }
+
+    public function proses_delete_overtime_date(CariOvertimeDateRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $tanggal_lembur     = $request->input('tanggal_lembur');
+        $divisions          = $request->input('divisions');
+
+        // TimeStamp
+        $waktu_acc_hrd      = Carbon::now()->toDateTimeString();
+        // TimeStamp
+
+        $datadeleteovertimedate =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->where('divisions_id', $divisions)
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->update([
+                    'overtimes.deleted_at' => $waktu_acc_hrd
+                ]);
+
+
+        Alert::success('Success Delete Data Lembur', 'Oleh ' . auth()->user()->name);
         return redirect()->route('overtime.index');
     }
     
@@ -794,6 +827,142 @@ class OvertimeController extends Controller
         }
     }
 
+    public function form_hapus_overtime_date()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'LEADER') {
+            abort(403);
+        }
+
+        $nik            = auth()->user()->nik;
+        $caridivisi     = Employees::all()->where('nik_karyawan', $nik)->first();
+        $divisi         = $caridivisi->divisions_id;
+        $divisions      = Divisions::all();
+
+        //Produksi
+        if ($divisi == 11) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [11])
+                ->get();
+        }
+        //PDC
+        elseif ($divisi == 19) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [19, 20, 21, 22])
+                ->get();
+        }
+        //IC
+        elseif ($divisi == 2) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [2])
+                ->get();
+        }
+        //Engineering
+        elseif ($divisi == 7) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [7])
+                ->get();
+        }
+        //Quality
+        elseif ($divisi == 8) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [8])
+                ->get();
+        }
+        //Purchasing
+        elseif ($divisi == 9) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [9])
+                ->get();
+        }
+        //PPC
+        elseif ($divisi == 10) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->whereIn('divisions_id', [12, 13, 14, 15, 18])
+                ->get();
+        }
+        //HRD-GA
+        elseif ($divisi == 4) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->groupBy('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->select('employees.nik_karyawan', 'employees.nama_karyawan', 'divisions.penempatan', 'positions.jabatan')
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->get();
+        } else {
+            abort(403);
+        }
+        if (!$items->isEmpty()) {
+            return view('pages.admin.overtime.formhapusovertimedate', [
+                'items'     => $items,
+                'divisions' => $divisions
+            ]);
+        } else {
+            Alert::error('Data Tidak Ditemukan, Data Sudah Di Approve');
+            //Redirect
+            return redirect()->route('overtime.index');
+        }
+    }
+
     public function tampilhapus_overtime(EditOvertimeRequest $request)
     {
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'LEADER') {
@@ -817,6 +986,135 @@ class OvertimeController extends Controller
             return view('pages.admin.overtime.tampilhapusovertime', [
                 'items' => $items
             ]);
+        }
+    }
+
+    public function tampilhapus_overtime_date(EditOvertimeDateRequest $request)
+    {
+        //
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $divisions      = $request->input('divisions_id');
+        $tanggal_lembur = $request->input('tanggal_lembur');
+
+        $nik            = auth()->user()->nik;
+
+        $caridivisi     = Employees::all()->where('nik_karyawan', $nik)->first();
+        $divisi         = $caridivisi->divisions_id;
+
+        //Produksi
+        if ($divisi == 11) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [11])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //PDC
+        elseif ($divisi == 19) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [19, 20, 21, 22])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //IC
+        elseif ($divisi == 2) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [2])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //Engineering
+        elseif ($divisi == 7) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [7])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //Quality
+        elseif ($divisi == 8) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [8])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //Purchasing
+        elseif ($divisi == 9) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [9])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //PPC
+        elseif ($divisi == 10) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->whereIn('divisions_id', [12, 13, 14, 15, 18])
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+        }
+        //HRD-GA
+        elseif ($divisi == 4) {
+            $items =
+                DB::table('overtimes')
+                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+
+                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->where('divisions_id', $divisions)
+                ->where('overtimes.acc_hrd', NULL)
+                ->where('overtimes.deleted_at', NULL)
+                ->where('overtimes.tanggal_lembur', $tanggal_lembur)->get();
+
+        } else {
+            abort(403);
+        }
+
+        if (!$items->isEmpty()) {
+            return view('pages.admin.overtime.tampildeleteovertimedate', [
+                'items'             => $items,
+                'divisions'        => $divisions,
+                'tanggal_lembur'    => $tanggal_lembur
+            ]);
+        } else {
+            Alert::error('Data Tidak Ditemukan');
+            //Redirect
+            return redirect()->route('overtime.form_hapus_overtime_date');
         }
     }
     
