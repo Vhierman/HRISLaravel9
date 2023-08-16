@@ -360,6 +360,7 @@ class OvertimeController extends Controller
 
         // TimeStamp
         $waktu_acc_hrd      = Carbon::now()->toDateTimeString();
+        $hapus_oleh         = 'Gufron Naka Santoro';
         // TimeStamp
 
         $datadeleteovertimedate =
@@ -372,7 +373,8 @@ class OvertimeController extends Controller
                 ->where('overtimes.acc_hrd', NULL)
                 ->where('overtimes.deleted_at', NULL)
                 ->where('overtimes.tanggal_lembur', $tanggal_lembur)->update([
-                    'overtimes.deleted_at' => $waktu_acc_hrd
+                    'overtimes.deleted_at' => $waktu_acc_hrd,
+                    'overtimes.hapus_oleh' => $hapus_oleh
                 ]);
 
 
