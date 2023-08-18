@@ -79,11 +79,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 d-grid gap-2 mt-2">
+                                    <div class="col-md-6 d-grid gap-2 mt-2">
                                         <a href="{{ route('overtime.form_hapus_overtime_date') }}"
                                             class="btn btn-dark btn-lg">
                                             <i class="fas fa-trash-alt"></i>
                                             Hapus Data Berdasarkan Tanggal
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 d-grid gap-2 mt-2">
+                                        <a href="{{ route('overtime.form_cancel_approve_overtime_man') }}"
+                                            class="btn btn-info btn-lg">
+                                            <i class="fas fa-undo"></i>
+                                            Cancel Rekap Berdasarkan Karyawan
                                         </a>
                                     </div>
                                 </div>
@@ -141,6 +148,22 @@
                                             class="btn btn-danger btn-lg">
                                             <i class="fas fa-trash-alt"></i>
                                             Hapus Data
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 d-grid gap-2 mt-2">
+                                        <a href="{{ route('overtime.form_hapus_overtime_date') }}"
+                                            class="btn btn-dark btn-lg">
+                                            <i class="fas fa-trash-alt"></i>
+                                            Hapus Data Berdasarkan Tanggal
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 d-grid gap-2 mt-2">
+                                        <a href="{{ route('overtime.form_cancel_approve_overtime_man') }}"
+                                            class="btn btn-info btn-lg">
+                                            <i class="fas fa-undo"></i>
+                                            Cancel Rekap Berdasarkan Karyawan
                                         </a>
                                     </div>
                                 </div>

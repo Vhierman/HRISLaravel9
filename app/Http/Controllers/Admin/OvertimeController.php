@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CariOvertimeRequest;
+use App\Http\Requests\Admin\CariOvertimeCancelRequest;
 use App\Http\Requests\Admin\CariOvertimeDateRequest;
+use App\Http\Requests\Admin\ProsesCancelOvertimeRequest;
 use App\Http\Requests\Admin\OvertimeRequest;
 use App\Http\Requests\Admin\EditOvertimeRequest;
 use App\Http\Requests\Admin\EditOvertimeDateRequest;
@@ -390,6 +392,100 @@ class OvertimeController extends Controller
         return view('pages.admin.overtime.formcancelapproveovertime');
     }
 
+    public function form_cancel_approve_overtime_man()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $nik            = auth()->user()->nik;
+        $caridivisi     = Employees::all()->where('nik_karyawan', $nik)->first();
+        $divisi         = $caridivisi->divisions_id;
+
+        //Produksi
+        if ($divisi == 11) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [11])->get();
+        }
+        //PDC
+        elseif ($divisi == 19) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [19, 20, 21, 22])->get();
+        }
+        //IC
+        elseif ($divisi == 2) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [2])->get();
+        }
+        //Engineering
+        elseif ($divisi == 7) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [7])->get();
+        }
+        //Quality
+        elseif ($divisi == 8) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [8])->get();
+        }
+        //Purchasing
+        elseif ($divisi == 9) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [9])->get();
+        }
+        //PPC
+        elseif ($divisi == 10) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->whereIn('divisions_id', [12, 13, 14, 15, 18])->get();
+        }
+        //HRD-GA
+        elseif ($divisi == 4) {
+            $items = Employees::with([
+                'companies',
+                'areas',
+                'divisions',
+                'positions'
+            ])->where('status_kerja', '<>', 'Outsourcing')->whereIn('golongans_id', [2, 3])->get();
+        } else {
+            abort(403);
+        }
+
+        // dd($items);
+
+        return view('pages.admin.overtime.formcancelapproveovertimeman', [
+            'items'     => $items,
+            'divisi'    => $divisi
+        ]);
+
+    }
+
     public function tampil_cancel_approve_overtime(CariOvertimeRequest $request)
     {
         //
@@ -507,6 +603,34 @@ class OvertimeController extends Controller
         }
     }
 
+    public function tampil_cancel_approve_overtime_man(CariOvertimeCancelRequest $request)
+    {
+        //
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $employees_id       = $request->input('employees_id');
+        $tanggal_lembur     = $request->input('awal');
+
+        $items = Overtimes::with([
+            'employees'
+        ])
+            ->where('employees_id', $employees_id)
+            ->where('tanggal_lembur', $tanggal_lembur)
+            ->where('acc_hrd', '<>', NULL)
+            ->first();
+
+        if ($items == null) {
+            Alert::error('Data yang anda cari tidak ada');
+            return redirect()->route('overtime.index');
+        } else {
+            return view('pages.admin.overtime.tampilcancelapprovalovertimeman', [
+                'items'     => $items
+            ]);
+        }
+    }
+
     public function proses_cancel_approve_overtime(CariOvertimeRequest $request)
     {
         if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
@@ -521,6 +645,32 @@ class OvertimeController extends Controller
 
         $overtimes          = Overtimes::whereBetween('tanggal_lembur', [$awal, $akhir])
 
+            ->update([
+                'acc_hrd'       => NULL,
+                'waktu_acc_hrd' => NULL
+            ]);
+
+        Alert::success('Success Cancel Approve Data Lembur', 'Oleh ' . auth()->user()->name);
+        //Redirect
+        return redirect()->route('overtime.index');
+    }
+
+    public function proses_cancel_approve_overtime_man(ProsesCancelOvertimeRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD') {
+            abort(403);
+        }
+
+        $tanggal_lembur     = $request->input('tanggal_lembur');
+        $employees_id       = $request->input('employees_id');
+
+        // TimeStamp
+        $waktu_acc_hrd      = Carbon::now()->toDateTimeString();
+        // TimeStamp
+
+        $overtimes = Overtimes::with(['employees'])
+            ->where('employees_id', $employees_id)
+            ->where('tanggal_lembur', $tanggal_lembur)
             ->update([
                 'acc_hrd'       => NULL,
                 'waktu_acc_hrd' => NULL

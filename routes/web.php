@@ -181,8 +181,11 @@ Route::prefix('admin')
         Route::post('overtime/proses_delete_overtime_date', 'OvertimeController@proses_delete_overtime_date')->name('overtime.proses_delete_overtime_date');
         Route::get('overtime/edit_approval/{id}', 'OvertimeController@edit_approval')->name('overtime.edit_approval');
         Route::get('overtime/form_cancel_approve_overtime', 'OvertimeController@form_cancel_approve_overtime')->name('overtime.form_cancel_approve_overtime');
+        Route::get('overtime/form_cancel_approve_overtime_man', 'OvertimeController@form_cancel_approve_overtime_man')->name('overtime.form_cancel_approve_overtime_man');
         Route::post('overtime/tampil_cancel_approve_overtime', 'OvertimeController@tampil_cancel_approve_overtime')->name('overtime.tampil_cancel_approve_overtime');
+        Route::post('overtime/tampil_cancel_approve_overtime_man', 'OvertimeController@tampil_cancel_approve_overtime_man')->name('overtime.tampil_cancel_approve_overtime_man');
         Route::post('overtime/proses_cancel_approve_overtime', 'OvertimeController@proses_cancel_approve_overtime')->name('overtime.proses_cancel_approve_overtime');
+        Route::post('overtime/proses_cancel_approve_overtime_man', 'OvertimeController@proses_cancel_approve_overtime_man')->name('overtime.proses_cancel_approve_overtime_man');
         Route::get('overtime/edit_overtime', 'OvertimeController@edit_overtime')->name('overtime.edit_overtime');
         Route::post('overtime/tampiledit_overtime', 'OvertimeController@tampiledit_overtime')->name('overtime.tampiledit_overtime');
         Route::get('overtime/form_hapus_overtime', 'OvertimeController@form_hapus_overtime')->name('overtime.form_hapus_overtime');
