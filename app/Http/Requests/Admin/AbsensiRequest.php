@@ -27,7 +27,7 @@ class AbsensiRequest extends FormRequest
             //
             'employees_id'          => 'required',
             'tanggal_absen'         => 'required|date',
-            'keterangan_absen'      => 'required|string|in:Sakit,Ijin,Alpa,Cuti Tahunan,Cuti Khusus'
+            'keterangan_absen'      => 'required|string|in:Sakit,Ijin,Alpa,Cuti Tahunan,Cuti Khusus,OFF'
         ];
     }
 }

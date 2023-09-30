@@ -76,6 +76,9 @@
                                             <option value="Cuti Khusus"
                                                 @if (old('keterangan_absen') == 'Cuti Khusus') {{ 'selected' }} @endif>Cuti Khusus
                                             </option>
+                                            <option value="OFF"
+                                                @if (old('keterangan_absen') == 'OFF') {{ 'selected' }} @endif>OFF
+                                            </option>
                                         </select>
                                     </div>
 
