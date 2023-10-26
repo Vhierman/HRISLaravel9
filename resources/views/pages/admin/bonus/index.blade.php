@@ -31,7 +31,7 @@
 
                     <div class="card shadow">
                         <div class="card-body">
-                            <form action="{{ route('bonus.cetak_form_penilaian') }}" method="post"
+                            <form action="{{ route('bonus.cetak_form_penilaian') }}" method="post" target="_blank"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
