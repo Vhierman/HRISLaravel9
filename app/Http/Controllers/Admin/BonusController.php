@@ -53,6 +53,10 @@ class BonusController extends Controller
             $this->fpdf->SetAutoPageBreak(true);
             
             foreach ($penilaiankaryawans as $penilaiankaryawan) {
+
+                
+                
+
                 $this->fpdf->AddPage();
 
                 $this->fpdf->Cell(205, 290, '', 1, 0, 'C');
@@ -124,8 +128,13 @@ class BonusController extends Controller
                 $this->fpdf->Cell(30, 5, "Tanggal Akhir", 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', '', '10');
                 $this->fpdf->Cell(5, 5, " : ", 0, 0, 'C');
-                $this->fpdf->Cell(50, 5, \Carbon\Carbon::parse($penilaiankaryawan->tanggal_akhir_kerja)->isoformat('dddd, D MMMM Y') . '', 0, 0, 'L');
-                
+
+                if ($penilaiankaryawan->status_kerja == "PKWTT") {
+                    $this->fpdf->Cell(50, 5, '-', 0, 0, 'L');
+                } else {
+                    $this->fpdf->Cell(50, 5, \Carbon\Carbon::parse($penilaiankaryawan->tanggal_akhir_kerja)->isoformat('dddd, D MMMM Y') . '', 0, 0, 'L');
+                }
+
                 $this->fpdf->SetFont('Arial', 'B', '9');
                 $this->fpdf->Ln(10);
                 $this->fpdf->Cell(5);
