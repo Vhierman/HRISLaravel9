@@ -89,6 +89,9 @@ Route::prefix('admin')
         Route::resource('position', 'PositionController');
         Route::resource('working-hour', 'WorkingHourController');
         Route::resource('school', 'SchoolController');
+        Route::post('bonus/cetak_form_penilaian', 'BonusController@cetak_form_penilaian')->name('bonus.cetak_form_penilaian');
+        Route::resource('bonus', 'BonusController');
+
         //Absensi Karyawan
         Route::get('absensi/lihat_absensi', 'AbsensiController@lihat_absensi')->name('absensi.lihat_absensi');
         Route::get('absensi/form_edit', 'AbsensiController@form_edit')->name('absensi.form_edit');

@@ -97,6 +97,7 @@
                             <a class="nav-link" href="{{ route('position.index') }}">Jabatan</a>
                             <a class="nav-link" href="{{ route('working-hour.index') }}">Jam Kerja</a>
                             <a class="nav-link" href="{{ route('school.index') }}">Sekolah</a>
+                            <a class="nav-link" href="{{ route('bonus.index') }}">Form Penilaian Bonus</a>
                         </nav>
                     </div>
                 @endif
