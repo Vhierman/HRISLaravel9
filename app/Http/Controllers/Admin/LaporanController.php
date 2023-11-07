@@ -564,47 +564,52 @@ class LaporanController extends Controller
         $itemsakit = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
 
         $itemijin = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Ijin')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemalpa = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Alpa')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemcutitahunan = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Cuti Tahunan')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemcutikhusus = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Cuti Khusus')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         
@@ -646,50 +651,55 @@ class LaporanController extends Controller
             $sakitjanuari2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','01')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinjanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpajanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanjanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususjanuari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -700,50 +710,55 @@ class LaporanController extends Controller
             $sakitfebruari2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','02')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinfebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpafebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanfebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususfebruari2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -754,50 +769,55 @@ class LaporanController extends Controller
             $sakitmaret2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','03')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinmaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpamaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanmaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususmaret2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -808,50 +828,55 @@ class LaporanController extends Controller
             $sakitapril2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','04')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpaapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususapril2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -862,50 +887,55 @@ class LaporanController extends Controller
             $sakitmei2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','05')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinmei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpamei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanmei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususmei2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -916,50 +946,55 @@ class LaporanController extends Controller
             $sakitjuni2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','06')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinjuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpajuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanjuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususjuni2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -970,50 +1005,55 @@ class LaporanController extends Controller
             $sakitjuli2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','07')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinjuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpajuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanjuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususjuli2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1024,50 +1064,55 @@ class LaporanController extends Controller
             $sakitagustus2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','08')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpaagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususagustus2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1078,50 +1123,55 @@ class LaporanController extends Controller
             $sakitseptember2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','09')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpaseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-         
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususseptember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1132,50 +1182,55 @@ class LaporanController extends Controller
             $sakitoktober2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-         
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','10')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-             
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpaoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-         
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunanoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-               
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususoktober2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-             
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1186,48 +1241,55 @@ class LaporanController extends Controller
             $sakitnovember2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-    
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','11')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijinnovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-             
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpanovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-               
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunannovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususnovember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1238,45 +1300,55 @@ class LaporanController extends Controller
             $sakitdesember2022 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','12')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
             $ijindesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $alpadesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutitahunandesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
             $cutikhususdesember2022 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1348,50 +1420,55 @@ class LaporanController extends Controller
             $sakitjanuari2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','01')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinjanuari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpajanuari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanjanuari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususjanuari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1402,50 +1479,55 @@ class LaporanController extends Controller
             $sakitfebruari2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','02')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinfebruari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpafebruari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanfebruari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususfebruari2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1456,50 +1538,55 @@ class LaporanController extends Controller
             $sakitmaret2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','03')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinmaret2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpamaret2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanmaret2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususmaret2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1510,50 +1597,55 @@ class LaporanController extends Controller
             $sakitapril2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','04')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinapril2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpaapril2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanapril2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususapril2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1564,50 +1656,55 @@ class LaporanController extends Controller
             $sakitmei2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','05')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinmei2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpamei2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanmei2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususmei2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1618,50 +1715,55 @@ class LaporanController extends Controller
             $sakitjuni2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','06')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinjuni2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpajuni2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanjuni2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususjuni2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1672,50 +1774,55 @@ class LaporanController extends Controller
             $sakitjuli2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','07')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinjuli2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpajuli2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanjuli2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususjuli2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1726,50 +1833,55 @@ class LaporanController extends Controller
             $sakitagustus2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','08')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinagustus2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpaagustus2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanagustus2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususagustus2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1780,50 +1892,55 @@ class LaporanController extends Controller
             $sakitseptember2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','09')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinseptember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpaseptember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanseptember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-         
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususseptember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1834,50 +1951,55 @@ class LaporanController extends Controller
             $sakitoktober2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-         
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','10')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinoktober2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-             
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpaoktober2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-         
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunanoktober2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-               
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususoktober2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-             
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1888,48 +2010,55 @@ class LaporanController extends Controller
             $sakitnovember2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-    
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','11')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijinnovember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-             
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpanovember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-               
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunannovember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususnovember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1940,45 +2069,55 @@ class LaporanController extends Controller
             $sakitdesember2023 = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
+            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','12')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
             $ijindesember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $alpadesember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutitahunandesember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
             $cutikhususdesember2023 = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
+                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
