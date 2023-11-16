@@ -84,7 +84,7 @@ class AbsensiController extends Controller
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
+            // ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->get();
         }
