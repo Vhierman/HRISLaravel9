@@ -673,12 +673,12 @@
 }
 @media (max-width: 768px) {
   .timeline-struktur .team-list img,
-.timeline-struktur .team-list .content {
+  .timeline-struktur .team-list .content {
     width: 100%;
     float: none !important;
   }
   .timeline-struktur .team-list img .follow,
-.timeline-struktur .team-list .content .follow {
+  .timeline-struktur .team-list .content .follow {
     position: relative;
     bottom: 0;
   }
