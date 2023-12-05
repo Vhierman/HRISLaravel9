@@ -61,7 +61,7 @@
                                                 <div class="accordion-body">
                                                     <div class="alert alert-danger" role="alert">
                                                         tk/0 = Single, k/0 = Menikah Belum Mempunyai Anak, k/1 = Menikah
-                                                        Mempunyai Anak 1, k/2 = Menikah Mempunyai Anak 2, k/3 = Menikah
+                                                        Mempunyai Anak 1, k/2 = Menikah Mempunyai Anak 2, k/3 = Menikahs
                                                         Mempunyai Anak 3
                                                     </div>
                                                     <div class="alert alert-success" role="alert">
