@@ -93,6 +93,34 @@ class DashboardController extends Controller
             'divisions',
             'positions'
         ])->where('nik_karyawan', $nik_karyawan)->first();
+
+        foreach($datakaryawan as $item){
+        
+
+            //Rumus Mengambil status PTKP (tk,k/0,k1,k/2,k3)
+            $hitungkeluarga = HistoryFamilies::with([
+                'employees'
+                ])->where('employees_id', $datakaryawan->nik_karyawan)->count();
+
+            if ($hitungkeluarga == null) {
+                $jumlahkeluarga = 0;
+            }
+            else{
+                $jumlahkeluarga = $hitungkeluarga-1;
+            }
+
+            if ($datakaryawan->status_nikah == "Single") {
+                $statuspajak = "tk/";
+            }
+            else{
+                $statuspajak = "k/";
+            }
+            $statusptkp = $statuspajak.$jumlahkeluarga;
+            //Rumus Mengambil status PTKP (tk,k/0,k1,k/2,k3)
+
+        }
+
+
         $datahistorykontraks = HistoryContracts::with([
             'employees'
         ])->where('employees_id', $nik_karyawan)->get();
@@ -542,6 +570,7 @@ class DashboardController extends Controller
         return view('pages.admin.dashboard',[
             //Halaman Karyawan
             'datakaryawan'                  => $datakaryawan,
+            'statusptkp'                  => $statusptkp,
             'datahistorykontraks'           => $datahistorykontraks,
             'datahistorykeluargas'          => $datahistorykeluargas,
             'historykontrak'                => $historykontrak,

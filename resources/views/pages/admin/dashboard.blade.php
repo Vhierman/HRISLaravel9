@@ -53,18 +53,19 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#collapseFour"
                                                     aria-expanded="false" aria-controls="collapseFour">
-                                                    Informasi
+                                                    Informasi Status Pajak
                                                 </button>
                                             </h2>
                                             <div id="collapseFour" class="accordion-collapse collapse"
                                                 aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <div class="alert alert-danger" role="alert">
-                                                        Jika Biodata Diri, Status Pekerjaan, Dan Data Keluarga Ada yang
-                                                        tidak sesuai dengan data sebenarnya, Harap Menghubungi HRD-GA....!!
+                                                        tk/0 = Single, k/0 = Menikah Belum Mempunyai Anak, k/1 = Menikah
+                                                        Mempunyai Anak 1, k/2 = Menikah Mempunyai Anak 2, k/3 = Menikah
+                                                        Mempunyai Anak 3
                                                     </div>
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Ganti Foto Profile Dengan Maksimal Size 500KB....!!
+                                                    <div class="alert alert-success" role="alert">
+                                                        Status PTKP (Pajak) {{ $statusptkp }}
                                                     </div>
                                                     {{-- <img src={{ url('backend/assets/comingsoon/comingsoon2.jpg') }}
                                                         class="img-fluid" /> --}}
