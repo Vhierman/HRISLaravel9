@@ -60,13 +60,22 @@
                                                 aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <div class="alert alert-danger" role="alert">
-                                                        tk/0 = Single, k/0 = Menikah Belum Mempunyai Anak, k/1 = Menikah
-                                                        Mempunyai Anak 1, k/2 = Menikah Mempunyai Anak 2, k/3 = Menika
-                                                        Mempunyai Anak 3
+                                                        Informasi !!! <br>tk/0 = Single, <br>k/0 = Menikah Belum Mempunyai
+                                                        Anak,
+                                                        <br>k/1 =
+                                                        Menikah
+                                                        Mempunyai Anak 1, <br>k/2 = Menikah Mempunyai Anak 2, <br>k/3 =
+                                                        Menikah
+                                                        Mempunyai Anak 3.
+                                                    </div>
+                                                    <div class="alert alert-info" role="alert">
+                                                        Jika Ada Kesalahan Atau Tidak Sesuai, Silakan Klik Menu
+                                                        Kritik&Saran.
                                                     </div>
                                                     <div class="alert alert-success" role="alert">
-                                                        Status PTKP (Pajak) {{ $statusptkp }}
+                                                        Status PTKP (Pajak) Anda Saat Ini Adalah : {{ $statusptkp }}
                                                     </div>
+
                                                     {{-- <img src={{ url('backend/assets/comingsoon/comingsoon2.jpg') }}
                                                         class="img-fluid" /> --}}
 
