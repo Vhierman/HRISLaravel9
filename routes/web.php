@@ -239,6 +239,10 @@ Route::prefix('admin')
         Route::get('laporan/karyawan_outsourcing', 'LaporanController@karyawan_outsourcing')->name('laporan.karyawan_outsourcing');
         Route::get('laporan/inventaris_motor', 'LaporanController@inventaris_motor')->name('laporan.inventaris_motor');
         Route::get('laporan/inventaris_mobil', 'LaporanController@inventaris_mobil')->name('laporan.inventaris_mobil');
+        Route::get('laporan/training_internal', 'LaporanController@training_internal')->name('laporan.training_internal');
+        Route::post('laporan/tampil_laporan_training_internal', 'LaporanController@tampil_laporan_training_internal')->name('laporan.tampil_laporan_training_internal');
+        Route::get('laporan/training_eksternal', 'LaporanController@training_eksternal')->name('laporan.training_eksternal');
+        Route::post('laporan/tampil_laporan_training_eksternal', 'LaporanController@tampil_laporan_training_eksternal')->name('laporan.tampil_laporan_training_eksternal');
         Route::resource('laporan', 'LaporanController');
         //Laporan
         

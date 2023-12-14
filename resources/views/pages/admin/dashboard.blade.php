@@ -512,6 +512,79 @@
                 </div>
             </main>
         @elseif (Auth::user()->roles == 'LEADER')
+            @if ($divisi == 11)
+                <section class="section-dashboard-top mt-3">
+                    <div class="container-fluid px-4">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12">
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body"><i class="fas fa-city"></i> Produksi</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white"><i class="fas fa-users"></i> {{ $itemproduksi }}
+                                            Man Power
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row  mt-3">
+                            <div class="col-md-6">
+                                <div id="containerkontrakproduksi"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="containerstatusnikahproduksi"></div>
+                            </div>
+                        </div>
+
+                        <div class="row  mt-3">
+                            <div class="col-md-6">
+                                <div id="containerjeniskelaminproduksi"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="containeragamaproduksi"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @elseif($divisi == 19)
+                <section class="section-dashboard-top mt-3">
+                    <div class="container-fluid px-4">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12">
+                                <div class="card bg-dark text-white mb-4">
+                                    <div class="card-body"><i class="fas fa-city"></i> PDC Daihatsu</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white"><i class="fas fa-users"></i> {{ $itempdc }}
+                                            Man Power
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row  mt-3">
+                            <div class="col-md-6">
+                                <div id="containerkontrakpdc"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="containerstatusnikahpdc"></div>
+                            </div>
+                        </div>
+
+                        <div class="row  mt-3">
+                            <div class="col-md-6">
+                                <div id="containerjeniskelaminpdc"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="containeragamapdc"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
         @else
             <main>
                 <section class="section-dashboard-top mt-3">
@@ -878,6 +951,114 @@
     </script>
     {{-- Chart KOntrak --}}
 
+    {{-- Chart Kontrak Produksi --}}
+    <script>
+        var kontrakproduksi = {{ json_encode($itemkontrakproduksi) }};
+        var tetapproduksi = {{ json_encode($itemtetapproduksi) }};
+        var harianproduksi = {{ json_encode($itemharianproduksi) }};
+        Highcharts.chart('containerkontrakproduksi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Tetap',
+                    y: tetapproduksi,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Kontrak',
+                    y: kontrakproduksi
+                }, {
+                    name: 'Harian',
+                    y: harianproduksi
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart KOntrak Produksi --}}
+
+    {{-- Chart Kontrak PDC --}}
+    <script>
+        var kontrakpdc = {{ json_encode($itemkontrakpdc) }};
+        var tetappdc = {{ json_encode($itemtetappdc) }};
+        var harianpdc = {{ json_encode($itemharianpdc) }};
+        Highcharts.chart('containerkontrakpdc', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Tetap',
+                    y: tetappdc,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Kontrak',
+                    y: kontrakpdc
+                }, {
+                    name: 'Harian',
+                    y: harianpdc
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart KOntrak PDC --}}
+
     {{-- Chart Status Menikah --}}
     <script>
         var single = {{ json_encode($itemsingle) }};
@@ -936,6 +1117,122 @@
     </script>
     {{-- Chart Status Menikah --}}
 
+    {{-- Chart Status Menikah Produksi --}}
+    <script>
+        var singleproduksi = {{ json_encode($itemsingleproduksi) }};
+        var menikahproduksi = {{ json_encode($itemmenikahproduksi) }};
+        var jandaproduksi = {{ json_encode($itemjandaproduksi) }};
+        var dudaproduksi = {{ json_encode($itemdudaproduksi) }};
+        Highcharts.chart('containerstatusnikahproduksi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Single',
+                    y: singleproduksi,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Menikah',
+                    y: menikahproduksi
+                }, {
+                    name: 'Janda',
+                    y: jandaproduksi
+                }, {
+                    name: 'Duda',
+                    y: dudaproduksi
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart Status Menikah Produksi --}}
+
+    {{-- Chart Status Menikah PDC --}}
+    <script>
+        var singlepdc = {{ json_encode($itemsinglepdc) }};
+        var menikahpdc = {{ json_encode($itemmenikahpdc) }};
+        var jandapdc = {{ json_encode($itemjandapdc) }};
+        var dudapdc = {{ json_encode($itemdudapdc) }};
+        Highcharts.chart('containerstatusnikahpdc', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Single',
+                    y: singlepdc,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Menikah',
+                    y: menikahpdc
+                }, {
+                    name: 'Janda',
+                    y: jandapdc
+                }, {
+                    name: 'Duda',
+                    y: dudapdc
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart Status Menikah PDC --}}
+
     {{-- Chart Jenis Kelamin --}}
     <script>
         var pria = {{ json_encode($itempria) }};
@@ -985,6 +1282,106 @@
         });
     </script>
     {{-- Chart Jenis Kelamin --}}
+
+    {{-- Chart Jenis Kelamin Produksi --}}
+    <script>
+        var priaproduksi = {{ json_encode($itempriaproduksi) }};
+        var wanitaproduksi = {{ json_encode($itemwanitaproduksi) }};
+        Highcharts.chart('containerjeniskelaminproduksi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Pria',
+                    y: priaproduksi,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Wanita',
+                    y: wanitaproduksi
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart Jenis Kelamin Produksi --}}
+
+    {{-- Chart Jenis Kelamin PDC --}}
+    <script>
+        var priapdc = {{ json_encode($itempriapdc) }};
+        var wanitapdc = {{ json_encode($itemwanitapdc) }};
+        Highcharts.chart('containerjeniskelaminpdc', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Pria',
+                    y: priapdc,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Wanita',
+                    y: wanitapdc
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart Jenis Kelamin PDC --}}
 
     {{-- Chart Agama --}}
     <script>
@@ -1047,6 +1444,130 @@
         });
     </script>
     {{-- Chart Agama --}}
+
+    {{-- Chart Agama Produksi --}}
+    <script>
+        var islamproduksi = {{ json_encode($itemislamproduksi) }};
+        var kristenprotestanproduksi = {{ json_encode($itemkristenprotestanproduksi) }};
+        var kristenkatholikproduksi = {{ json_encode($itemkristenkatholikproduksi) }};
+        var hinduproduksi = {{ json_encode($itemhinduproduksi) }};
+        var budhaproduksi = {{ json_encode($itembudhaproduksi) }};
+        Highcharts.chart('containeragamaproduksi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Islam',
+                    y: islamproduksi,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Kristen Protestan',
+                    y: kristenprotestanproduksi
+                }, {
+                    name: 'Kristen Katholik',
+                    y: kristenkatholikproduksi
+                }, {
+                    name: 'Hindu',
+                    y: hinduproduksi
+                }, {
+                    name: 'Budha',
+                    y: budhaproduksi
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart Agama Produksi --}}
+
+    {{-- Chart Agama PDC --}}
+    <script>
+        var islampdc = {{ json_encode($itemislampdc) }};
+        var kristenprotestanpdc = {{ json_encode($itemkristenprotestanpdc) }};
+        var kristenkatholikpdc = {{ json_encode($itemkristenkatholikpdc) }};
+        var hindupdc = {{ json_encode($itemhindupdc) }};
+        var budhapdc = {{ json_encode($itembudhapdc) }};
+        Highcharts.chart('containeragamapdc', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Islam',
+                    y: islamproduksi,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Kristen Protestan',
+                    y: kristenprotestanpdc
+                }, {
+                    name: 'Kristen Katholik',
+                    y: kristenkatholikpdc
+                }, {
+                    name: 'Hindu',
+                    y: hindupdc
+                }, {
+                    name: 'Budha',
+                    y: budhapdc
+                }]
+            }]
+        });
+    </script>
+    {{-- Chart Agama PDC --}}
 
     {{-- Chart Penempatan Detail --}}
     <script>

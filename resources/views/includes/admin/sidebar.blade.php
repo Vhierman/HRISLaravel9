@@ -69,7 +69,7 @@
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('dashboard') }}">Dashboard Karyawan</a>
-                            <a class="nav-link" href="{{ route('dashboard-harian.index') }}">Dashboard Harian</a>
+                            {{-- <a class="nav-link" href="{{ route('dashboard-harian.index') }}">Dashboard Harian</a> --}}
                         </nav>
                     </div>
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseMaster"
@@ -321,6 +321,7 @@
                 @if (Auth::user()->roles == 'ADMIN' ||
                         Auth::user()->roles == 'HRD' ||
                         Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
                         Auth::user()->roles == 'ACCOUNTING' ||
                         Auth::user()->roles == 'MANAGER ACCOUNTING')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLaporan"
@@ -451,6 +452,24 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('laporan.inventaris_mobil') }}"
                                 target="_blank">Inventaris Mobil</a>
+                        </nav>
+                    </div>
+                @endif
+                @if (Auth::user()->roles == 'ADMIN' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER' ||
+                        Auth::user()->roles == 'MANAGER HRD')
+                    <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('laporan.training_internal') }}">Training Internal</a>
+                        </nav>
+                    </div>
+                    <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('laporan.training_eksternal') }}">Training
+                                Eksternal</a>
                         </nav>
                     </div>
                 @endif
