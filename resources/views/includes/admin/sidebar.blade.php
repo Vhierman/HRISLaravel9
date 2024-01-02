@@ -352,6 +352,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('laporan.absensi_karyawan') }}">Absensi
                                 Karyawan</a>
+                            <a class="nav-link" href="{{ route('laporan.overtimes') }}">Overtimes</a>
                         </nav>
                     </div>
                     <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"

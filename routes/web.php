@@ -209,6 +209,10 @@ Route::prefix('admin')
         //Overtimes
         //Laporan
         Route::get('laporan/rekap_gaji', 'LaporanController@rekap_gaji')->name('laporan.rekap_gaji');
+        Route::get('laporan/overtimes', 'LaporanController@overtimes')->name('laporan.overtimes');
+        Route::get('laporan/overtimes_perbulan', 'LaporanController@overtimes_perbulan')->name('laporan.overtimes_perbulan');
+        Route::get('laporan/overtimes_pertahun', 'LaporanController@overtimes_pertahun')->name('laporan.overtimes_pertahun');
+        Route::post('laporan/tampil_rekap_overtimes_pertahun', 'LaporanController@tampil_rekap_overtimes_pertahun')->name('laporan.tampil_rekap_overtimes_pertahun');
         Route::post('laporan/tampil_rekap_gaji', 'LaporanController@tampil_rekap_gaji')->name('laporan.tampil_rekap_gaji');
         Route::post('laporan/export_excell_rekap_gaji', 'LaporanController@export_excell_rekap_gaji')->name('laporan.export_excell_rekap_gaji');
         Route::post('laporan/cetak_slip_gaji', 'LaporanController@cetak_slip_gaji')->name('laporan.cetak_slip_gaji');

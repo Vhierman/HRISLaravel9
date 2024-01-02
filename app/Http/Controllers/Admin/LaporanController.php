@@ -23,6 +23,7 @@ use App\Models\Admin\RekapSalaries;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\RekapGajiRequest;
 use App\Http\Requests\Admin\LaporanAbsensiKaryawanRequest;
+use App\Http\Requests\Admin\RekapOvertimesPertahunRequest;
 use App\Http\Requests\Admin\LaporanKaryawanMasukRequest;
 use App\Http\Requests\Admin\LaporanKaryawanKeluarRequest;
 use App\Http\Requests\Admin\RekapAbsensiPerbulanRequest;
@@ -377,6 +378,996 @@ class LaporanController extends Controller
     }
     //GAJI
 
+    // OVERTIMES
+    public function overtimes()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        return view('pages.admin.laporan.overtimes.index');
+    }
+    public function overtimes_perbulan()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        return view('pages.admin.laporan.overtimes.index');
+    }
+    public function overtimes_pertahun()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        return view('pages.admin.laporan.overtimes.rekap_pertahun');
+    }
+    public function tampil_rekap_overtimes_pertahun(RekapOvertimesPertahunRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        $Tahun  = $request->input('tahun');
+
+        //JANUARI
+        $ProduksiJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        $PDCJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        $QualityJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        $PPCJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcJanuari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','01')
+                        ->sum('overtimes.jam_lembur');
+        //JANUARI
+        //FEBRUARI
+        $ProduksiFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        $PDCFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        $QualityFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        $PPCFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcFebruari = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','02')
+                        ->sum('overtimes.jam_lembur');
+        //FEBRUARI
+        //MARET
+        $ProduksiMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        $PDCMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        $QualityMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        $PPCMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcMaret = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','03')
+                        ->sum('overtimes.jam_lembur');
+        //MARET
+        //APRIL
+        $ProduksiApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        $PDCApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        $QualityApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        $PPCApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcApril = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','04')
+                        ->sum('overtimes.jam_lembur');
+        //APRIL
+        //MEI
+        $ProduksiMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        $PDCMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        $QualityMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        $PPCMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcMei = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','05')
+                        ->sum('overtimes.jam_lembur');
+        //MEI
+        //JUNI
+        $ProduksiJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        $PDCJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        $QualityJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        $PPCJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcJuni = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','06')
+                        ->sum('overtimes.jam_lembur');
+        //JUNI
+        //JULI
+        $ProduksiJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        $PDCJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        $QualityJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        $PPCJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcJuli = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','07')
+                        ->sum('overtimes.jam_lembur');
+        //JULI
+        //AGUSTUS
+        $ProduksiAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        $PDCAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        $QualityAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        $PPCAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcAgustus = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','08')
+                        ->sum('overtimes.jam_lembur');
+        //AGUSTUS
+        //SEPTEMBER
+        $ProduksiSeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        $PDCSeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseSeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        $DeliverySeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        $QualitySeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        $PPCSeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcSeptember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','09')
+                        ->sum('overtimes.jam_lembur');
+        //SEPTEMBER
+        //OKTOBER
+        $ProduksiOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        $PDCOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        $QualityOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        $PPCOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcOktober = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','10')
+                        ->sum('overtimes.jam_lembur');
+        //OKTOBER
+        //NOVEMBER
+        $ProduksiNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        $PDCNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        $QualityNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        $PPCNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcNovember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','11')
+                        ->sum('overtimes.jam_lembur');
+        //NOVEMBER
+        //DESEMBER
+        $ProduksiDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->where('divisions.id','=',11)
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        $PDCDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [19,20,21,22])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        $WarehouseDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [13,14])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        $DeliveryDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [12,15,18])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        $QualityDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [8])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        $PPCDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [10])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        $AccIcItHrdDcMktEngPurcDesember = 
+                        DB::table('overtimes')
+                        ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
+                        ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                        ->whereIn('divisions.id', [1,2,3,4,5,6,7,9])
+                        ->where('overtimes.deleted_at',NULL)
+                        ->where('employees.deleted_at',NULL)
+                        ->whereYear('tanggal_lembur','=',$Tahun)
+                        ->whereMonth('tanggal_lembur','=','12')
+                        ->sum('overtimes.jam_lembur');
+        //DESEMBER
+
+        
+        return view('pages.admin.laporan.overtimes.tampil_pertahun', [
+            'TahunOvertimes'                => $Tahun,
+            'ProduksiJanuari'               => $ProduksiJanuari,
+            'PDCJanuari'                    => $PDCJanuari,
+            'WarehouseJanuari'              => $WarehouseJanuari,
+            'DeliveryJanuari'               => $DeliveryJanuari,
+            'QualityJanuari'                => $QualityJanuari,
+            'PPCJanuari'                    => $PPCJanuari,
+            'AccIcItHrdDcMktEngPurcJanuari' => $AccIcItHrdDcMktEngPurcJanuari,
+            'ProduksiFebruari'               => $ProduksiFebruari,
+            'PDCFebruari'                    => $PDCFebruari,
+            'WarehouseFebruari'              => $WarehouseFebruari,
+            'DeliveryFebruari'               => $DeliveryFebruari,
+            'QualityFebruari'                => $QualityFebruari,
+            'PPCFebruari'                    => $PPCFebruari,
+            'AccIcItHrdDcMktEngPurcFebruari' => $AccIcItHrdDcMktEngPurcFebruari,
+            'ProduksiMaret'               => $ProduksiMaret,
+            'PDCMaret'                    => $PDCMaret,
+            'WarehouseMaret'              => $WarehouseMaret,
+            'DeliveryMaret'               => $DeliveryMaret,
+            'QualityMaret'                => $QualityMaret,
+            'PPCMaret'                    => $PPCMaret,
+            'AccIcItHrdDcMktEngPurcMaret' => $AccIcItHrdDcMktEngPurcMaret,
+            'ProduksiApril'               => $ProduksiApril,
+            'PDCApril'                    => $PDCApril,
+            'WarehouseApril'              => $WarehouseApril,
+            'DeliveryApril'               => $DeliveryApril,
+            'QualityApril'                => $QualityApril,
+            'PPCApril'                    => $PPCApril,
+            'AccIcItHrdDcMktEngPurcApril' => $AccIcItHrdDcMktEngPurcApril,
+            'ProduksiMei'               => $ProduksiMei,
+            'PDCMei'                    => $PDCMei,
+            'WarehouseMei'              => $WarehouseMei,
+            'DeliveryMei'               => $DeliveryMei,
+            'QualityMei'                => $QualityMei,
+            'PPCMei'                    => $PPCMei,
+            'AccIcItHrdDcMktEngPurcMei' => $AccIcItHrdDcMktEngPurcMei,
+            'ProduksiJuni'               => $ProduksiJuni,
+            'PDCJuni'                    => $PDCJuni,
+            'WarehouseJuni'              => $WarehouseJuni,
+            'DeliveryJuni'               => $DeliveryJuni,
+            'QualityJuni'                => $QualityJuni,
+            'PPCJuni'                    => $PPCJuni,
+            'AccIcItHrdDcMktEngPurcJuni' => $AccIcItHrdDcMktEngPurcJuni,
+            'ProduksiJuli'               => $ProduksiJuli,
+            'PDCJuli'                    => $PDCJuli,
+            'WarehouseJuli'              => $WarehouseJuli,
+            'DeliveryJuli'               => $DeliveryJuli,
+            'QualityJuli'                => $QualityJuli,
+            'PPCJuli'                    => $PPCJuli,
+            'AccIcItHrdDcMktEngPurcJuli' => $AccIcItHrdDcMktEngPurcJuli,
+            'ProduksiAgustus'               => $ProduksiAgustus,
+            'PDCAgustus'                    => $PDCAgustus,
+            'WarehouseAgustus'              => $WarehouseAgustus,
+            'DeliveryAgustus'               => $DeliveryAgustus,
+            'QualityAgustus'                => $QualityAgustus,
+            'PPCAgustus'                    => $PPCAgustus,
+            'AccIcItHrdDcMktEngPurcAgustus' => $AccIcItHrdDcMktEngPurcAgustus,
+            'ProduksiSeptember'               => $ProduksiSeptember,
+            'PDCSeptember'                    => $PDCSeptember,
+            'WarehouseSeptember'              => $WarehouseSeptember,
+            'DeliverySeptember'               => $DeliverySeptember,
+            'QualitySeptember'                => $QualitySeptember,
+            'PPCSeptember'                    => $PPCSeptember,
+            'AccIcItHrdDcMktEngPurcSeptember' => $AccIcItHrdDcMktEngPurcSeptember,
+            'ProduksiOktober'               => $ProduksiOktober,
+            'PDCOktober'                    => $PDCOktober,
+            'WarehouseOktober'              => $WarehouseOktober,
+            'DeliveryOktober'               => $DeliveryOktober,
+            'QualityOktober'                => $QualityOktober,
+            'PPCOktober'                    => $PPCOktober,
+            'AccIcItHrdDcMktEngPurcOktober' => $AccIcItHrdDcMktEngPurcOktober,
+            'ProduksiNovember'               => $ProduksiNovember,
+            'PDCNovember'                    => $PDCNovember,
+            'WarehouseNovember'              => $WarehouseNovember,
+            'DeliveryNovember'               => $DeliveryNovember,
+            'QualityNovember'                => $QualityNovember,
+            'PPCNovember'                    => $PPCNovember,
+            'AccIcItHrdDcMktEngPurcNovember' => $AccIcItHrdDcMktEngPurcNovember,
+            'ProduksiDesember'               => $ProduksiDesember,
+            'PDCDesember'                    => $PDCDesember,
+            'WarehouseDesember'              => $WarehouseDesember,
+            'DeliveryDesember'               => $DeliveryDesember,
+            'QualityDesember'                => $QualityDesember,
+            'PPCDesember'                    => $PPCDesember,
+            'AccIcItHrdDcMktEngPurcDesember' => $AccIcItHrdDcMktEngPurcDesember
+        ]);
+
+    }
+    // OVERTIMES
+
     //ABSENSI KARYAWAN
     public function absensi_karyawan()
     {
@@ -659,7 +1650,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','01')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -670,7 +1660,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -681,7 +1670,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -692,7 +1680,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -703,7 +1690,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -718,7 +1704,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','02')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -729,7 +1714,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -740,7 +1724,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -751,7 +1734,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -762,7 +1744,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -777,7 +1758,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','03')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -788,7 +1768,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -799,7 +1778,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -810,7 +1788,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -821,7 +1798,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -836,7 +1812,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','04')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -847,7 +1822,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -858,7 +1832,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -869,7 +1842,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -880,7 +1852,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -895,7 +1866,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','05')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -906,7 +1876,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -917,7 +1886,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -928,7 +1896,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -939,7 +1906,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -954,7 +1920,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','06')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -965,7 +1930,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -976,7 +1940,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -987,7 +1950,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -998,7 +1960,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1013,7 +1974,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','07')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -1024,7 +1984,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1035,7 +1994,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1046,7 +2004,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1057,7 +2014,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1072,7 +2028,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','08')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -1083,7 +2038,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1094,7 +2048,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1105,7 +2058,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1116,7 +2068,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1131,7 +2082,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','09')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -1142,7 +2092,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1153,7 +2102,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1164,7 +2112,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1175,7 +2122,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1190,7 +2136,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','10')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -1201,7 +2146,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1212,7 +2156,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1223,7 +2166,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1234,7 +2176,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1249,7 +2190,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','11')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -1260,7 +2200,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1271,7 +2210,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1282,7 +2220,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1293,7 +2230,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1308,7 +2244,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','12')
             ->whereYear('tanggal_absen','=', '2022')
             ->count();
@@ -1319,7 +2254,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1330,7 +2264,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1341,7 +2274,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1352,7 +2284,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2022')
                 ->count();
@@ -1428,7 +2359,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','01')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1439,7 +2369,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1450,7 +2379,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1461,7 +2389,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1472,7 +2399,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','01')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1487,7 +2413,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','02')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1498,7 +2423,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1509,7 +2433,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1520,7 +2443,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1531,7 +2453,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','02')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1546,7 +2467,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','03')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1557,7 +2477,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1568,7 +2487,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1579,7 +2497,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1590,7 +2507,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','03')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1605,7 +2521,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','04')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1616,7 +2531,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1627,7 +2541,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1638,7 +2551,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1649,7 +2561,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','04')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1664,7 +2575,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','05')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1675,7 +2585,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1686,7 +2595,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1697,7 +2605,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1708,7 +2615,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','05')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1723,7 +2629,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','06')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1734,7 +2639,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1745,7 +2649,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1756,7 +2659,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1767,7 +2669,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','06')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1782,7 +2683,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','07')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1793,7 +2693,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1804,7 +2703,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1815,7 +2713,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1826,7 +2723,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','07')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1841,7 +2737,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','08')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1852,7 +2747,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1863,7 +2757,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1874,7 +2767,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1885,7 +2777,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','08')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1900,7 +2791,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','09')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1911,7 +2801,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1922,7 +2811,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1933,7 +2821,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1944,7 +2831,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','09')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1959,7 +2845,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','10')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -1970,7 +2855,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1981,7 +2865,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -1992,7 +2875,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2003,7 +2885,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','10')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2018,7 +2899,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','11')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -2029,7 +2909,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2040,7 +2919,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2051,7 +2929,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2062,7 +2939,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','11')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2077,7 +2953,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereMonth('tanggal_absen','=','12')
             ->whereYear('tanggal_absen','=', '2023')
             ->count();
@@ -2088,7 +2963,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Ijin')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2099,7 +2973,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Alpa')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2110,7 +2983,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Tahunan')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();
@@ -2121,7 +2993,6 @@ class LaporanController extends Controller
                 ->where('keterangan_absen','Cuti Khusus')
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
-                ->whereIn('golongans_id', [1,2,4])
                 ->whereMonth('tanggal_absen','=','12')
                 ->whereYear('tanggal_absen','=', '2023')
                 ->count();

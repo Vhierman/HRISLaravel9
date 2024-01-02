@@ -239,13 +239,15 @@ class DashboardController extends Controller
 
         // Chart Status Kontrak
         $itemkontrak = Employees::all()
-            ->where('status_kerja', 'PKWT')
+            ->whereIn('golongans_id',[1,2])
+            ->whereIn('status_kerja',['Harian','PKWT'])
             ->count();
         $itemtetap = Employees::all()
+            ->whereIn('golongans_id',[1,2])
             ->where('status_kerja', 'PKWTT')
             ->count();
         $itemharian = Employees::all()
-            ->where('status_kerja', 'Harian')
+            ->where('golongans_id',3)
             ->count();
         $itemoutsourcing = Employees::all()
             ->where('status_kerja', 'Outsourcing')
@@ -254,26 +256,27 @@ class DashboardController extends Controller
 
         // Chart Status Kontrak Produksi
         $itemkontrakproduksi = Employees::all()
-            ->where('status_kerja', 'PKWT')->where('divisions_id', 11)
+            ->where('golongans_id',2)
+            ->where('divisions_id', 11)
             ->count();
         $itemtetapproduksi = Employees::all()
             ->where('status_kerja', 'PKWTT')->where('divisions_id', 11)
             ->count();
         $itemharianproduksi = Employees::all()
-            ->where('status_kerja', 'Harian')->where('divisions_id', 11)
+            ->where('golongans_id',3)->where('divisions_id', 11)
             ->count();
         // Chart Status Kontrak Produksi
 
 
         // Chart Status Kontrak PDC
         $itemkontrakpdc = Employees::all()
-            ->where('status_kerja', 'PKWT')->whereIn('divisions_id', [19,20,21,22])
+            ->where('golongans_id',2)->whereIn('divisions_id', [19,20,21,22])
             ->count();
         $itemtetappdc = Employees::all()
             ->where('status_kerja', 'PKWTT')->whereIn('divisions_id', [19,20,21,22])
             ->count();
         $itemharianpdc = Employees::all()
-            ->where('status_kerja', 'Harian')->whereIn('divisions_id', [19,20,21,22])
+            ->where('golongans_id',3)->whereIn('divisions_id', [19,20,21,22])
             ->count();
         // Chart Status Kontrak PDC
 
@@ -411,276 +414,320 @@ class DashboardController extends Controller
         //  Chart Penempatan Detail
         $itemaccountingpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 1)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 1)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemaccountingpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 1)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 1)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemaccountingharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 1)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 1)->where('golongans_id',3)->count();
         $itemaccountingoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 1)->where('status_kerja', 'Outsourcing')->count();
         $itemicpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 2)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 2)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemicpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 2)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 2)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemicharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 2)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 2)->where('golongans_id',3)->count();
         $itemicoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 2)->where('status_kerja', 'Outsourcing')->count();
         $itemitpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 3)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 3)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemitpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 3)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 3)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemitharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 3)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 3)->where('golongans_id',3)->count();
         $itemitoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 3)->where('status_kerja', 'Outsourcing')->count();
         $itemhrdpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 4)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 4)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemhrdpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 4)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 4)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemhrdharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 4)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 4)->where('golongans_id',3)->count();
         $itemhrdoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 4)->where('status_kerja', 'Outsourcing')->count();
         $itemdoccontrolpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 5)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 5)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemdoccontrolpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 5)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 5)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemdoccontrolharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 5)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 5)->where('golongans_id',3)->count();
         $itemdoccontroloutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 5)->where('status_kerja', 'Outsourcing')->count();
 
         $itemmarketingpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 6)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 6)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemmarketingpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 6)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 6)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemmarketingharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 6)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 6)->where('golongans_id',3)->count();
         $itemmarketingoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 6)->where('status_kerja', 'Outsourcing')->count();
         $itemengineeringpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 7)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 7)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemengineeringpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 7)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 7)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemengineeringharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 7)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 7)->where('golongans_id',3)->count();
         $itemengineeringoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 7)->where('status_kerja', 'Outsourcing')->count();
         $itemqualitypkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 8)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 8)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemqualitypkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 8)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 8)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemqualityharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 8)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 8)->where('golongans_id',3)->count();
         $itemqualityoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 8)->where('status_kerja', 'Outsourcing')->count();
         $itempurchasingpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 9)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 9)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itempurchasingpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 9)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 9)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itempurchasingharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 9)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 9)->where('golongans_id',3)->count();
         $itempurchasingoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 9)->where('status_kerja', 'Outsourcing')->count();
         $itemppcpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 10)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 10)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemppcpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 10)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 10)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemppcharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 10)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 10)->where('golongans_id',3)->count();
         $itemppcoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 10)->where('status_kerja', 'Outsourcing')->count();
         $itemproduksipkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 11)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 11)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemproduksipkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 11)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 11)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemproduksiharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 11)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 11)->where('golongans_id',3)->count();
         $itemproduksioutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 11)->where('status_kerja', 'Outsourcing')->count();
         $itemdeliveryproduksipkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 12)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 12)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemdeliveryproduksipkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 12)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 12)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemdeliveryproduksiharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 12)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 12)->where('golongans_id',3)->count();
         $itemdeliveryproduksioutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 12)->where('status_kerja', 'Outsourcing')->count();
         //
         $itemgudangrmpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 13)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 13)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemgudangrmpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 13)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 13)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemgudangrmharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 13)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 13)->where('golongans_id',3)->count();
         $itemgudangrmoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 13)->where('status_kerja', 'Outsourcing')->count();
         //
         $itemgudangfgpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 14)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 14)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemgudangfgpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 14)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 14)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemgudangfgharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 14)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 14)->where('golongans_id',3)->count();
         $itemgudangfgoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 14)->where('status_kerja', 'Outsourcing')->count();
         //
         $itemdeliverypkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 15)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 15)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemdeliverypkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 15)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 15)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemdeliveryharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 15)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 15)->where('golongans_id',3)->count();
         $itemdeliveryoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 15)->where('status_kerja', 'Outsourcing')->count();
         //
         $itemsecuritypkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 16)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 16)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemsecuritypkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 16)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 16)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemsecurityharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 16)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 16)->where('golongans_id',3)->count();
         $itemsecurityoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 16)->where('status_kerja', 'Outsourcing')->count();
         //
         $itemblokblpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 17)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 17)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemblokblpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 17)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 17)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemblokblharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 17)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 17)->where('golongans_id',3)->count();
         $itemblokbloutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 17)->where('status_kerja', 'Outsourcing')->count();
         //
         $itemblokepkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 18)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 18)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itemblokepkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 18)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 18)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itemblokeharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 18)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 18)->where('golongans_id',3)->count();
         $itemblokeoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 18)->where('status_kerja', 'Outsourcing')->count();
         //
         $itempdcdaihatsusunterpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 19)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 19)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itempdcdaihatsusunterpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 19)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 19)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itempdcdaihatsusunterharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 19)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 19)->where('golongans_id',3)->count();
         $itempdcdaihatsusunteroutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 19)->where('status_kerja', 'Outsourcing')->count();
         //
         $itempdcdaihatsucibinongpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 20)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 20)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itempdcdaihatsucibinongpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 20)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 20)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itempdcdaihatsucibinongharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 20)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 20)->where('golongans_id',3)->count();
         $itempdcdaihatsucibinongoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 20)->where('status_kerja', 'Outsourcing')->count();
         //
         $itempdcdaihatsucibitungpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 21)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 21)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itempdcdaihatsucibitungpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 21)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 21)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itempdcdaihatsucibitungharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 21)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 21)->where('golongans_id',3)->count();
         $itempdcdaihatsucibitungoutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 21)->where('status_kerja', 'Outsourcing')->count();
         //
         $itempdcdaihatsukarawangtimurpkwtt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 22)->where('status_kerja', 'PKWTT')->count();
+        ])->where('divisions_id', 22)->whereIn('golongans_id',[1,2])
+        ->where('status_kerja', 'PKWTT')->count();
         $itempdcdaihatsukarawangtimurpkwt = Employees::with([
             'divisions'
-        ])->where('divisions_id', 22)->where('status_kerja', 'PKWT')->count();
+        ])->where('divisions_id', 22)->whereIn('golongans_id',[1,2])
+        ->whereIn('status_kerja',['Harian','PKWT'])->count();
         $itempdcdaihatsukarawangtimurharian = Employees::with([
             'divisions'
-        ])->where('divisions_id', 22)->where('status_kerja', 'Harian')->count();
+        ])->where('divisions_id', 22)->where('golongans_id',3)->count();
         $itempdcdaihatsukarawangtimuroutsourcing = Employees::with([
             'divisions'
         ])->where('divisions_id', 22)->where('status_kerja', 'Outsourcing')->count();
