@@ -45,6 +45,9 @@
                                             <option value="2023"
                                                 @if (old('tahun') == '2023') {{ 'selected' }} @endif>2023
                                             </option>
+                                            <option value="2024"
+                                                @if (old('tahun') == '2024') {{ 'selected' }} @endif>2024
+                                            </option>
                                         </select>
                                     </div>
 

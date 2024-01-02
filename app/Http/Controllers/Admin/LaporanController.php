@@ -1563,7 +1563,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Sakit')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
 
@@ -1574,7 +1573,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Ijin')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemalpa = 
@@ -1584,7 +1582,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Alpa')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemcutitahunan = 
@@ -1594,7 +1591,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Cuti Tahunan')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         $itemcutikhusus = 
@@ -1604,7 +1600,6 @@ class LaporanController extends Controller
             ->where('keterangan_absen','Cuti Khusus')
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
-            ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->count();
         
@@ -1637,13 +1632,13 @@ class LaporanController extends Controller
 
         $tahun  = $request->input('tahun');
 
-        if($tahun==2022)
+        if($tahun!=null)
         {
             $awal   = '2022-01-01';
             $akhir  = '2022-12-31';
             
             //Januari
-            $sakitjanuari2022 = 
+            $sakitjanuari = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1651,9 +1646,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','01')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinjanuari2022 = 
+            $ijinjanuari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1661,9 +1656,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpajanuari2022 = 
+            $alpajanuari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1671,9 +1666,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanjanuari2022 = 
+            $cutitahunanjanuari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1681,9 +1676,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususjanuari2022 = 
+            $cutikhususjanuari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1691,13 +1686,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutijanuari2022 = $cutitahunanjanuari2022+$cutikhususjanuari2022;
+            $totalcutijanuari = $cutitahunanjanuari+$cutikhususjanuari;
             //Januari
 
             //februari
-            $sakitfebruari2022 = 
+            $sakitfebruari = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1705,9 +1700,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','02')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinfebruari2022 = 
+            $ijinfebruari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1715,9 +1710,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpafebruari2022 = 
+            $alpafebruari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1725,9 +1720,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanfebruari2022 = 
+            $cutitahunanfebruari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1735,9 +1730,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususfebruari2022 = 
+            $cutikhususfebruari = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1745,13 +1740,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutifebruari2022 = $cutitahunanfebruari2022+$cutikhususfebruari2022;
+            $totalcutifebruari = $cutitahunanfebruari+$cutikhususfebruari;
             //februari
 
             //maret
-            $sakitmaret2022 = 
+            $sakitmaret = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1759,9 +1754,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','03')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinmaret2022 = 
+            $ijinmaret = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1769,9 +1764,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpamaret2022 = 
+            $alpamaret = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1779,9 +1774,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanmaret2022 = 
+            $cutitahunanmaret = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1789,9 +1784,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususmaret2022 = 
+            $cutikhususmaret = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1799,13 +1794,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutimaret2022 = $cutitahunanmaret2022+$cutikhususmaret2022;
+            $totalcutimaret = $cutitahunanmaret+$cutikhususmaret;
             //maret
 
             //april
-            $sakitapril2022 = 
+            $sakitapril = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1813,9 +1808,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','04')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinapril2022 = 
+            $ijinapril = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1823,9 +1818,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpaapril2022 = 
+            $alpaapril = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1833,9 +1828,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanapril2022 = 
+            $cutitahunanapril = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1843,9 +1838,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususapril2022 = 
+            $cutikhususapril = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1853,13 +1848,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutiapril2022 = $cutitahunanapril2022+$cutikhususapril2022;
+            $totalcutiapril = $cutitahunanapril+$cutikhususapril;
             //april
 
             //mei
-            $sakitmei2022 = 
+            $sakitmei = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1867,9 +1862,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','05')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinmei2022 = 
+            $ijinmei = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1877,9 +1872,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpamei2022 = 
+            $alpamei = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1887,9 +1882,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanmei2022 = 
+            $cutitahunanmei = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1897,9 +1892,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususmei2022 = 
+            $cutikhususmei = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1907,13 +1902,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutimei2022 = $cutitahunanmei2022+$cutikhususmei2022;
+            $totalcutimei = $cutitahunanmei+$cutikhususmei;
             //mei
 
             //juni
-            $sakitjuni2022 = 
+            $sakitjuni = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1921,9 +1916,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','06')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinjuni2022 = 
+            $ijinjuni = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1931,9 +1926,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpajuni2022 = 
+            $alpajuni = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1941,9 +1936,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanjuni2022 = 
+            $cutitahunanjuni = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1951,9 +1946,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususjuni2022 = 
+            $cutikhususjuni = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1961,13 +1956,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutijuni2022 = $cutitahunanjuni2022+$cutikhususjuni2022;
+            $totalcutijuni = $cutitahunanjuni+$cutikhususjuni;
             //juni
 
             //juli
-            $sakitjuli2022 = 
+            $sakitjuli = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1975,9 +1970,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','07')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinjuli2022 = 
+            $ijinjuli = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1985,9 +1980,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpajuli2022 = 
+            $alpajuli = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -1995,9 +1990,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanjuli2022 = 
+            $cutitahunanjuli = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2005,9 +2000,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususjuli2022 = 
+            $cutikhususjuli = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2015,13 +2010,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutijuli2022 = $cutitahunanjuli2022+$cutikhususjuli2022;
+            $totalcutijuli = $cutitahunanjuli+$cutikhususjuli;
             //juli
 
             //agustus
-            $sakitagustus2022 = 
+            $sakitagustus = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2029,9 +2024,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','08')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinagustus2022 = 
+            $ijinagustus = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2039,9 +2034,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpaagustus2022 = 
+            $alpaagustus = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2049,9 +2044,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanagustus2022 = 
+            $cutitahunanagustus = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2059,9 +2054,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususagustus2022 = 
+            $cutikhususagustus = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2069,13 +2064,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutiagustus2022 = $cutitahunanagustus2022+$cutikhususagustus2022;
+            $totalcutiagustus = $cutitahunanagustus+$cutikhususagustus;
             //agustus
 
             //september
-            $sakitseptember2022 = 
+            $sakitseptember = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2083,9 +2078,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','09')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinseptember2022 = 
+            $ijinseptember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2093,9 +2088,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpaseptember2022 = 
+            $alpaseptember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2103,9 +2098,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanseptember2022 = 
+            $cutitahunanseptember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2113,9 +2108,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususseptember2022 = 
+            $cutikhususseptember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2123,13 +2118,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutiseptember2022 = $cutitahunanseptember2022+$cutikhususseptember2022;
+            $totalcutiseptember = $cutitahunanseptember+$cutikhususseptember;
             //september
 
             //oktober
-            $sakitoktober2022 = 
+            $sakitoktober = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2137,9 +2132,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','10')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinoktober2022 = 
+            $ijinoktober = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2147,9 +2142,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpaoktober2022 = 
+            $alpaoktober = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2157,9 +2152,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunanoktober2022 = 
+            $cutitahunanoktober = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2167,9 +2162,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususoktober2022 = 
+            $cutikhususoktober = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2177,13 +2172,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutioktober2022 = $cutitahunanoktober2022+$cutikhususoktober2022;
+            $totalcutioktober = $cutitahunanoktober+$cutikhususoktober;
             //oktober
 
             //november
-            $sakitnovember2022 = 
+            $sakitnovember = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2191,9 +2186,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','11')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijinnovember2022 = 
+            $ijinnovember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2201,9 +2196,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpanovember2022 = 
+            $alpanovember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2211,9 +2206,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunannovember2022 = 
+            $cutitahunannovember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2221,9 +2216,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususnovember2022 = 
+            $cutikhususnovember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2231,13 +2226,13 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutinovember2022 = $cutitahunannovember2022+$cutikhususnovember2022;
+            $totalcutinovember = $cutitahunannovember+$cutikhususnovember;
             //november
 
             //desember
-            $sakitdesember2022 = 
+            $sakitdesember = 
             DB::table('attendances')
             ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2245,9 +2240,9 @@ class LaporanController extends Controller
             ->where('attendances.deleted_at',NULL)
             ->where('employees.deleted_at',NULL)
             ->whereMonth('tanggal_absen','=','12')
-            ->whereYear('tanggal_absen','=', '2022')
+            ->whereYear('tanggal_absen','=', $tahun)
             ->count();
-            $ijindesember2022 = 
+            $ijindesember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2255,9 +2250,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $alpadesember2022 = 
+            $alpadesember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2265,9 +2260,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutitahunandesember2022 = 
+            $cutitahunandesember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2275,9 +2270,9 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $cutikhususdesember2022 = 
+            $cutikhususdesember = 
                 DB::table('attendances')
                 ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
                 ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
@@ -2285,776 +2280,776 @@ class LaporanController extends Controller
                 ->where('attendances.deleted_at',NULL)
                 ->where('employees.deleted_at',NULL)
                 ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2022')
+                ->whereYear('tanggal_absen','=', $tahun)
                 ->count();
-            $totalcutidesember2022 = $cutitahunandesember2022+$cutikhususdesember2022;
+            $totalcutidesember = $cutitahunandesember+$cutikhususdesember;
             //desember
 
             return view('pages.admin.laporan.rekap_absensi.tampil_pertahun', [
                 'tahun'                 => $tahun,
-                'sakitjanuari2022'      => $sakitjanuari2022,
-                'sakitfebruari2022'     => $sakitfebruari2022,
-                'sakitmaret2022'        => $sakitmaret2022,
-                'sakitmaret2022'        => $sakitmaret2022,
-                'sakitapril2022'        => $sakitapril2022,
-                'sakitmei2022'          => $sakitmei2022,
-                'sakitjuni2022'         => $sakitjuni2022,
-                'sakitjuli2022'         => $sakitjuli2022,
-                'sakitagustus2022'      => $sakitagustus2022,
-                'sakitseptember2022'    => $sakitseptember2022,
-                'sakitoktober2022'      => $sakitoktober2022,
-                'sakitnovember2022'     => $sakitnovember2022,
-                'sakitdesember2022'     => $sakitdesember2022,
-                'ijinjanuari2022'       => $ijinjanuari2022,
-                'ijinfebruari2022'      => $ijinfebruari2022,
-                'ijinmaret2022'         => $ijinmaret2022,
-                'ijinmaret2022'         => $ijinmaret2022,
-                'ijinapril2022'         => $ijinapril2022,
-                'ijinmei2022'           => $ijinmei2022,
-                'ijinjuni2022'          => $ijinjuni2022,
-                'ijinjuli2022'          => $ijinjuli2022,
-                'ijinagustus2022'       => $ijinagustus2022,
-                'ijinseptember2022'     => $ijinseptember2022,
-                'ijinoktober2022'       => $ijinoktober2022,
-                'ijinnovember2022'      => $ijinnovember2022,
-                'ijindesember2022'      => $ijindesember2022,
-                'alpajanuari2022'       => $alpajanuari2022,
-                'alpafebruari2022'      => $alpafebruari2022,
-                'alpamaret2022'         => $alpamaret2022,
-                'alpamaret2022'         => $alpamaret2022,
-                'alpaapril2022'         => $alpaapril2022,
-                'alpamei2022'           => $alpamei2022,
-                'alpajuni2022'          => $alpajuni2022,
-                'alpajuli2022'          => $alpajuli2022,
-                'alpaagustus2022'       => $alpaagustus2022,
-                'alpaseptember2022'     => $alpaseptember2022,
-                'alpaoktober2022'       => $alpaoktober2022,
-                'alpanovember2022'      => $alpanovember2022,
-                'alpadesember2022'      => $alpadesember2022,
-                'totalcutijanuari2022'  => $totalcutijanuari2022,
-                'totalcutifebruari2022' => $totalcutifebruari2022,
-                'totalcutimaret2022'    => $totalcutimaret2022,
-                'totalcutimaret2022'    => $totalcutimaret2022,
-                'totalcutiapril2022'    => $totalcutiapril2022,
-                'totalcutimei2022'      => $totalcutimei2022,
-                'totalcutijuni2022'     => $totalcutijuni2022,
-                'totalcutijuli2022'     => $totalcutijuli2022,
-                'totalcutiagustus2022'  => $totalcutiagustus2022,
-                'totalcutiseptember2022'=> $totalcutiseptember2022,
-                'totalcutioktober2022'  => $totalcutioktober2022,
-                'totalcutinovember2022' => $totalcutinovember2022,
-                'totalcutidesember2022' => $totalcutidesember2022
+                'sakitjanuari'      => $sakitjanuari,
+                'sakitfebruari'     => $sakitfebruari,
+                'sakitmaret'        => $sakitmaret,
+                'sakitmaret'        => $sakitmaret,
+                'sakitapril'        => $sakitapril,
+                'sakitmei'          => $sakitmei,
+                'sakitjuni'         => $sakitjuni,
+                'sakitjuli'         => $sakitjuli,
+                'sakitagustus'      => $sakitagustus,
+                'sakitseptember'    => $sakitseptember,
+                'sakitoktober'      => $sakitoktober,
+                'sakitnovember'     => $sakitnovember,
+                'sakitdesember'     => $sakitdesember,
+                'ijinjanuari'       => $ijinjanuari,
+                'ijinfebruari'      => $ijinfebruari,
+                'ijinmaret'         => $ijinmaret,
+                'ijinmaret'         => $ijinmaret,
+                'ijinapril'         => $ijinapril,
+                'ijinmei'           => $ijinmei,
+                'ijinjuni'          => $ijinjuni,
+                'ijinjuli'          => $ijinjuli,
+                'ijinagustus'       => $ijinagustus,
+                'ijinseptember'     => $ijinseptember,
+                'ijinoktober'       => $ijinoktober,
+                'ijinnovember'      => $ijinnovember,
+                'ijindesember'      => $ijindesember,
+                'alpajanuari'       => $alpajanuari,
+                'alpafebruari'      => $alpafebruari,
+                'alpamaret'         => $alpamaret,
+                'alpamaret'         => $alpamaret,
+                'alpaapril'         => $alpaapril,
+                'alpamei'           => $alpamei,
+                'alpajuni'          => $alpajuni,
+                'alpajuli'          => $alpajuli,
+                'alpaagustus'       => $alpaagustus,
+                'alpaseptember'     => $alpaseptember,
+                'alpaoktober'       => $alpaoktober,
+                'alpanovember'      => $alpanovember,
+                'alpadesember'      => $alpadesember,
+                'totalcutijanuari'  => $totalcutijanuari,
+                'totalcutifebruari' => $totalcutifebruari,
+                'totalcutimaret'    => $totalcutimaret,
+                'totalcutimaret'    => $totalcutimaret,
+                'totalcutiapril'    => $totalcutiapril,
+                'totalcutimei'      => $totalcutimei,
+                'totalcutijuni'     => $totalcutijuni,
+                'totalcutijuli'     => $totalcutijuli,
+                'totalcutiagustus'  => $totalcutiagustus,
+                'totalcutiseptember'=> $totalcutiseptember,
+                'totalcutioktober'  => $totalcutioktober,
+                'totalcutinovember' => $totalcutinovember,
+                'totalcutidesember' => $totalcutidesember
             ]);
         }
-        elseif($tahun==2023)
-        {
-            $awal   = '2023-01-01';
-            $akhir  = '2023-12-31';
+        // elseif($tahun==2023)
+        // {
+        //     $awal   = '2023-01-01';
+        //     $akhir  = '2023-12-31';
             
-            //Januari
-            $sakitjanuari2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','01')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinjanuari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpajanuari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanjanuari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususjanuari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','01')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutijanuari2023 = $cutitahunanjanuari2023+$cutikhususjanuari2023;
-            //Januari
+        //     //Januari
+        //     $sakitjanuari2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','01')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinjanuari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','01')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpajanuari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','01')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanjanuari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','01')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususjanuari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','01')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutijanuari2023 = $cutitahunanjanuari2023+$cutikhususjanuari2023;
+        //     //Januari
 
-            //februari
-            $sakitfebruari2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','02')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinfebruari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpafebruari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanfebruari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususfebruari2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','02')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutifebruari2023 = $cutitahunanfebruari2023+$cutikhususfebruari2023;
-            //februari
+        //     //februari
+        //     $sakitfebruari2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','02')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinfebruari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','02')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpafebruari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','02')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanfebruari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','02')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususfebruari2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','02')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutifebruari2023 = $cutitahunanfebruari2023+$cutikhususfebruari2023;
+        //     //februari
 
-            //maret
-            $sakitmaret2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','03')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinmaret2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpamaret2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanmaret2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususmaret2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','03')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutimaret2023 = $cutitahunanmaret2023+$cutikhususmaret2023;
-            //maret
+        //     //maret
+        //     $sakitmaret2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','03')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinmaret2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','03')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpamaret2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','03')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanmaret2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','03')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususmaret2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','03')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutimaret2023 = $cutitahunanmaret2023+$cutikhususmaret2023;
+        //     //maret
 
-            //april
-            $sakitapril2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','04')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinapril2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpaapril2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanapril2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususapril2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','04')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutiapril2023 = $cutitahunanapril2023+$cutikhususapril2023;
-            //april
+        //     //april
+        //     $sakitapril2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','04')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinapril2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','04')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpaapril2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','04')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanapril2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','04')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususapril2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','04')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutiapril2023 = $cutitahunanapril2023+$cutikhususapril2023;
+        //     //april
 
-            //mei
-            $sakitmei2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','05')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinmei2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpamei2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanmei2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususmei2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','05')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutimei2023 = $cutitahunanmei2023+$cutikhususmei2023;
-            //mei
+        //     //mei
+        //     $sakitmei2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','05')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinmei2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','05')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpamei2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','05')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanmei2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','05')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususmei2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','05')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutimei2023 = $cutitahunanmei2023+$cutikhususmei2023;
+        //     //mei
 
-            //juni
-            $sakitjuni2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','06')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinjuni2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpajuni2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanjuni2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususjuni2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','06')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutijuni2023 = $cutitahunanjuni2023+$cutikhususjuni2023;
-            //juni
+        //     //juni
+        //     $sakitjuni2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','06')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinjuni2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','06')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpajuni2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','06')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanjuni2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','06')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususjuni2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','06')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutijuni2023 = $cutitahunanjuni2023+$cutikhususjuni2023;
+        //     //juni
 
-            //juli
-            $sakitjuli2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','07')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinjuli2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpajuli2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanjuli2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususjuli2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','07')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutijuli2023 = $cutitahunanjuli2023+$cutikhususjuli2023;
-            //juli
+        //     //juli
+        //     $sakitjuli2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','07')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinjuli2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','07')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpajuli2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','07')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanjuli2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','07')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususjuli2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','07')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutijuli2023 = $cutitahunanjuli2023+$cutikhususjuli2023;
+        //     //juli
 
-            //agustus
-            $sakitagustus2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','08')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinagustus2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpaagustus2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanagustus2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususagustus2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','08')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutiagustus2023 = $cutitahunanagustus2023+$cutikhususagustus2023;
-            //agustus
+        //     //agustus
+        //     $sakitagustus2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','08')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinagustus2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','08')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpaagustus2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','08')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanagustus2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','08')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususagustus2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','08')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutiagustus2023 = $cutitahunanagustus2023+$cutikhususagustus2023;
+        //     //agustus
 
-            //september
-            $sakitseptember2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','09')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinseptember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpaseptember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanseptember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususseptember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','09')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutiseptember2023 = $cutitahunanseptember2023+$cutikhususseptember2023;
-            //september
+        //     //september
+        //     $sakitseptember2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','09')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinseptember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','09')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpaseptember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','09')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanseptember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','09')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususseptember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','09')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutiseptember2023 = $cutitahunanseptember2023+$cutikhususseptember2023;
+        //     //september
 
-            //oktober
-            $sakitoktober2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','10')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinoktober2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpaoktober2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunanoktober2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususoktober2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','10')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutioktober2023 = $cutitahunanoktober2023+$cutikhususoktober2023;
-            //oktober
+        //     //oktober
+        //     $sakitoktober2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','10')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinoktober2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','10')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpaoktober2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','10')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunanoktober2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','10')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususoktober2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','10')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutioktober2023 = $cutitahunanoktober2023+$cutikhususoktober2023;
+        //     //oktober
 
-            //november
-            $sakitnovember2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','11')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijinnovember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpanovember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunannovember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususnovember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','11')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutinovember2023 = $cutitahunannovember2023+$cutikhususnovember2023;
-            //november
+        //     //november
+        //     $sakitnovember2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','11')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijinnovember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','11')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpanovember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','11')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunannovember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','11')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususnovember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','11')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutinovember2023 = $cutitahunannovember2023+$cutikhususnovember2023;
+        //     //november
 
-            //desember
-            $sakitdesember2023 = 
-            DB::table('attendances')
-            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-            ->where('keterangan_absen','Sakit')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
-            ->whereMonth('tanggal_absen','=','12')
-            ->whereYear('tanggal_absen','=', '2023')
-            ->count();
-            $ijindesember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Ijin')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $alpadesember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Alpa')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutitahunandesember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Tahunan')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $cutikhususdesember2023 = 
-                DB::table('attendances')
-                ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
-                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
-                ->where('keterangan_absen','Cuti Khusus')
-                ->where('attendances.deleted_at',NULL)
-                ->where('employees.deleted_at',NULL)
-                ->whereMonth('tanggal_absen','=','12')
-                ->whereYear('tanggal_absen','=', '2023')
-                ->count();
-            $totalcutidesember2023 = $cutitahunandesember2023+$cutikhususdesember2023;
-            //desember
+        //     //desember
+        //     $sakitdesember2023 = 
+        //     DB::table('attendances')
+        //     ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //     ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //     ->where('keterangan_absen','Sakit')
+        //     ->where('attendances.deleted_at',NULL)
+        //     ->where('employees.deleted_at',NULL)
+        //     ->whereMonth('tanggal_absen','=','12')
+        //     ->whereYear('tanggal_absen','=', '2023')
+        //     ->count();
+        //     $ijindesember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Ijin')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','12')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $alpadesember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Alpa')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','12')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutitahunandesember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Tahunan')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','12')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $cutikhususdesember2023 = 
+        //         DB::table('attendances')
+        //         ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+        //         ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+        //         ->where('keterangan_absen','Cuti Khusus')
+        //         ->where('attendances.deleted_at',NULL)
+        //         ->where('employees.deleted_at',NULL)
+        //         ->whereMonth('tanggal_absen','=','12')
+        //         ->whereYear('tanggal_absen','=', '2023')
+        //         ->count();
+        //     $totalcutidesember2023 = $cutitahunandesember2023+$cutikhususdesember2023;
+        //     //desember
 
-            return view('pages.admin.laporan.rekap_absensi.tampil_pertahun', [
-                'tahun'                 => $tahun,
-                'sakitjanuari2023'      => $sakitjanuari2023,
-                'sakitfebruari2023'     => $sakitfebruari2023,
-                'sakitmaret2023'        => $sakitmaret2023,
-                'sakitmaret2023'        => $sakitmaret2023,
-                'sakitapril2023'        => $sakitapril2023,
-                'sakitmei2023'          => $sakitmei2023,
-                'sakitjuni2023'         => $sakitjuni2023,
-                'sakitjuli2023'         => $sakitjuli2023,
-                'sakitagustus2023'      => $sakitagustus2023,
-                'sakitseptember2023'    => $sakitseptember2023,
-                'sakitoktober2023'      => $sakitoktober2023,
-                'sakitnovember2023'     => $sakitnovember2023,
-                'sakitdesember2023'     => $sakitdesember2023,
-                'ijinjanuari2023'       => $ijinjanuari2023,
-                'ijinfebruari2023'      => $ijinfebruari2023,
-                'ijinmaret2023'         => $ijinmaret2023,
-                'ijinmaret2023'         => $ijinmaret2023,
-                'ijinapril2023'         => $ijinapril2023,
-                'ijinmei2023'           => $ijinmei2023,
-                'ijinjuni2023'          => $ijinjuni2023,
-                'ijinjuli2023'          => $ijinjuli2023,
-                'ijinagustus2023'       => $ijinagustus2023,
-                'ijinseptember2023'     => $ijinseptember2023,
-                'ijinoktober2023'       => $ijinoktober2023,
-                'ijinnovember2023'      => $ijinnovember2023,
-                'ijindesember2023'      => $ijindesember2023,
-                'alpajanuari2023'       => $alpajanuari2023,
-                'alpafebruari2023'      => $alpafebruari2023,
-                'alpamaret2023'         => $alpamaret2023,
-                'alpamaret2023'         => $alpamaret2023,
-                'alpaapril2023'         => $alpaapril2023,
-                'alpamei2023'           => $alpamei2023,
-                'alpajuni2023'          => $alpajuni2023,
-                'alpajuli2023'          => $alpajuli2023,
-                'alpaagustus2023'       => $alpaagustus2023,
-                'alpaseptember2023'     => $alpaseptember2023,
-                'alpaoktober2023'       => $alpaoktober2023,
-                'alpanovember2023'      => $alpanovember2023,
-                'alpadesember2023'      => $alpadesember2023,
-                'totalcutijanuari2023'  => $totalcutijanuari2023,
-                'totalcutifebruari2023' => $totalcutifebruari2023,
-                'totalcutimaret2023'    => $totalcutimaret2023,
-                'totalcutimaret2023'    => $totalcutimaret2023,
-                'totalcutiapril2023'    => $totalcutiapril2023,
-                'totalcutimei2023'      => $totalcutimei2023,
-                'totalcutijuni2023'     => $totalcutijuni2023,
-                'totalcutijuli2023'     => $totalcutijuli2023,
-                'totalcutiagustus2023'  => $totalcutiagustus2023,
-                'totalcutiseptember2023'=> $totalcutiseptember2023,
-                'totalcutioktober2023'  => $totalcutioktober2023,
-                'totalcutinovember2023' => $totalcutinovember2023,
-                'totalcutidesember2023' => $totalcutidesember2023
-            ]);
-        }
+        //     return view('pages.admin.laporan.rekap_absensi.tampil_pertahun', [
+        //         'tahun'                 => $tahun,
+        //         'sakitjanuari2023'      => $sakitjanuari2023,
+        //         'sakitfebruari2023'     => $sakitfebruari2023,
+        //         'sakitmaret2023'        => $sakitmaret2023,
+        //         'sakitmaret2023'        => $sakitmaret2023,
+        //         'sakitapril2023'        => $sakitapril2023,
+        //         'sakitmei2023'          => $sakitmei2023,
+        //         'sakitjuni2023'         => $sakitjuni2023,
+        //         'sakitjuli2023'         => $sakitjuli2023,
+        //         'sakitagustus2023'      => $sakitagustus2023,
+        //         'sakitseptember2023'    => $sakitseptember2023,
+        //         'sakitoktober2023'      => $sakitoktober2023,
+        //         'sakitnovember2023'     => $sakitnovember2023,
+        //         'sakitdesember2023'     => $sakitdesember2023,
+        //         'ijinjanuari2023'       => $ijinjanuari2023,
+        //         'ijinfebruari2023'      => $ijinfebruari2023,
+        //         'ijinmaret2023'         => $ijinmaret2023,
+        //         'ijinmaret2023'         => $ijinmaret2023,
+        //         'ijinapril2023'         => $ijinapril2023,
+        //         'ijinmei2023'           => $ijinmei2023,
+        //         'ijinjuni2023'          => $ijinjuni2023,
+        //         'ijinjuli2023'          => $ijinjuli2023,
+        //         'ijinagustus2023'       => $ijinagustus2023,
+        //         'ijinseptember2023'     => $ijinseptember2023,
+        //         'ijinoktober2023'       => $ijinoktober2023,
+        //         'ijinnovember2023'      => $ijinnovember2023,
+        //         'ijindesember2023'      => $ijindesember2023,
+        //         'alpajanuari2023'       => $alpajanuari2023,
+        //         'alpafebruari2023'      => $alpafebruari2023,
+        //         'alpamaret2023'         => $alpamaret2023,
+        //         'alpamaret2023'         => $alpamaret2023,
+        //         'alpaapril2023'         => $alpaapril2023,
+        //         'alpamei2023'           => $alpamei2023,
+        //         'alpajuni2023'          => $alpajuni2023,
+        //         'alpajuli2023'          => $alpajuli2023,
+        //         'alpaagustus2023'       => $alpaagustus2023,
+        //         'alpaseptember2023'     => $alpaseptember2023,
+        //         'alpaoktober2023'       => $alpaoktober2023,
+        //         'alpanovember2023'      => $alpanovember2023,
+        //         'alpadesember2023'      => $alpadesember2023,
+        //         'totalcutijanuari2023'  => $totalcutijanuari2023,
+        //         'totalcutifebruari2023' => $totalcutifebruari2023,
+        //         'totalcutimaret2023'    => $totalcutimaret2023,
+        //         'totalcutimaret2023'    => $totalcutimaret2023,
+        //         'totalcutiapril2023'    => $totalcutiapril2023,
+        //         'totalcutimei2023'      => $totalcutimei2023,
+        //         'totalcutijuni2023'     => $totalcutijuni2023,
+        //         'totalcutijuli2023'     => $totalcutijuli2023,
+        //         'totalcutiagustus2023'  => $totalcutiagustus2023,
+        //         'totalcutiseptember2023'=> $totalcutiseptember2023,
+        //         'totalcutioktober2023'  => $totalcutioktober2023,
+        //         'totalcutinovember2023' => $totalcutinovember2023,
+        //         'totalcutidesember2023' => $totalcutidesember2023
+        //     ]);
+        // }
         else{
             abort(403);
         }
