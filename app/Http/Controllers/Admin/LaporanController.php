@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\RekapGajiRequest;
 use App\Http\Requests\Admin\LaporanAbsensiKaryawanRequest;
 use App\Http\Requests\Admin\RekapOvertimesPertahunRequest;
+use App\Http\Requests\Admin\RekapTurnoverPertahunRequest;
 use App\Http\Requests\Admin\LaporanKaryawanMasukRequest;
 use App\Http\Requests\Admin\LaporanKaryawanKeluarRequest;
 use App\Http\Requests\Admin\RekapAbsensiPerbulanRequest;
@@ -1367,6 +1368,220 @@ class LaporanController extends Controller
 
     }
     // OVERTIMES
+
+    // TURNOVER
+    public function turnover()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        return view('pages.admin.laporan.turnover.index');
+    }
+    public function turnover_pertahun()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        return view('pages.admin.laporan.turnover.rekap_pertahun');
+    }
+    public function tampil_rekap_turnover_pertahun(RekapTurnoverPertahunRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        $Tahun  = $request->input('tahun');
+
+        //JANUARI
+        $MasukJanuari = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','01')->count();
+        
+        $KeluarJanuari = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','01')->count();
+        //JANUARI
+        //FEBRUARI
+        $MasukFebruari = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','02')->count();
+        
+        $KeluarFebruari = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','02')->count();
+        //FEBRUARI
+        //MARET
+        $MasukMaret = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','03')->count();
+        
+        $KeluarMaret = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','03')->count();
+        //MARET
+        //APRIL
+        $MasukApril = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','04')->count();
+        
+        $KeluarApril = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','04')->count();
+        //APRIL
+        //MEI
+        $MasukMei = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','05')->count();
+        
+        $KeluarMei = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','05')->count();
+        //MEI
+        //JUNI
+        $MasukJuni = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','06')->count();
+        
+        $KeluarJuni = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','06')->count();
+        //JUNI
+        //JULI
+        $MasukJuli = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','07')->count();
+        
+        $KeluarJuli = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','07')->count();
+        //JULI
+        //AGUSTUS
+        $MasukAgustus = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','08')->count();
+        
+        $KeluarAgustus = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','08')->count();
+        //AGUSTUS
+        //SEPTEMBER
+        $MasukSeptember = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','09')->count();
+        
+        $KeluarSeptember = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','09')->count();
+        //SEPTEMBER
+        //OKTOBER
+        $MasukOktober = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','10')->count();
+        
+        $KeluarOktober = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','10')->count();
+        //OKTOBER
+        //NOVEMBER
+        $MasukNovember = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','11')->count();
+        
+        $KeluarNovember = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','11')->count();
+        //NOVEMBER
+        //DESEMBER
+        $MasukDesember = Employees::with([
+            'companies',
+            'areas',
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_mulai_kerja','=',$Tahun)->whereMonth('tanggal_mulai_kerja','=','12')->count();
+        
+        $KeluarDesember = EmployeesOuts::with([
+            'divisions',
+            'positions'
+        ])->whereYear('tanggal_keluar_karyawan_keluar','=',$Tahun)->whereMonth('tanggal_keluar_karyawan_keluar','=','12')->count();
+        //DESEMBER
+
+
+        return view('pages.admin.laporan.turnover.tampil_pertahun', [
+            'Tahun'                 => $Tahun,
+            'MasukJanuari'           => $MasukJanuari,
+            'MasukFebruari'          => $MasukFebruari,
+            'MasukMaret'             => $MasukMaret,
+            'MasukApril'             => $MasukApril,
+            'MasukMei'               => $MasukMei,
+            'MasukJuni'              => $MasukJuni,
+            'MasukJuli'              => $MasukJuli,
+            'MasukAgustus'           => $MasukAgustus,
+            'MasukSeptember'         => $MasukSeptember,
+            'MasukOktober'           => $MasukOktober,
+            'MasukNovember'          => $MasukNovember,
+            'MasukDesember'          => $MasukDesember,
+            'KeluarJanuari'           => $KeluarJanuari,
+            'KeluarFebruari'          => $KeluarFebruari,
+            'KeluarMaret'             => $KeluarMaret,
+            'KeluarApril'             => $KeluarApril,
+            'KeluarMei'               => $KeluarMei,
+            'KeluarJuni'              => $KeluarJuni,
+            'KeluarJuli'              => $KeluarJuli,
+            'KeluarAgustus'           => $KeluarAgustus,
+            'KeluarSeptember'         => $KeluarSeptember,
+            'KeluarOktober'           => $KeluarOktober,
+            'KeluarNovember'          => $KeluarNovember,
+            'KeluarDesember'          => $KeluarDesember
+            
+        ]);
+    }
+    // TURNOVER
 
     //ABSENSI KARYAWAN
     public function absensi_karyawan()
