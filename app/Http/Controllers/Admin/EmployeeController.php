@@ -1254,6 +1254,178 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function achivement($id)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'LEADER' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        
+        $item = Employees::with([
+            'areas',
+            'golongans',
+            'divisions',
+            'positions'
+            ])->where('nik_karyawan', $id)->first();
+        
+        //Pendidikan
+        $pendidikan=$item->pendidikan_terakhir;
+        if ($pendidikan == 'SD')
+        {
+            $nilai_pendidikan=10;
+        }
+        elseif ($pendidikan == 'SMP')
+        {
+            $nilai_pendidikan=20;
+        }
+        elseif ($pendidikan == 'SMA/SMK')
+        {
+            $nilai_pendidikan=30;
+        }
+        elseif ($pendidikan == 'D1')
+        {
+            $nilai_pendidikan=40;
+        }
+        elseif ($pendidikan == 'D2')
+        {
+            $nilai_pendidikan=40;
+        }
+        elseif ($pendidikan == 'D3')
+        {
+            $nilai_pendidikan=40;
+        }
+        elseif ($pendidikan == 'S1')
+        {
+            $nilai_pendidikan=60;
+        }
+        elseif ($pendidikan == 'S2')
+        {
+            $nilai_pendidikan=80;
+        }
+        elseif ($pendidikan == 'S3')
+        {
+            $nilai_pendidikan=100;
+        }
+        else
+        {
+            $nilai_pendidikan=0;
+        }
+        //Pendidikan
+
+        //Masa Kerja
+        $today = Carbon::today();
+        $tanggal_mulai_kerja=Carbon::parse($item->tanggal_mulai_kerja);
+        $masa_kerja = $tanggal_mulai_kerja->diffInYears($today);
+
+        if($masa_kerja > 0 && $masa_kerja <= 3)
+        {
+            $nilai_masa_kerja = 10;
+        }
+        elseif($masa_kerja > 3 && $masa_kerja <= 6)
+        {
+            $nilai_masa_kerja = 20;
+        }
+        elseif($masa_kerja > 6 && $masa_kerja <= 9)
+        {
+            $nilai_masa_kerja = 30;
+        }
+        elseif($masa_kerja > 9 && $masa_kerja <= 12)
+        {
+            $nilai_masa_kerja = 40;
+        }
+        elseif($masa_kerja > 12 && $masa_kerja <= 15)
+        {
+            $nilai_masa_kerja = 50;
+        }
+        elseif($masa_kerja > 15 && $masa_kerja <= 18)
+        {
+            $nilai_masa_kerja = 60;
+        }
+        elseif($masa_kerja > 18 && $masa_kerja <= 21)
+        {
+            $nilai_masa_kerja = 70;
+        }
+        elseif($masa_kerja > 21 && $masa_kerja <= 24)
+        {
+            $nilai_masa_kerja = 80;
+        }
+        elseif($masa_kerja > 24 && $masa_kerja <= 27)
+        {
+            $nilai_masa_kerja = 90;
+        }
+        elseif($masa_kerja > 27 )
+        {
+            $nilai_masa_kerja = 100;
+        }
+        else
+        {
+            $nilai_masa_kerja = 0;
+        }
+        //Masa Kerja
+
+        //Jabatan
+        $jabatan = $item->positions->id;
+        if($jabatan == 5)
+        {
+            $nilai_jabatan=100;
+        }
+        elseif($jabatan == 6 || $jabatan == 7)
+        {
+            $nilai_jabatan=90;
+        }
+        elseif($jabatan == 8)
+        {
+            $nilai_jabatan=80;
+        }
+        elseif($jabatan == 9 || $jabatan == 10)
+        {
+            $nilai_jabatan=70;
+        }
+        elseif($jabatan == 12)
+        {
+            $nilai_jabatan=60;
+        }
+        elseif($jabatan == 13 || $jabatan == 14 || $jabatan == 18|| $jabatan == 36|| $jabatan == 37|| $jabatan == 38)
+        {
+            $nilai_jabatan=50;
+        }
+        elseif($jabatan == 15)
+        {
+            $nilai_jabatan=40;
+        }
+        elseif($jabatan == 19 || $jabatan == 35 || $jabatan == 39)
+        {
+            $nilai_jabatan=30;
+        }
+        elseif($jabatan == 16 || $jabatan == 42)
+        {
+            $nilai_jabatan=20;
+        }
+        else
+        {
+            $nilai_jabatan=10;
+        }
+        //Jabatan
+
+        $year=2024;
+        $month=07;
+        $date = Carbon::create($year, $month)->startOfMonth();
+
+        $sameMonthLastYear = $date->copy()->subYear()->format('Ym');
+        $lastMonthYear =  $date->copy()->subMonth()->format('Ym');
+        $lastYear =  $date->copy()->subMonth()->format('Y');
+
+        $LastToLastMonthYear = $date->copy()->subMonths(12)->format('Ym');
+
+        // dd($LastToLastMonthYear.' & '.$lastMonthYear);
+
+        return view('pages.admin.employee.achivement',[
+            'nilai_pendidikan' => $nilai_pendidikan,
+            'nilai_masa_kerja' => $nilai_masa_kerja,
+            'nilai_jabatan' => $nilai_jabatan
+            // 'items' => $items
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -53,7 +53,7 @@
                                 <tbody>
                                     @php
                                         $no = 1;
-                                        
+
                                     @endphp
                                     @foreach ($items as $item)
                                         @php
@@ -84,7 +84,7 @@
                                         @else
                                             @php
                                                 $tanggal_akhir_kerja = \Carbon\Carbon::parse($item->tanggal_akhir_kerja)->isoformat('DD-MM-Y');
-                                                
+
                                             @endphp
                                         @endif
                                         <tr>
@@ -108,6 +108,10 @@
                                                 <a href="{{ route('employee.detail_employees', $item->nik_karyawan) }}"
                                                     class="btn btn-info btn-sm" target="_blank">
                                                     <i class="fa fa-print"></i>
+                                                </a>
+                                                <a href="{{ route('employee.achivement', $item->nik_karyawan) }}"
+                                                    class="btn btn-dark btn-sm" target="_blank">
+                                                    <i class="fa fa-award"></i>
                                                 </a>
 
                                                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
