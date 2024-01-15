@@ -21,6 +21,7 @@
         var nilai_pendidikan = {{ json_encode($nilai_pendidikan) }};
         var nilai_masa_kerja = {{ json_encode($nilai_masa_kerja) }};
         var nilai_jabatan = {{ json_encode($nilai_jabatan) }};
+        var nilai_absensi = {{ json_encode($nilai_absensi) }};
         Highcharts.chart('container', {
             chart: {
                 type: 'column'
@@ -66,7 +67,7 @@
                 colorByPoint: true,
                 groupPadding: 0,
                 data: [
-                    ['Absensi', 0],
+                    ['Absensi', nilai_absensi],
                     ['Pendidikan', nilai_pendidikan],
                     ['Jabatan', nilai_jabatan],
                     ['Masa Kerja', nilai_masa_kerja],

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Http\Requests\Admin\EmployeeUpdateRequest;
 use App\Models\Admin\Employees;
+use App\Models\Admin\Attendances;
 use App\Models\Admin\Companies;
 use App\Models\Admin\WorkingHours;
 use App\Models\Admin\Divisions;
@@ -1406,23 +1407,159 @@ class EmployeeController extends Controller
         }
         //Jabatan
 
-        $year=2024;
-        $month=07;
-        $date = Carbon::create($year, $month)->startOfMonth();
+        //Absensi
+        //Tahun Dan BUlan Sekarang
+        $Year = Carbon::now()->isoFormat('Y');
+        $Month = Carbon::now()->isoFormat('M');
+        // $Year = 2023;
+        // $Month = 3;
+        //Tahun Dan BUlan Sekarang
 
+        //Tanggal Sekarang
+        $date = Carbon::create($Year, $Month)->startOfMonth();
+        //Tanggal Sekarang
+        
+        //Draft Jangan Dihapus
         $sameMonthLastYear = $date->copy()->subYear()->format('Ym');
         $lastMonthYear =  $date->copy()->subMonth()->format('Ym');
         $lastYear =  $date->copy()->subMonth()->format('Y');
-
         $LastToLastMonthYear = $date->copy()->subMonths(12)->format('Ym');
+        $firstDayofPreviousMonth = Carbon::now()->startOfMonth()->subMonth()->toDateString();
+        $lastDayofPreviousMonth = Carbon::now()->subMonth()->endOfMonth()->toDateString();
+        //Draft Jangan Dihapus
+        
+        //Rumus
+        $TanggalAwal = $date->copy()->subMonths(12)->format('d');
+        $BulanAwal = $date->copy()->subMonths(12)->format('m');
+        $TahunAwal = $date->copy()->subMonths(12)->format('Y');
 
-        // dd($LastToLastMonthYear.' & '.$lastMonthYear);
+        $TanggalAkhir = $date->copy()->subMonth()->endOfMonth()->format('d');
+        $BulanAkhir =  $date->copy()->subMonth()->format('m');
+        $TahunAkhir =  $date->copy()->subMonth()->format('Y');
+
+        $Awal = $TahunAwal.'-'.$BulanAwal.'-'.$TanggalAwal;
+        $Akhir = $TahunAkhir.'-'.$BulanAkhir.'-'.$TanggalAkhir;
+        //Rumus
+
+        $JumlahCutiTahunan = Attendances::with([
+            'employees'
+            ])->where('keterangan_absen', 'Cuti Tahunan')->whereBetween('tanggal_absen', [$Awal, $Akhir])->where('employees_id', $id)->count();
+        $JumlahCutiKhusus = Attendances::with([
+            'employees'
+            ])->where('keterangan_absen', 'Cuti Khusus')->whereBetween('tanggal_absen', [$Awal, $Akhir])->where('employees_id', $id)->count();
+        $JumlahSakit = Attendances::with([
+            'employees'
+            ])->where('keterangan_absen', 'Sakit')->whereBetween('tanggal_absen', [$Awal, $Akhir])->where('employees_id', $id)->count();
+        $JumlahIjin = Attendances::with([
+            'employees'
+            ])->where('keterangan_absen', 'Ijin')->whereBetween('tanggal_absen', [$Awal, $Akhir])->where('employees_id', $id)->count();
+        $JumlahAlpa = Attendances::with([
+            'employees'
+            ])->where('keterangan_absen', 'Alpa')->whereBetween('tanggal_absen', [$Awal, $Akhir])->where('employees_id', $id)->count();
+        $JumlahCuti=$JumlahCutiTahunan + $JumlahCutiKhusus;
+        
+        //Nilai Cuti
+        if($JumlahCuti == 0)
+        {
+            $nilai_cuti = 25;
+        }
+        elseif($JumlahCuti > 0 && $JumlahCuti <= 3)
+        {
+            $nilai_cuti = 15;
+        }
+        elseif($JumlahCuti >= 4 && $JumlahCuti <= 6)
+        {
+            $nilai_cuti = 10;
+        }
+        elseif($JumlahCuti >= 7)
+        {
+            $nilai_cuti = 0;
+        }
+        else
+        {
+            $nilai_cuti = 0;
+        }
+        //Nilai Cuti
+
+        //Nilai Sakit
+        if($JumlahSakit == 0)
+        {
+            $nilai_sakit = 25;
+        }
+        elseif($JumlahSakit > 0 && $JumlahSakit <= 6)
+        {
+            $nilai_sakit = 15;
+        }
+        elseif($JumlahSakit >= 7 && $JumlahSakit <= 12)
+        {
+            $nilai_sakit = 10;
+        }
+        elseif($JumlahSakit > 12)
+        {
+            $nilai_sakit = 0;
+        }
+        else
+        {
+            $nilai_sakit = 0;
+        }
+        //Nilai Sakit
+
+        //Nilai Ijin
+        if($JumlahIjin == 0)
+        {
+            $nilai_ijin = 25;
+        }
+        elseif($JumlahIjin > 0 && $JumlahIjin <= 6)
+        {
+            $nilai_ijin = 15;
+        }
+        elseif($JumlahIjin >= 7 && $JumlahIjin <= 12)
+        {
+            $nilai_ijin = 10;
+        }
+        elseif($JumlahIjin > 12)
+        {
+            $nilai_ijin = 0;
+        }
+        else
+        {
+            $nilai_ijin = 0;
+        }
+        //Nilai Ijin
+
+        //Nilai Alpa
+        if($JumlahAlpa == 0)
+        {
+            $nilai_alpa = 25;
+        }
+        elseif($JumlahAlpa > 0 && $JumlahAlpa <= 6)
+        {
+            $nilai_alpa = 15;
+        }
+        elseif($JumlahAlpa >= 7 && $JumlahAlpa <= 12)
+        {
+            $nilai_alpa = 10;
+        }
+        elseif($JumlahAlpa > 12)
+        {
+            $nilai_alpa = 0;
+        }
+        else
+        {
+            $nilai_alpa = 0;
+        }
+        //Nilai Alpa
+
+        //Nilai Absensi
+        $nilai_absensi = $nilai_cuti+$nilai_sakit+$nilai_ijin+$nilai_alpa;
+        //Nilai Absensi
+        //Absensi
 
         return view('pages.admin.employee.achivement',[
             'nilai_pendidikan' => $nilai_pendidikan,
             'nilai_masa_kerja' => $nilai_masa_kerja,
-            'nilai_jabatan' => $nilai_jabatan
-            // 'items' => $items
+            'nilai_jabatan' => $nilai_jabatan,
+            'nilai_absensi' => $nilai_absensi
         ]);
     }
 
