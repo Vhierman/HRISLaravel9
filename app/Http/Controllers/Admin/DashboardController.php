@@ -40,7 +40,7 @@ class DashboardController extends Controller
      */
     public function logout(){
         Auth::logout();
-        return redirect('/'); // ini untuk redirect setelah logout
+        return redirect('/admin'); // ini untuk redirect setelah logout
     }
 
     public function training_internal()

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attendances_pkls', function (Blueprint $table) {
+        Schema::create('ss_eksternals', function (Blueprint $table) {
             $table->id();
-            $table->string('students_id');
-            $table->date('tanggal_absen');
-            $table->string('keterangan_absen');
-            $table->string('lama_absen');
+            $table->string('employees_id');
+            $table->string('tema_ss_eksternal');
+            $table->date('tanggal_ss_eksternal');
+            $table->string('instansi');
             $table->string('input_oleh');
             $table->string('edit_oleh');
             $table->string('hapus_oleh');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances_pkls');
+        Schema::dropIfExists('ss_eksternals');
     }
 };

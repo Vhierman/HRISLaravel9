@@ -29,6 +29,13 @@ use App\Models\Admin\InventoryCars;
 use App\Models\Admin\MinimalSalaries;
 use App\Models\Admin\MaksimalUpahBpjskesehatan;
 use App\Models\Admin\MaksimalUpahBpjsketenagakerjaan;
+use App\Models\Admin\CertificationBnsps;
+use App\Models\Admin\CertificationMinistrys;
+use App\Models\Admin\CertificationOthers;
+use App\Models\Admin\QccInternals;
+use App\Models\Admin\SsInternals;
+use App\Models\Admin\QccEksternals;
+use App\Models\Admin\SsEksternals;
 use Carbon\Carbon;
 use File;
 use Storage;
@@ -1555,11 +1562,405 @@ class EmployeeController extends Controller
         //Nilai Absensi
         //Absensi
 
+        //Training Internal
+        $JumlahTrainingInternal = HistoryTrainingInternals::with([
+            'employees'
+            ])->whereBetween('tanggal_training_internal', [$Awal, $Akhir])->where('employees_id', $id)->count();
+        //Nilai Training Internal
+        if($JumlahTrainingInternal == 0)
+        {
+            $nilai_training_internal = 0;
+        }
+        elseif($JumlahTrainingInternal >= 1 && $JumlahTrainingInternal <= 3)
+        {
+            $nilai_training_internal = 25;
+        }
+        elseif($JumlahTrainingInternal > 3 && $JumlahTrainingInternal <= 6)
+        {
+            $nilai_training_internal = 50;
+        }
+        elseif($JumlahTrainingInternal > 6 && $JumlahTrainingInternal <= 12)
+        {
+            $nilai_training_internal = 75;
+        }
+        elseif($JumlahTrainingInternal > 12)
+        {
+            $nilai_training_internal = 100;
+        }
+        else
+        {
+            $nilai_training_internal = 0;
+        }
+        //Training Internal
+
+        //Training Eksternal
+        $JumlahTrainingEksternal = HistoryTrainingEksternals::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai Training Eksternal
+        if($JumlahTrainingEksternal == 0)
+        {
+            $nilai_training_eksternal = 0;
+        }
+        elseif($JumlahTrainingEksternal >= 1 && $JumlahTrainingEksternal <= 2)
+        {
+            $nilai_training_eksternal = 25;
+        }
+        elseif($JumlahTrainingEksternal > 2 && $JumlahTrainingEksternal <= 4)
+        {
+            $nilai_training_eksternal = 50;
+        }
+        elseif($JumlahTrainingEksternal > 4 && $JumlahTrainingEksternal <= 6)
+        {
+            $nilai_training_eksternal = 75;
+        }
+        elseif($JumlahTrainingEksternal > 6)
+        {
+            $nilai_training_eksternal = 100;
+        }
+        else
+        {
+            $nilai_training_eksternal = 0;
+        }
+        //Training Eksternal
+
+        //Sertifikasi BNSP
+        $JumlahSertifikasiBNSP = CertificationBnsps::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai Sertifikasi BNSP
+        if($JumlahSertifikasiBNSP == 0)
+        {
+            $nilai_sertifikasi_bnsp = 0;
+        }
+        elseif($JumlahSertifikasiBNSP >= 1 && $JumlahSertifikasiBNSP <= 2)
+        {
+            $nilai_sertifikasi_bnsp = 25;
+        }
+        elseif($JumlahSertifikasiBNSP > 2 && $JumlahSertifikasiBNSP <= 4)
+        {
+            $nilai_sertifikasi_bnsp = 50;
+        }
+        elseif($JumlahSertifikasiBNSP > 4 && $JumlahSertifikasiBNSP <= 6)
+        {
+            $nilai_sertifikasi_bnsp = 75;
+        }
+        elseif($JumlahSertifikasiBNSP > 6)
+        {
+            $nilai_sertifikasi_bnsp = 100;
+        }
+        else
+        {
+            $nilai_sertifikasi_bnsp = 0;
+        }
+        //Sertifikasi BNSP
+
+        //Sertifikasi KEMENTRIAN
+        $JumlahSertifikasiKementrian = CertificationMinistrys::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai Sertifikasi KEMENTRIAN
+        if($JumlahSertifikasiKementrian == 0)
+        {
+            $nilai_sertifikasi_kementrian = 0;
+        }
+        elseif($JumlahSertifikasiKementrian >= 1 && $JumlahSertifikasiKementrian <= 2)
+        {
+            $nilai_sertifikasi_kementrian = 25;
+        }
+        elseif($JumlahSertifikasiKementrian > 2 && $JumlahSertifikasiKementrian <= 4)
+        {
+            $nilai_sertifikasi_kementrian = 50;
+        }
+        elseif($JumlahSertifikasiKementrian > 4 && $JumlahSertifikasiKementrian <= 6)
+        {
+            $nilai_sertifikasi_kementrian = 75;
+        }
+        elseif($JumlahSertifikasiKementrian > 6)
+        {
+            $nilai_sertifikasi_kementrian = 100;
+        }
+        else
+        {
+            $nilai_sertifikasi_kementrian = 0;
+        }
+        //Sertifikasi KEMENTRIAN
+
+        //Sertifikasi Lainnya
+        $JumlahSertifikasiLainnya = CertificationOthers::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai Sertifikasi Lainnya
+        if($JumlahSertifikasiLainnya == 0)
+        {
+            $nilai_sertifikasi_lainnya = 0;
+        }
+        elseif($JumlahSertifikasiLainnya >= 1 && $JumlahSertifikasiLainnya <= 3)
+        {
+            $nilai_sertifikasi_lainnya = 10;
+        }
+        elseif($JumlahSertifikasiLainnya > 3 && $JumlahSertifikasiLainnya <= 6)
+        {
+            $nilai_sertifikasi_lainnya = 20;
+        }
+        elseif($JumlahSertifikasiLainnya > 6 && $JumlahSertifikasiLainnya <= 9)
+        {
+            $nilai_sertifikasi_lainnya = 40;
+        }
+        elseif($JumlahSertifikasiLainnya > 9 && $JumlahSertifikasiLainnya <= 12)
+        {
+            $nilai_sertifikasi_lainnya = 60;
+        }
+        elseif($JumlahSertifikasiLainnya > 12 && $JumlahSertifikasiLainnya <= 15)
+        {
+            $nilai_sertifikasi_lainnya = 80;
+        }
+        elseif($JumlahSertifikasiLainnya > 15)
+        {
+            $nilai_sertifikasi_lainnya = 100;
+        }
+        else
+        {
+            $nilai_sertifikasi_lainnya = 0;
+        }
+        //Sertifikasi Lainnya
+
+        //QCC Internal
+        $JumlahQccInternal = QccInternals::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai QCC Internal
+        if($JumlahQccInternal == 0)
+        {
+            $nilai_qcc_internal = 0;
+        }
+        elseif($JumlahQccInternal == 1)
+        {
+            $nilai_qcc_internal = 10;
+        }
+        elseif($JumlahQccInternal == 2)
+        {
+            $nilai_qcc_internal = 20;
+        }
+        elseif($JumlahQccInternal == 3)
+        {
+            $nilai_qcc_internal = 30;
+        }
+        elseif($JumlahQccInternal == 4)
+        {
+            $nilai_qcc_internal = 40;
+        }
+        elseif($JumlahQccInternal == 5)
+        {
+            $nilai_qcc_internal = 50;
+        }
+        elseif($JumlahQccInternal == 6)
+        {
+            $nilai_qcc_internal = 60;
+        }
+        elseif($JumlahQccInternal == 7)
+        {
+            $nilai_qcc_internal = 70;
+        }
+        elseif($JumlahQccInternal == 8)
+        {
+            $nilai_qcc_internal = 80;
+        }
+        elseif($JumlahQccInternal == 9)
+        {
+            $nilai_qcc_internal = 90;
+        }
+        elseif($JumlahQccInternal >= 10)
+        {
+            $nilai_qcc_internal = 100;
+        }
+        else
+        {
+            $nilai_qcc_internal = 0;
+        }
+        //QCC Internal
+
+        //QCC Eksternal
+        $JumlahQccEksternal = QccEksternals::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai QCC Eksternal
+        if($JumlahQccEksternal == 0)
+        {
+            $nilai_qcc_eksternal = 0;
+        }
+        elseif($JumlahQccEksternal == 1)
+        {
+            $nilai_qcc_eksternal = 10;
+        }
+        elseif($JumlahQccEksternal == 2)
+        {
+            $nilai_qcc_eksternal = 20;
+        }
+        elseif($JumlahQccEksternal == 3)
+        {
+            $nilai_qcc_eksternal = 30;
+        }
+        elseif($JumlahQccEksternal == 4)
+        {
+            $nilai_qcc_eksternal = 40;
+        }
+        elseif($JumlahQccEksternal == 5)
+        {
+            $nilai_qcc_eksternal = 50;
+        }
+        elseif($JumlahQccEksternal == 6)
+        {
+            $nilai_qcc_eksternal = 60;
+        }
+        elseif($JumlahQccEksternal == 7)
+        {
+            $nilai_qcc_eksternal = 70;
+        }
+        elseif($JumlahQccEksternal == 8)
+        {
+            $nilai_qcc_eksternal = 80;
+        }
+        elseif($JumlahQccEksternal == 9)
+        {
+            $nilai_qcc_eksternal = 90;
+        }
+        elseif($JumlahQccEksternal >= 10)
+        {
+            $nilai_qcc_eksternal = 100;
+        }
+        else
+        {
+            $nilai_qcc_eksternal = 0;
+        }
+        //QCC Eksternal
+
+        //SS Internal
+        $JumlahSsInternal = SsInternals::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai SS Internal
+        if($JumlahSsInternal == 0)
+        {
+            $nilai_ss_internal = 0;
+        }
+        elseif($JumlahSsInternal == 1)
+        {
+            $nilai_ss_internal = 10;
+        }
+        elseif($JumlahSsInternal == 2)
+        {
+            $nilai_ss_internal = 20;
+        }
+        elseif($JumlahSsInternal == 3)
+        {
+            $nilai_ss_internal = 30;
+        }
+        elseif($JumlahSsInternal == 4)
+        {
+            $nilai_ss_internal = 40;
+        }
+        elseif($JumlahSsInternal == 5)
+        {
+            $nilai_ss_internal = 50;
+        }
+        elseif($JumlahSsInternal == 6)
+        {
+            $nilai_ss_internal = 60;
+        }
+        elseif($JumlahSsInternal == 7)
+        {
+            $nilai_ss_internal = 70;
+        }
+        elseif($JumlahSsInternal == 8)
+        {
+            $nilai_ss_internal = 80;
+        }
+        elseif($JumlahSsInternal == 9)
+        {
+            $nilai_ss_internal = 90;
+        }
+        elseif($JumlahSsInternal >= 10)
+        {
+            $nilai_ss_internal = 100;
+        }
+        else
+        {
+            $nilai_ss_internal = 0;
+        }
+        //SS Internal
+
+        //SS Eksternal
+        $JumlahSsEksternal = SsEksternals::with([
+            'employees'
+            ])->where('employees_id', $id)->count();
+        //Nilai SS Eksternal
+        if($JumlahSsEksternal == 0)
+        {
+            $nilai_ss_eksternal = 0;
+        }
+        elseif($JumlahSsEksternal == 1)
+        {
+            $nilai_ss_eksternal = 10;
+        }
+        elseif($JumlahSsEksternal == 2)
+        {
+            $nilai_ss_eksternal = 20;
+        }
+        elseif($JumlahSsEksternal == 3)
+        {
+            $nilai_ss_eksternal = 30;
+        }
+        elseif($JumlahSsEksternal == 4)
+        {
+            $nilai_ss_eksternal = 40;
+        }
+        elseif($JumlahSsEksternal == 5)
+        {
+            $nilai_ss_eksternal = 50;
+        }
+        elseif($JumlahSsEksternal == 6)
+        {
+            $nilai_ss_eksternal = 60;
+        }
+        elseif($JumlahSsEksternal == 7)
+        {
+            $nilai_ss_eksternal = 70;
+        }
+        elseif($JumlahSsEksternal == 8)
+        {
+            $nilai_ss_eksternal = 80;
+        }
+        elseif($JumlahSsEksternal == 9)
+        {
+            $nilai_ss_eksternal = 90;
+        }
+        elseif($JumlahSsEksternal >= 10)
+        {
+            $nilai_ss_eksternal = 100;
+        }
+        else
+        {
+            $nilai_ss_eksternal = 0;
+        }
+        //SS Eksternal
+
+        // dd($nilai_training_eksternal);
+
         return view('pages.admin.employee.achivement',[
             'nilai_pendidikan' => $nilai_pendidikan,
             'nilai_masa_kerja' => $nilai_masa_kerja,
             'nilai_jabatan' => $nilai_jabatan,
-            'nilai_absensi' => $nilai_absensi
+            'nilai_absensi' => $nilai_absensi,
+            'nilai_training_internal' => $nilai_training_internal,
+            'nilai_training_eksternal' => $nilai_training_eksternal,
+            'nilai_sertifikasi_bnsp' => $nilai_sertifikasi_bnsp,
+            'nilai_sertifikasi_kementrian' => $nilai_sertifikasi_kementrian,
+            'nilai_sertifikasi_lainnya' => $nilai_sertifikasi_lainnya,
+            'nilai_qcc_internal' => $nilai_qcc_internal,
+            'nilai_qcc_eksternal' => $nilai_qcc_eksternal,
+            'nilai_ss_internal' => $nilai_ss_internal,
+            'nilai_ss_eksternal' => $nilai_ss_eksternal
         ]);
     }
 

@@ -130,6 +130,42 @@ Route::prefix('admin')
         Route::post('history_training_internal/storemultipletraininginternal', 'HistoryTrainingInternalController@storemultipletraininginternal')->name('history_training_internal.storemultipletraininginternal');
         Route::post('history_training_internal/tampilmultipletraininginternal', 'HistoryTrainingInternalController@tampilmultipletraininginternal')->name('history_training_internal.tampilmultipletraininginternal');
         Route::resource('history_training_internal', 'HistoryTrainingInternalController');
+        // Sertifikasi
+        Route::post('certification/hapus_sertifikasi_kementrian/{id}', 'CertificationController@hapus_sertifikasi_kementrian')->name('certification.hapus_sertifikasi_kementrian');
+        Route::post('certification/update_sertifikasi_kementrian', 'CertificationController@update_sertifikasi_kementrian')->name('certification.update_sertifikasi_kementrian');
+        Route::get('certification/edit_sertifikasi_kementrian/{id}', 'CertificationController@edit_sertifikasi_kementrian')->name('certification.edit_sertifikasi_kementrian');
+        Route::get('certification/tambah_sertifikasi_kementrian', 'CertificationController@tambah_sertifikasi_kementrian')->name('certification.tambah_sertifikasi_kementrian');
+        Route::post('certification/store_sertifikasi_kementrian', 'CertificationController@store_sertifikasi_kementrian')->name('certification.store_sertifikasi_kementrian');
+        Route::get('certification/sertifikasi_kementrian', 'CertificationController@sertifikasi_kementrian')->name('certification.sertifikasi_kementrian');
+        Route::get('certification/sertifikasi_lainnya', 'CertificationController@sertifikasi_lainnya')->name('certification.sertifikasi_lainnya');
+        Route::get('certification/tambah_sertifikasi_lainnya', 'CertificationController@tambah_sertifikasi_lainnya')->name('certification.tambah_sertifikasi_lainnya');
+        Route::post('certification/store_sertifikasi_lainnya', 'CertificationController@store_sertifikasi_lainnya')->name('certification.store_sertifikasi_lainnya');
+        Route::get('certification/edit_sertifikasi_lainnya/{id}', 'CertificationController@edit_sertifikasi_lainnya')->name('certification.edit_sertifikasi_lainnya');
+        Route::post('certification/update_sertifikasi_lainnya', 'CertificationController@update_sertifikasi_lainnya')->name('certification.update_sertifikasi_lainnya');
+        Route::post('certification/hapus_sertifikasi_lainnya/{id}', 'CertificationController@hapus_sertifikasi_lainnya')->name('certification.hapus_sertifikasi_lainnya');
+        Route::resource('certification', 'CertificationController');
+        //History Kaizen
+        Route::post('kaizen/hapus_ss_eksternal/{id}', 'KaizenController@hapus_ss_eksternal')->name('kaizen.hapus_ss_eksternal');
+        Route::post('kaizen/update_ss_eksternal', 'KaizenController@update_ss_eksternal')->name('kaizen.update_ss_eksternal');
+        Route::get('kaizen/edit_ss_eksternal/{id}', 'KaizenController@edit_ss_eksternal')->name('kaizen.edit_ss_eksternal');
+        Route::post('kaizen/store_ss_eksternal', 'KaizenController@store_ss_eksternal')->name('kaizen.store_ss_eksternal');
+        Route::get('kaizen/tambah_ss_eksternal', 'KaizenController@tambah_ss_eksternal')->name('kaizen.tambah_ss_eksternal');
+        Route::get('kaizen/ss_eksternal', 'KaizenController@ss_eksternal')->name('kaizen.ss_eksternal');
+
+        Route::post('kaizen/hapus_ss_internal/{id}', 'KaizenController@hapus_ss_internal')->name('kaizen.hapus_ss_internal');
+        Route::post('kaizen/update_ss_internal', 'KaizenController@update_ss_internal')->name('kaizen.update_ss_internal');
+        Route::get('kaizen/edit_ss_internal/{id}', 'KaizenController@edit_ss_internal')->name('kaizen.edit_ss_internal');
+        Route::post('kaizen/store_ss_internal', 'KaizenController@store_ss_internal')->name('kaizen.store_ss_internal');
+        Route::get('kaizen/tambah_ss_internal', 'KaizenController@tambah_ss_internal')->name('kaizen.tambah_ss_internal');
+        Route::get('kaizen/ss_internal', 'KaizenController@ss_internal')->name('kaizen.ss_internal');
+        
+        Route::post('kaizen/hapus_qcc_eksternal/{id}', 'KaizenController@hapus_qcc_eksternal')->name('kaizen.hapus_qcc_eksternal');
+        Route::post('kaizen/update_qcc_eksternal', 'KaizenController@update_qcc_eksternal')->name('kaizen.update_qcc_eksternal');
+        Route::get('kaizen/edit_qcc_eksternal/{id}', 'KaizenController@edit_qcc_eksternal')->name('kaizen.edit_qcc_eksternal');
+        Route::post('kaizen/store_qcc_eksternal', 'KaizenController@store_qcc_eksterna')->name('kaizen.store_qcc_eksterna');
+        Route::get('kaizen/tambah_qcc_eksternal', 'KaizenController@tambah_qcc_eksternal')->name('kaizen.tambah_qcc_eksternal');
+        Route::get('kaizen/qcc_eksternal', 'KaizenController@qcc_eksternal')->name('kaizen.qcc_eksternal');
+        Route::resource('kaizen', 'KaizenController');
         //History Training Eksternal
         Route::get('history_training_eksternal/tambahhistorytrainingeksternal/{nik_karyawan}', 'HistoryTrainingEksternalController@tambahhistorytrainingeksternal')->name('history_training_eksternal.tambahhistorytrainingeksternal');
         Route::post('history_training_eksternal/storemultipletrainingeksternal', 'HistoryTrainingEksternalController@storemultipletrainingeksternal')->name('history_training_eksternal.storemultipletrainingeksternal');
@@ -254,9 +290,6 @@ Route::prefix('admin')
         Route::post('laporan/tampil_laporan_training_eksternal', 'LaporanController@tampil_laporan_training_eksternal')->name('laporan.tampil_laporan_training_eksternal');
         Route::resource('laporan', 'LaporanController');
         //Laporan
-        
-
-       
     });
 
 Auth::routes(['verify' => true]);

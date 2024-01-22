@@ -229,6 +229,64 @@
                 @endif
                 {{-- Training --}}
 
+                {{-- Sertifikasi --}}
+                @if (Auth::user()->roles == 'ADMIN' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER')
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSertifikasi"
+                        aria-expanded="false" aria-controls="collapseSertifikasi">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                        Sertifikasi
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseSertifikasi" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('certification.index') }}">BNSP</a>
+                        </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link"
+                                href="{{ route('certification.sertifikasi_kementrian') }}">KEMENTRIAN</a>
+                        </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('certification.sertifikasi_lainnya') }}">LAINNYA</a>
+                        </nav>
+                    </div>
+                @endif
+                {{-- Sertifikasi --}}
+
+                {{-- Kaizen --}}
+                @if (Auth::user()->roles == 'ADMIN' ||
+                        Auth::user()->roles == 'MANAGER HRD' ||
+                        Auth::user()->roles == 'HRD' ||
+                        Auth::user()->roles == 'LEADER')
+                    <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseKaizen"
+                        aria-expanded="false" aria-controls="collapseKaizen">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                        Kaizen
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseKaizen" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('kaizen.index') }}">QCC Internal</a>
+                        </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('kaizen.qcc_eksternal') }}">QCC Eksternal</a>
+                        </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('kaizen.ss_internal') }}">SS
+                                Internal</a>
+                        </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('kaizen.ss_eksternal') }}">SS
+                                Eksternal</a>
+                        </nav>
+                    </div>
+                @endif
+                {{-- Kaizen --}}
+
                 {{-- Surat --}}
                 @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                     <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSurat"
