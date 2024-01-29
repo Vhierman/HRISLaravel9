@@ -1365,7 +1365,15 @@ class OvertimeController extends Controller
             ->whereBetween('tanggal_lembur', [$awal, $akhir])
             ->orderBy('tanggal_lembur')
             ->get();
-
+        
+        // dd($itemcoversatu);
+        
+        if ($itemcoversatu == null) {
+            Alert::success('Data Belum Tersedia');
+            //Redirect
+            return redirect()->route('overtime.index');
+        } else {
+         
         $this->fpdf = new FPDF('P', 'cm', array(21, 28));
         $this->fpdf->setTopMargin(0.2);
         $this->fpdf->setLeftMargin(0.6);
@@ -1495,94 +1503,95 @@ class OvertimeController extends Controller
         $jumlahuanglembur       = $jumlahjamlembur * $itemcoversatu->upah_lembur_perjam;
         $jumlahuangditerima     = $jumlahuanglembur + $jumlahuangmakanlembur;
 
-        $this->fpdf->Ln(0.4);
-        $this->fpdf->Cell(9.4);
-        $this->fpdf->Cell(1.7, 0.4, 'Jumlah Jam', 0, 0, 'L');
+            $this->fpdf->Ln(0.4);
+            $this->fpdf->Cell(9.4);
+            $this->fpdf->Cell(1.7, 0.4, 'Jumlah Jam', 0, 0, 'L');
 
-        $this->fpdf->Cell(1, 0.4, $jumlahjampertama, 1, 0, 'C');
-        $this->fpdf->Cell(1, 0.4, $jumlahjamkedua, 1, 0, 'C');
-        $this->fpdf->Cell(1, 0.4, $jumlahjamketiga, 1, 0, 'C');
-        $this->fpdf->Cell(1, 0.4, $jumlahjamkeempat, 1, 0, 'C');
-        $this->fpdf->Cell(2.2, 0.4, $jumlahuangmakanlembur, 1, 0, 'C');
-        $this->fpdf->Cell(2.2, 0.4, " - ", 1, 0, 'C');
-
-
-        $this->fpdf->Ln(0.2);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Jumlah Jam Lembur', 0, 0, 'L');
-
-        $this->fpdf->Cell(1.5);
-        $this->fpdf->Cell(3, 0.2, $jumlahjamlembur, 0, 0, 'C');
-
-        $this->fpdf->Ln(0.3);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Upah Lembur Perjam', 0, 0, 'L');
-        $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
-        $this->fpdf->Cell(3, 0.2, number_format($itemcoversatu->upah_lembur_perjam), 0, 0, 'R');
-
-        $this->fpdf->SetFont('Arial', 'B', '7');
-        $this->fpdf->Cell(1.5);
-        $this->fpdf->Cell(5, 0.2, 'Note : 0.5 Dlm angka = 30 menit dlm jam ( Jam Istirahat Lembur )', 0, 0, 'L');
-
-        $this->fpdf->Ln(0.3);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(9.5, 0, '', 1, 0, 'L', 1);
-
-        $this->fpdf->SetFont('Arial', '', '8');
-        $this->fpdf->Ln(0.1);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Lembur', 0, 0, 'L');
-        $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
-        $this->fpdf->Cell(3, 0.2, number_format($jumlahuanglembur), 0, 0, 'R');
-
-        $this->fpdf->Ln(0.3);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Makan Lembur', 0, 0, 'L');
-        $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
-        $this->fpdf->Cell(3, 0.2, number_format($jumlahuangmakanlembur), 0, 0, 'R');
+            $this->fpdf->Cell(1, 0.4, $jumlahjampertama, 1, 0, 'C');
+            $this->fpdf->Cell(1, 0.4, $jumlahjamkedua, 1, 0, 'C');
+            $this->fpdf->Cell(1, 0.4, $jumlahjamketiga, 1, 0, 'C');
+            $this->fpdf->Cell(1, 0.4, $jumlahjamkeempat, 1, 0, 'C');
+            $this->fpdf->Cell(2.2, 0.4, $jumlahuangmakanlembur, 1, 0, 'C');
+            $this->fpdf->Cell(2.2, 0.4, " - ", 1, 0, 'C');
 
 
-        $this->fpdf->Ln(0.3);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Transport Lembur', 0, 0, 'L');
-        $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
-        $this->fpdf->Cell(3, 0.2, " - ", 0, 0, 'R');
+            $this->fpdf->Ln(0.2);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Jumlah Jam Lembur', 0, 0, 'L');
+
+            $this->fpdf->Cell(1.5);
+            $this->fpdf->Cell(3, 0.2, $jumlahjamlembur, 0, 0, 'C');
+
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Upah Lembur Perjam', 0, 0, 'L');
+            $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
+            $this->fpdf->Cell(3, 0.2, number_format($itemcoversatu->upah_lembur_perjam), 0, 0, 'R');
+
+            $this->fpdf->SetFont('Arial', 'B', '7');
+            $this->fpdf->Cell(1.5);
+            $this->fpdf->Cell(5, 0.2, 'Note : 0.5 Dlm angka = 30 menit dlm jam ( Jam Istirahat Lembur )', 0, 0, 'L');
+
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(9.5, 0, '', 1, 0, 'L', 1);
+
+            $this->fpdf->SetFont('Arial', '', '8');
+            $this->fpdf->Ln(0.1);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Lembur', 0, 0, 'L');
+            $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
+            $this->fpdf->Cell(3, 0.2, number_format($jumlahuanglembur), 0, 0, 'R');
+
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Makan Lembur', 0, 0, 'L');
+            $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
+            $this->fpdf->Cell(3, 0.2, number_format($jumlahuangmakanlembur), 0, 0, 'R');
 
 
-        $this->fpdf->Ln(0.3);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(9.5, 0, '', 1, 0, 'L', 1);
-
-        $this->fpdf->Ln(0.1);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Yang Diterima', 0, 0, 'L');
-        $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
-        $this->fpdf->Cell(3, 0.2, number_format($jumlahuangditerima), 0, 0, 'R');
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Transport Lembur', 0, 0, 'L');
+            $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
+            $this->fpdf->Cell(3, 0.2, " - ", 0, 0, 'R');
 
 
-        $this->fpdf->Ln(1);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, 'Mengetahui', 0, 0, 'L');
+            $this->fpdf->Ln(0.3);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(9.5, 0, '', 1, 0, 'L', 1);
 
-        $this->fpdf->Cell(6, 0.2, 'Tangerang Selatan, ............................,' . $tahunlembur, 0, 0, 'L');
-
-        $this->fpdf->Cell(3);
-        $this->fpdf->Cell(5.4, 0.2, 'Yang Menerima', 0, 0, 'L');
-
-
-        $this->fpdf->Ln(2);
-        $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(5, 0.2, '(Rudiyanto)', 0, 0, 'L');
+            $this->fpdf->Ln(0.1);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Jumlah Uang Yang Diterima', 0, 0, 'L');
+            $this->fpdf->Cell(1.5, 0.2, 'Rp.', 0, 0, 'R');
+            $this->fpdf->Cell(3, 0.2, number_format($jumlahuangditerima), 0, 0, 'R');
 
 
-        $this->fpdf->Cell(9);
-        $this->fpdf->Cell(5.4, 0.2, '(' . $itemcover->nama_karyawan . ')', 0, 0, 'L');
+            $this->fpdf->Ln(1);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, 'Mengetahui', 0, 0, 'L');
+
+            $this->fpdf->Cell(6, 0.2, 'Tangerang Selatan, ............................,' . $tahunlembur, 0, 0, 'L');
+
+            $this->fpdf->Cell(3);
+            $this->fpdf->Cell(5.4, 0.2, 'Yang Menerima', 0, 0, 'L');
 
 
-        $this->fpdf->Ln(60);
+            $this->fpdf->Ln(2);
+            $this->fpdf->Cell(0.1);
+            $this->fpdf->Cell(5, 0.2, '(Rudiyanto)', 0, 0, 'L');
 
-        $this->fpdf->Output();
-        exit;
+
+            $this->fpdf->Cell(9);
+            $this->fpdf->Cell(5.4, 0.2, '(' . $itemcover->nama_karyawan . ')', 0, 0, 'L');
+
+
+            $this->fpdf->Ln(60);
+
+            $this->fpdf->Output();
+            exit;
+        }
     }
 
     public function form_rekap_overtime()

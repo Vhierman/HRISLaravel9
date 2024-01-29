@@ -1516,11 +1516,11 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', 'B', '11');
             $this->fpdf->Cell(36, 6, 'PIHAK KEDUA.', 0, 0, 'L');
     
-    
+            
             //TTD
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
+            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Ln(100);
@@ -1704,8 +1704,8 @@ class CetakController extends Controller
     
             //TTD
             $this->fpdf->Ln();
-            $this->fpdf->Cell(20);
-            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,265,30);
+            // $this->fpdf->Cell(20);
+            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,265,30);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Ln(100);
@@ -1906,7 +1906,7 @@ class CetakController extends Controller
             //TTD
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
+            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Ln(100);
@@ -2013,7 +2013,7 @@ class CetakController extends Controller
             $this->fpdf->Ln(30);
             //TTD
             $this->fpdf->Cell(20);
-            $this->fpdf->Image('../public/storage/assets/ttdRudiyantoStempelFinal.png' , 17,188,70);
+            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoStempelFinal.png' , 17,188,70);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->SetFont('Arial', 'B', '11');
