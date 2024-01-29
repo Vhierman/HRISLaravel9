@@ -25,6 +25,7 @@
                                         <th>No</th>
                                         <th>NIK Karyawan</th>
                                         <th>Nama Karyawan</th>
+                                        <th>Golongan</th>
                                         <th>Upah Lembur Perjam</th>
                                         @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                             <th>Action</th>
@@ -41,6 +42,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->employees->nik_karyawan }}</td>
                                             <td>{{ $item->employees->nama_karyawan }}</td>
+                                            <td>{{ $item->employees->golongans_id }}</td>
                                             <td>{{ $item->upah_lembur_perjam }}</td>
                                             @if (Auth::user()->roles == 'ADMIN' || Auth::user()->roles == 'HRD')
                                                 <td>
