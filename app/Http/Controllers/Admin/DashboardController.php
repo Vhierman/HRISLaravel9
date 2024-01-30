@@ -1062,8 +1062,8 @@ class DashboardController extends Controller
             // ->whereYear('rekap_salaries.periode_akhir', $tahunakhir)
             // ->first();
 
-        if ($itemcover == null) {
-            Alert::error('Data Tidak Ditemukan');
+        if ($itemcoversatu == null) {
+            Alert::error('Data Belum Tersedia');
             return redirect()->route('dashboard.form_slip_lembur_karyawan');
         } else {
 
