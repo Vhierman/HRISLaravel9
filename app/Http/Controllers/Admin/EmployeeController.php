@@ -27,8 +27,8 @@ use App\Models\Admin\HistoryFamilies;
 use App\Models\Admin\InventoryMotorcycles;
 use App\Models\Admin\InventoryCars;
 use App\Models\Admin\MinimalSalaries;
-use App\Models\Admin\MaksimalUpahBpjskesehatan;
-use App\Models\Admin\MaksimalUpahBpjsketenagakerjaan;
+use App\Models\Admin\MaksimalUpahBpjskesehatans;
+use App\Models\Admin\MaksimalUpahBpjsketenagakerjaans;
 use App\Models\Admin\CertificationBnsps;
 use App\Models\Admin\CertificationMinistrys;
 use App\Models\Admin\CertificationOthers;
@@ -291,8 +291,8 @@ class EmployeeController extends Controller
             $upah_lembur_perjam                 = $jumlah_upah/173;
             $hasil_upah_lembur_perjam           = round($upah_lembur_perjam);
 
-            $itemBpjskesehatans                 = MaksimalUpahBpjskesehatan::where('id',1)->first();
-            $itemBpjsketenagakerjaans           = MaksimalUpahBpjsketenagakerjaan::where('id',1)->first();
+            $itemBpjskesehatans                 = MaksimalUpahBpjskesehatans::where('id',1)->first();
+            $itemBpjsketenagakerjaans           = MaksimalUpahBpjsketenagakerjaans::where('id',1)->first();
             $maksimal_upah_bpjs_kesehatan       = $itemBpjskesehatans->maksimal_upah_bpjskesehatan;
             $maksimal_upah_bpjs_ketenagakerjaan = $itemBpjsketenagakerjaans->maksimal_upah_bpjsketenagakerjaan;
 
