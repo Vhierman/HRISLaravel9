@@ -88,6 +88,19 @@ class AbsensiController extends Controller
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->get();
         }
+        //PPC
+        elseif ($divisi == 10) {
+            $items = 
+            DB::table('attendances')
+            ->join('employees', 'employees.nik_karyawan', '=', 'attendances.employees_id')
+            ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+            ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
+            ->where('attendances.deleted_at',NULL)
+            ->where('employees.deleted_at',NULL)
+            ->whereIn('divisions_id', [12,13,14,15,18])
+            ->whereBetween('tanggal_absen', [$awal, $akhir])
+            ->get();
+        }
         elseif ($divisi == 1) {
             $items = 
             DB::table('attendances')
