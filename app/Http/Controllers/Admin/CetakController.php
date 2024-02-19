@@ -1174,14 +1174,14 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', '', '12');
             $this->fpdf->Ln(5);
             $this->fpdf->Cell(10);
-            $this->fpdf->Cell(180, 7, 'mengangkat saudara ' . $karyawan->nama_karyawan . ' sebagai ' . $karyawan->status_kerja . ', setelah menjalani masa', 0, 0, 'L');
+            $this->fpdf->Cell(180, 7, 'mengangkat saudara ' . $karyawan->nama_karyawan . ' sebagai Karyawan Tetap setelah menjalani masa kontrak', 0, 0, 'L');
 
             $this->fpdf->Ln(5);
             $this->fpdf->Cell(10);
-            $this->fpdf->Cell(55, 7, 'kontrak kerja sejak tanggal ', 0, 0, 'L');
+            $this->fpdf->Cell(37, 7, 'kerja sejak tanggal ', 0, 0, 'L');
 
             $this->fpdf->SetFont('Arial', 'B', '12');
-            $this->fpdf->Cell(80, 7, \Carbon\Carbon::parse($karyawan->tanggal_mulai_kerja)->isoformat('D MMMM Y') . '.', 0, 0, 'L');
+            $this->fpdf->Cell(40, 7, \Carbon\Carbon::parse($karyawan->tanggal_mulai_kerja)->isoformat('D MMMM Y') . '.', 0, 0, 'L');
 
             $this->fpdf->SetFont('Arial', '', '12');
             $this->fpdf->Ln(10);
