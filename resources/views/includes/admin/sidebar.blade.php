@@ -90,6 +90,8 @@
                                 Upah BPJS Ketenagakerjaan</a>
                             <a class="nav-link" href="{{ route('upah_lembur_perjam.index') }}">Upah Lembur
                                 Perjam</a>
+                            <a class="nav-link" href="{{ route('note_lembur.index') }}">Note
+                                Lembur</a>
                             <a class="nav-link" href="{{ route('company.index') }}">Perusahaan</a>
                             <a class="nav-link" href="{{ route('golongan.index') }}">Golongan</a>
                             <a class="nav-link" href="{{ route('area.index') }}">Area</a>

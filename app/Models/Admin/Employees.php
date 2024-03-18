@@ -53,6 +53,8 @@ class Employees extends Model
         'status_kerja',
         'nama_bank',
         'nomor_rekening',
+        'note_lembur',
+        'keterangan',
         'input_oleh',
         'edit_oleh',
         'hapus_oleh'
