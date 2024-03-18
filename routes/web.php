@@ -237,9 +237,13 @@ Route::prefix('admin')
         Route::get('overtime/form_cetak_slip_karyawan_overtime', 'OvertimeController@form_cetak_slip_karyawan_overtime')->name('overtime.form_cetak_slip_karyawan_overtime');
         Route::post('overtime/hasil_slipkaryawan_overtime', 'OvertimeController@hasil_slipkaryawan_overtime')->name('overtime.hasil_slipkaryawan_overtime');
         Route::get('overtime/form_rekap_overtime', 'OvertimeController@form_rekap_overtime')->name('overtime.form_rekap_overtime');
+        Route::get('overtime/form_cetak_rekap_overtime_harian_pkwt_pkwtt', 'OvertimeController@form_cetak_rekap_overtime_harian_pkwt_pkwtt')->name('overtime.form_cetak_rekap_overtime_harian_pkwt_pkwtt');
+        Route::post('overtime/form_lihat_rekap_overtime_harian_pkwt_pkwtt', 'OvertimeController@form_lihat_rekap_overtime_harian_pkwt_pkwtt')->name('overtime.form_lihat_rekap_overtime_harian_pkwt_pkwtt');
+
         Route::get('overtime/form_cetak_rekap_overtime_pkwtt', 'OvertimeController@form_cetak_rekap_overtime_pkwtt')->name('overtime.form_cetak_rekap_overtime_pkwtt');
         Route::get('overtime/form_cetak_rekap_overtime_pkwt_harian', 'OvertimeController@form_cetak_rekap_overtime_pkwt_harian')->name('overtime.form_cetak_rekap_overtime_pkwt_harian');
         Route::post('overtime/form_lihat_rekap_overtime_pkwtt', 'OvertimeController@form_lihat_rekap_overtime_pkwtt')->name('overtime.form_lihat_rekap_overtime_pkwtt');
+        Route::post('overtime/export_pdf_rekap_overtime_harian_pkwt_pkwtt', 'OvertimeController@export_pdf_rekap_overtime_harian_pkwt_pkwtt')->name('overtime.export_pdf_rekap_overtime_harian_pkwt_pkwtt');
         Route::post('overtime/export_pdf_rekap_overtime_pkwtt', 'OvertimeController@export_pdf_rekap_overtime_pkwtt')->name('overtime.export_pdf_rekap_overtime_pkwtt');
         Route::post('overtime/form_lihat_rekap_overtime_pkwt_harian', 'OvertimeController@form_lihat_rekap_overtime_pkwt_harian')->name('overtime.form_lihat_rekap_overtime_pkwt_harian');
         Route::post('overtime/export_pdf_rekap_overtime_pkwt_harian', 'OvertimeController@export_pdf_rekap_overtime_pkwt_harian')->name('overtime.export_pdf_rekap_overtime_pkwt_harian');

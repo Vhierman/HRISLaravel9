@@ -17,18 +17,25 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 d-grid gap-2 mt-2">
+                                {{-- <div class="col-md-6 d-grid gap-2 mt-2">
                                     <a href="{{ route('overtime.form_cetak_rekap_overtime_pkwt_harian') }}"
                                         class="btn btn-success btn-lg">
                                         <i class="fas fa-print"></i>
                                         Cetak Rekap PKWT Dan Harian
                                     </a>
-                                </div>
-                                <div class="col-md-6 d-grid gap-2 mt-2">
+                                </div> --}}
+                                {{-- <div class="col-md-12 d-grid gap-2 mt-2">
                                     <a href="{{ route('overtime.form_cetak_rekap_overtime_pkwtt') }}"
                                         class="btn btn-primary btn-lg">
                                         <i class="fas fa-print"></i>
-                                        Cetak Rekap PKWTT
+                                        Cetak Rekap HARIAN, PKWT, DAN PKWTT
+                                    </a>
+                                </div> --}}
+                                <div class="col-md-12 d-grid gap-2 mt-2">
+                                    <a href="{{ route('overtime.form_cetak_rekap_overtime_harian_pkwt_pkwtt') }}"
+                                        class="btn btn-primary btn-lg">
+                                        <i class="fas fa-print"></i>
+                                        Cetak Rekap HARIAN, PKWT, DAN PKWTT
                                     </a>
                                 </div>
                             </div>
