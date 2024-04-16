@@ -86,6 +86,7 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping, With
             [
                 $statusptkp,
                 $employees->golongans->golongan,
+                $employees->note_lembur,
                 $employees->companies->nama_perusahaan,
                 $employees->areas->area,
                 $employees->divisions->penempatan,
@@ -132,6 +133,7 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping, With
     {
         return [
             'Status PTKP',
+            'Note Lembur',
             'Golongan',
             'Perusahaan',
             'Area',
@@ -176,48 +178,48 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping, With
             AfterSheet::class    => function(AfterSheet $event) {
                 $event->sheet->getDelegate()->getStyle('1')->getFont()->setSize(14);
 
-                $event->sheet->getDelegate()->getStyle('A1:AJ1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle('A1:AK1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-                $event->sheet->getDelegate()->getStyle('A1:AJ1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('228B22');
+                $event->sheet->getDelegate()->getStyle('A1:AK1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('228B22');
 
                 $event->sheet->getDelegate()->getRowDimension('1')->setRowHeight(20);
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(14);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(12);
-                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(30);
-                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(12);
+                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(30);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(30);
-                $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(50);
-                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(12);
-                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(17);
-                $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(18);
-                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(17);
-                $event->sheet->getDelegate()->getColumnDimension('Q')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('R')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('S')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('T')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(30);
+                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(50);
+                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(12);
+                $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(17);
+                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(18);
+                $event->sheet->getDelegate()->getColumnDimension('Q')->setWidth(17);
+                $event->sheet->getDelegate()->getColumnDimension('R')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('S')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('T')->setWidth(15);
                 $event->sheet->getDelegate()->getColumnDimension('U')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('V')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('V')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('W')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('X')->setWidth(16);
-                $event->sheet->getDelegate()->getColumnDimension('Y')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('X')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('Y')->setWidth(16);
                 $event->sheet->getDelegate()->getColumnDimension('Z')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AA')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('AA')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('AB')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('AC')->setWidth(45);
-                $event->sheet->getDelegate()->getColumnDimension('AC')->setWidth(45);
-                $event->sheet->getDelegate()->getColumnDimension('AD')->setWidth(5);
-                $event->sheet->getDelegate()->getColumnDimension('AE')->setWidth(5);
-                $event->sheet->getDelegate()->getColumnDimension('AF')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AG')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('AC')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('AD')->setWidth(45);
+                $event->sheet->getDelegate()->getColumnDimension('AE')->setWidth(45);
+                $event->sheet->getDelegate()->getColumnDimension('AF')->setWidth(5);
+                $event->sheet->getDelegate()->getColumnDimension('AG')->setWidth(5);
                 $event->sheet->getDelegate()->getColumnDimension('AH')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(25);
 
                 
      
