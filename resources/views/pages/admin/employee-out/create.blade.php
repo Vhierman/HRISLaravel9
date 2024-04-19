@@ -53,6 +53,9 @@
                                         <label for="keterangan_keluar">Keterangan Keluar</label>
                                         <select name="keterangan_keluar" class="form-select">
                                             <option value="">Pilih Keterangan Keluar</option>
+                                            <option value="Usia Pensiun"
+                                                @if (old('keterangan_keluar') == 'Usia Pensiun') {{ 'selected' }} @endif>Usia Pensiun
+                                            </option>
                                             <option value="Pengunduran Diri"
                                                 @if (old('keterangan_keluar') == 'Pengunduran Diri') {{ 'selected' }} @endif>Pengunduran
                                                 Diri</option>
