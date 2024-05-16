@@ -282,8 +282,10 @@ class OvertimeController extends Controller
                 DB::table('overtimes')
                 ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
                 ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
+                ->join('positions', 'positions.id', '=', 'employees.positions_id')
+                ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
 
-                ->select('overtimes.id', 'employees.nama_karyawan','employees.nik_karyawan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
+                ->select('overtimes.id', 'employees.nama_karyawan','golongans.golongan','employees.nik_karyawan', 'positions.jabatan', 'divisions.penempatan','overtimes.jam_masuk','overtimes.jam_istirahat','overtimes.jam_pulang','overtimes.jam_lembur','overtimes.uang_makan_lembur','overtimes.keterangan_lembur','overtimes.tanggal_lembur','overtimes.jenis_lembur','overtimes.acc_hrd','overtimes.deleted_at')
 
                 ->where('overtimes.acc_hrd', NULL)
                 ->where('overtimes.deleted_at', NULL)

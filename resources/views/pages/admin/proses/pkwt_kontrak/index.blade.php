@@ -42,7 +42,7 @@
 
                                     <div class="d-grid gap-2 mt-3">
                                         <button type="submit" class="btn btn-primary btn-block">
-                                            Cetak
+                                            Process
                                         </button>
                                         <a href="{{ route('proses.proses_pkwt_kontrak') }}"
                                             class="btn btn-danger btn-block">
