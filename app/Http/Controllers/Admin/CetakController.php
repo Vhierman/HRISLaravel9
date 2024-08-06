@@ -126,12 +126,12 @@ class CetakController extends Controller
 
         $this->fpdf->Cell(15);
         $this->fpdf->Cell(50, 10, 'Nama', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : Rudiyanto', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : Achmad Firmansyah', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(15);
         $this->fpdf->Cell(50, 10, 'Jabatan', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : General Manager (HRD-GA)', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : Deputy Manager (HRD-GA)', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(15);
@@ -186,12 +186,12 @@ class CetakController extends Controller
         
         $this->fpdf->SetFont('Arial', 'BU', '12');
         $this->fpdf->Cell(15);
-        $this->fpdf->Cell(180, 10, 'Rudiyanto', 0, 0, 'L');
+        $this->fpdf->Cell(180, 10, 'Achmad Firmansyah', 0, 0, 'L');
 
         $this->fpdf->Ln(5);
         $this->fpdf->SetFont('Arial', 'B', '12');
         $this->fpdf->Cell(15);
-        $this->fpdf->Cell(180, 10, 'General Manager (HRD-GA)', 0, 0, 'L');
+        $this->fpdf->Cell(180, 10, 'Deputy Manager (HRD-GA)', 0, 0, 'L');
 
         //FOOTER SURAT
         // $this->fpdf->Ln(45);
@@ -665,7 +665,7 @@ class CetakController extends Controller
             $this->fpdf->Cell(20);
             $this->fpdf->Cell(30, 5, 'Nama', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', 'B', '9');
-            $this->fpdf->Cell(30, 5, ': Rudiyanto', 0, 0, 'L');
+            $this->fpdf->Cell(30, 5, ': Achmad Firmansyah', 0, 0, 'L');
 
             $this->fpdf->Ln(5);
 
@@ -673,7 +673,7 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', '', '9');
             $this->fpdf->Cell(30, 5, 'Jabatan', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', 'B', '9');
-            $this->fpdf->Cell(30, 5, ': General Manager (HRD-GA)', 0, 0, 'L');
+            $this->fpdf->Cell(30, 5, ': Deputy Manager (HRD-GA)', 0, 0, 'L');
 
             $this->fpdf->Ln(5);
 
@@ -1098,7 +1098,7 @@ class CetakController extends Controller
             $this->fpdf->Ln(40);
             //TTD
             // $this->fpdf->Cell(20);
-            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 150,170,30);
+            // $this->fpdf->Image('../public/storage/assets/ttdAchmad FirmansyahFinal.png' , 150,170,30);
             // $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Cell(20);
@@ -1106,7 +1106,7 @@ class CetakController extends Controller
 
             
             $this->fpdf->Cell(30);
-            $this->fpdf->Cell(70, 5, '( RUDIYANTO )', 0, 0, 'C');
+            $this->fpdf->Cell(70, 5, '( Achmad Firmansyah )', 0, 0, 'C');
 
             $this->fpdf->Output();
             exit;
@@ -1264,7 +1264,7 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', 'BU', '12');
             $this->fpdf->Ln(35);
             $this->fpdf->Cell(10);
-            $this->fpdf->Cell(70, 7, 'Rudiyanto', 0, 0, 'C');
+            $this->fpdf->Cell(70, 7, 'Achmad Firmansyah', 0, 0, 'C');
 
             $this->fpdf->SetFont('Arial', '', '12');
             $this->fpdf->Cell(40);
@@ -1273,7 +1273,7 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', 'B', '12');
             $this->fpdf->Ln(5);
             $this->fpdf->Cell(10);
-            $this->fpdf->Cell(70, 7, 'General Manager (HRD-GA)', 0, 0, 'C');
+            $this->fpdf->Cell(70, 7, 'Deputy Manager (HRD-GA)', 0, 0, 'C');
 
             //FOOTER SURAT
             // $this->fpdf->Ln(18);
@@ -1322,14 +1322,14 @@ class CetakController extends Controller
             $this->fpdf->Cell(10, 7, '1. ', 0, 0, 'L');
             $this->fpdf->Cell(50, 7, 'Nama', 0, 0, 'L');
             $this->fpdf->Cell(5, 7, ' : ', 0, 0, 'C');
-            $this->fpdf->Cell(115, 7, ' Rudiyanto', 0, 0, 'L');
+            $this->fpdf->Cell(115, 7, ' Achmad Firmansyah', 0, 0, 'L');
     
             $this->fpdf->Ln();
     
             $this->fpdf->Cell(20);
             $this->fpdf->Cell(50, 7, 'Jabatan', 0, 0, 'L');
             $this->fpdf->Cell(5, 7, ' : ', 0, 0, 'C');
-            $this->fpdf->Cell(115, 7, ' General Manager HRD-GA PT Prima Komponen Indonesia', 0, 0, 'L');
+            $this->fpdf->Cell(115, 7, ' Deputy Manager HRD-GA PT Prima Komponen Indonesia', 0, 0, 'L');
     
             $this->fpdf->Ln(10);
             $this->fpdf->Cell(20);
@@ -1520,7 +1520,7 @@ class CetakController extends Controller
             //TTD
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
+            // $this->fpdf->Image('../public/storage/assets/ttdAchmad FirmansyahFinal.png' , 36,270,30);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Ln(100);
@@ -1705,7 +1705,7 @@ class CetakController extends Controller
             //TTD
             $this->fpdf->Ln();
             // $this->fpdf->Cell(20);
-            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,265,30);
+            // $this->fpdf->Image('../public/storage/assets/ttdAchmad FirmansyahFinal.png' , 36,265,30);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Ln(100);
@@ -1906,7 +1906,7 @@ class CetakController extends Controller
             //TTD
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoFinal.png' , 36,270,30);
+            // $this->fpdf->Image('../public/storage/assets/ttdAchmad FirmansyahFinal.png' , 36,270,30);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->Ln(100);
@@ -2013,12 +2013,12 @@ class CetakController extends Controller
             $this->fpdf->Ln(30);
             //TTD
             $this->fpdf->Cell(20);
-            // $this->fpdf->Image('../public/storage/assets/ttdRudiyantoStempelFinal.png' , 17,188,70);
+            // $this->fpdf->Image('../public/storage/assets/ttdAchmad FirmansyahStempelFinal.png' , 17,188,70);
             $this->fpdf->Ln(5);
             //TTD
             $this->fpdf->SetFont('Arial', 'B', '11');
             $this->fpdf->Cell(20);
-            $this->fpdf->Cell(50, 5, '( Rudiyanto )', 0, 0, 'C');
+            $this->fpdf->Cell(50, 5, '( Achmad Firmansyah )', 0, 0, 'C');
             $this->fpdf->Cell(70, 5, '', 0, 0, 'C');
             $this->fpdf->Cell(50, 5, '( '.$karyawan->nama_karyawan.' )', 0, 0, 'C');
 
@@ -2155,14 +2155,14 @@ class CetakController extends Controller
                 $this->fpdf->Cell(10, 7, '1. ', 0, 0, 'L');
                 $this->fpdf->Cell(50, 7, 'Nama', 0, 0, 'L');
                 $this->fpdf->Cell(5, 7, ' : ', 0, 0, 'C');
-                $this->fpdf->Cell(115, 7, ' Rudiyanto', 0, 0, 'L');
+                $this->fpdf->Cell(115, 7, ' Achmad Firmansyah', 0, 0, 'L');
         
                 $this->fpdf->Ln();
         
                 $this->fpdf->Cell(20);
                 $this->fpdf->Cell(50, 7, 'Jabatan', 0, 0, 'L');
                 $this->fpdf->Cell(5, 7, ' : ', 0, 0, 'C');
-                $this->fpdf->Cell(115, 7, ' General Manager HRD-GA PT Prima Komponen Indonesia', 0, 0, 'L');
+                $this->fpdf->Cell(115, 7, ' Deputy Manager HRD-GA PT Prima Komponen Indonesia', 0, 0, 'L');
         
                 $this->fpdf->Ln(10);
                 $this->fpdf->Cell(20);
@@ -2824,7 +2824,7 @@ class CetakController extends Controller
                 $this->fpdf->Ln(40);
                 $this->fpdf->SetFont('Arial', 'B', '11');
                 $this->fpdf->Cell(20);
-                $this->fpdf->Cell(50, 5, '( Rudiyanto )', 0, 0, 'C');
+                $this->fpdf->Cell(50, 5, '( Achmad Firmansyah )', 0, 0, 'C');
                 $this->fpdf->Cell(70, 5, '', 0, 0, 'C');
                 $this->fpdf->Cell(50, 5, '( '.$pkwtharian->employees->nama_karyawan.' )', 0, 0, 'C');
                 $this->fpdf->Ln(100);
@@ -2937,7 +2937,7 @@ class CetakController extends Controller
                 $this->fpdf->Cell(20);
                 $this->fpdf->Cell(30, 5, 'Nama', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', 'B', '9');
-                $this->fpdf->Cell(30, 5, ': Rudiyanto', 0, 0, 'L');
+                $this->fpdf->Cell(30, 5, ': Achmad Firmansyah', 0, 0, 'L');
 
                 $this->fpdf->Ln(5);
 
@@ -2945,7 +2945,7 @@ class CetakController extends Controller
                 $this->fpdf->SetFont('Arial', '', '9');
                 $this->fpdf->Cell(30, 5, 'Jabatan', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', 'B', '9');
-                $this->fpdf->Cell(30, 5, ': General Manager (HRD-GA)', 0, 0, 'L');
+                $this->fpdf->Cell(30, 5, ': Deputy Manager (HRD-GA)', 0, 0, 'L');
 
                 $this->fpdf->Ln(5);
 
@@ -3372,7 +3372,7 @@ class CetakController extends Controller
                 $this->fpdf->Cell(70, 5, '( ' . $item->nama_karyawan . ' )', 0, 0, 'C');
 
                 $this->fpdf->Cell(30);
-                $this->fpdf->Cell(70, 5, '( RUDIYANTO )', 0, 0, 'C');
+                $this->fpdf->Cell(70, 5, '( Achmad Firmansyah )', 0, 0, 'C');
                 $this->fpdf->Ln(90);
             }
             }   

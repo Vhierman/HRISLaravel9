@@ -97,7 +97,11 @@
                                     @endphp
                                     @foreach ($items as $item)
                                         @php
-                                            $jumlahjam = $item->jumlah_jam_pertama + $item->jumlah_jam_kedua + $item->jumlah_jam_ketiga + $item->jumlah_jam_keempat;
+                                            $jumlahjam =
+                                                $item->jumlah_jam_pertama +
+                                                $item->jumlah_jam_kedua +
+                                                $item->jumlah_jam_ketiga +
+                                                $item->jumlah_jam_keempat;
                                             $uangmakanlembur = $item->uang_makan_lembur;
                                         @endphp
 
@@ -109,9 +113,24 @@
                                             $tahunakhir = \Carbon\Carbon::parse($akhir)->isoformat('YYYY');
 
                                             $collections = DB::table('overtimes')
-                                                ->join('employees', 'employees.nik_karyawan', '=', 'overtimes.employees_id')
-                                                ->join('history_salaries', 'employees.nik_karyawan', '=', 'history_salaries.employees_id')
-                                                ->join('rekap_salaries', 'employees.nik_karyawan', '=', 'rekap_salaries.employees_id')
+                                                ->join(
+                                                    'employees',
+                                                    'employees.nik_karyawan',
+                                                    '=',
+                                                    'overtimes.employees_id',
+                                                )
+                                                ->join(
+                                                    'history_salaries',
+                                                    'employees.nik_karyawan',
+                                                    '=',
+                                                    'history_salaries.employees_id',
+                                                )
+                                                ->join(
+                                                    'rekap_salaries',
+                                                    'employees.nik_karyawan',
+                                                    '=',
+                                                    'rekap_salaries.employees_id',
+                                                )
                                                 ->join('positions', 'positions.id', '=', 'employees.positions_id')
                                                 ->where('overtimes.employees_id', $item->employees_id)
                                                 ->where('overtimes.acc_hrd', '<>', null)
@@ -138,10 +157,17 @@
                                             // } else {
                                             //     $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2) + 100;
                                             // }
-                                            if (substr($jumlahuangditerimapembulatan, -2) > 50 && substr($jumlahuangditerimapembulatan, -2) < 100) {
+                                            if (
+                                                substr($jumlahuangditerimapembulatan, -2) > 50 &&
+                                                substr($jumlahuangditerimapembulatan, -2) < 100
+                                            ) {
                                                 $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2);
-                                            } elseif (substr($jumlahuangditerimapembulatan, -2) < 50 && substr($jumlahuangditerimapembulatan, -2) > 0) {
-                                                $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2) + 100;
+                                            } elseif (
+                                                substr($jumlahuangditerimapembulatan, -2) < 50 &&
+                                                substr($jumlahuangditerimapembulatan, -2) > 0
+                                            ) {
+                                                $total_jumlahuangditerima =
+                                                    round($jumlahuangditerimapembulatan, -2) + 100;
                                             } elseif (substr($jumlahuangditerimapembulatan, -2) <= 0) {
                                                 $total_jumlahuangditerima = round($jumlahuangditerimapembulatan, -2);
                                             } elseif (substr($jumlahuangditerimapembulatan, -2) == 50) {

@@ -86,7 +86,6 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping, With
             [
                 $statusptkp,
                 $employees->golongans->golongan,
-                $employees->note_lembur,
                 $employees->companies->nama_perusahaan,
                 $employees->areas->area,
                 $employees->divisions->penempatan,
@@ -133,7 +132,6 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping, With
     {
         return [
             'Status PTKP',
-            'Note Lembur',
             'Golongan',
             'Perusahaan',
             'Area',
@@ -219,7 +217,6 @@ class EmployeesExport implements FromCollection, WithHeadings, WithMapping, With
                 $event->sheet->getDelegate()->getColumnDimension('AH')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(25);
 
                 
      

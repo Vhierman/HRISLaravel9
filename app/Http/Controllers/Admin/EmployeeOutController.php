@@ -21,6 +21,9 @@ use App\Models\Admin\HistoryTrainingInternals;
 use App\Models\Admin\HistoryTrainingEksternals;
 use App\Models\Admin\HistoryFamilies;
 use App\Models\Admin\InventoryMotorcycles;
+use App\Models\Admin\CertificationBnsps;
+use App\Models\Admin\CertificationMinistrys;
+use App\Models\Admin\CertificationOthers;
 use App\Models\Admin\InventoryCars;
 use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\Fpdf;
@@ -199,6 +202,10 @@ class EmployeeOutController extends Controller
         $nik_karyawan   = $request->input('employees_id');
         $item           = Employees::where('nik_karyawan', $nik_karyawan)->first();
 
+        //
+        
+        //
+
         EmployeesOuts::create([
             'employees_id'                              => $request->input('employees_id'),
             'companies_id'                              => $item->companies_id,
@@ -240,7 +247,9 @@ class EmployeeOutController extends Controller
         ]);
 
         //Hapus Data
+        
         $nikkaryawan            = $item->nik_karyawan;
+        $authname               = auth()->user()->name;
         $employee               = Employees::where('nik_karyawan', $nikkaryawan)->first();
         $salary                 = HistorySalaries::where('employees_id', $nikkaryawan)->first();
         $contracts              = HistoryContracts::where('employees_id', $nikkaryawan)->get();
@@ -250,6 +259,11 @@ class EmployeeOutController extends Controller
         $traininginternals      = HistoryTrainingInternals::where('employees_id', $nikkaryawan)->get();
         $inventorymotorcycle    = InventoryMotorcycles::where('employees_id', $nikkaryawan)->first();
         $inventorycar           = InventoryCars::where('employees_id', $nikkaryawan)->first();
+        $certification_bnsps    = CertificationBnsps::where('employees_id', $nik_karyawan)->delete();
+        $certification_bnsps    = CertificationBnsps::where('employees_id', $nik_karyawan)->delete();
+        $certification_kementrians  = CertificationMinistrys::where('employees_id', $nik_karyawan)->delete();
+        $certification_other        = CertificationOthers::where('employees_id', $nik_karyawan)->delete();
+        
 
         //Foto Keluarga
         // $dokumenhistorykeluarga = $family->dokumen_history_keluarga;
@@ -272,6 +286,8 @@ class EmployeeOutController extends Controller
         
         $employee->delete();
         $salary->delete();
+
+        
 
         if ($contracts <> null) {
         foreach ($contracts as $contract ) {
@@ -310,6 +326,7 @@ class EmployeeOutController extends Controller
         if ($inventorycar <> null) {
             $inventorycar->delete();
         } else {}
+
         //Hapus
         Alert::success('Success Input Data Karyawan Keluar','Oleh '.auth()->user()->name);
         //Redirect
@@ -408,12 +425,12 @@ class EmployeeOutController extends Controller
 
         $this->fpdf->Cell(10);
         $this->fpdf->Cell(50, 10, 'Nama', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : Rudiyanto', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : Achmad Firmansyah', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(10);
         $this->fpdf->Cell(50, 10, 'Jabatan', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : General Manager ( HRD - GA )', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : Deputy Manager ( HRD - GA )', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(10);
@@ -471,13 +488,13 @@ class EmployeeOutController extends Controller
 
         $this->fpdf->SetFont('Arial', 'BU', '12');
         $this->fpdf->Cell(10);
-        $this->fpdf->Cell(180, 10, 'Rudiyanto', 0, 0, 'L');
+        $this->fpdf->Cell(180, 10, 'Achmad Firmansyah', 0, 0, 'L');
 
         $this->fpdf->Ln(5);
 
         $this->fpdf->SetFont('Arial', 'B', '12');
         $this->fpdf->Cell(10);
-        $this->fpdf->Cell(180, 10, 'General Manager ( HRD - GA )', 0, 0, 'L');
+        $this->fpdf->Cell(180, 10, 'Deputy Manager ( HRD - GA )', 0, 0, 'L');
 
         $this->fpdf->Output();
 
