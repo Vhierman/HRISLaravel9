@@ -79,6 +79,9 @@
                                             <option value="OFF"
                                                 @if (old('keterangan_absen') == 'OFF') {{ 'selected' }} @endif>OFF
                                             </option>
+                                            <option value="Tugas Luar"
+                                                @if (old('keterangan_absen') == 'Tugas Luar') {{ 'selected' }} @endif>Tugas Luar
+                                            </option>
                                         </select>
                                     </div>
 
