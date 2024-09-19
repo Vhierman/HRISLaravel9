@@ -430,7 +430,7 @@ class EmployeeOutController extends Controller
 
         $this->fpdf->Cell(10);
         $this->fpdf->Cell(50, 10, 'Jabatan', 0, 0, 'L');
-        $this->fpdf->Cell(100, 10, ' : Deputy Manager ( HRD - GA )', 0, 0, 'L');
+        $this->fpdf->Cell(100, 10, ' : Manager ( HRD - GA )', 0, 0, 'L');
         $this->fpdf->Ln(9);
 
         $this->fpdf->Cell(10);
@@ -494,7 +494,7 @@ class EmployeeOutController extends Controller
 
         $this->fpdf->SetFont('Arial', 'B', '12');
         $this->fpdf->Cell(10);
-        $this->fpdf->Cell(180, 10, 'Deputy Manager ( HRD - GA )', 0, 0, 'L');
+        $this->fpdf->Cell(180, 10, 'Manager ( HRD - GA )', 0, 0, 'L');
 
         $this->fpdf->Output();
 
