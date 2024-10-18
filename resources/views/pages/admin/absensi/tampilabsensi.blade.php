@@ -27,6 +27,7 @@
                                         <th>Nama Karyawan</th>
                                         <th>NIK Karyawan</th>
                                         <th>Gol</th>
+                                        <th>Jabatan</th>
                                         <th>Penempatan</th>
                                         <th>Status</th>
                                         <th>Tanggal Absen</th>
@@ -44,6 +45,7 @@
                                             <td>{{ $item->nama_karyawan }}</td>
                                             <td>{{ $item->nik_karyawan }}</td>
                                             <td>{{ $item->golongan }}</td>
+                                            <td>{{ $item->jabatan }}</td>
                                             <td>{{ $item->penempatan }}</td>
                                             <td>{{ $item->status_kerja }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->isoformat('DD-MM-Y') }}
