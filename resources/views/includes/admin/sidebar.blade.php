@@ -410,6 +410,13 @@
                     <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('laporan.perijinan') }}">Perijinan
+                            </a>
+                        </nav>
+                    </div>
+                    <div class="collapse" id="collapseLaporan" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('laporan.absensi_karyawan') }}">Absensi
                                 Karyawan</a>
                         </nav>

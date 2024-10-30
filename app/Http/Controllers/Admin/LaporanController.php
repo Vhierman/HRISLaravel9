@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use App\Models\Admin\Attendances;
+use App\Models\Admin\Legals;
 use App\Models\Admin\Employees;
 use App\Models\Admin\Overtimes;
 use App\Models\Admin\Areas;
@@ -22,6 +23,8 @@ use App\Models\Admin\InventoryCars;
 use App\Models\Admin\RekapSalaries;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\RekapGajiRequest;
+use App\Http\Requests\Admin\PerijinanRequest;
+use App\Http\Requests\Admin\EditPerijinanRequest;
 use App\Http\Requests\Admin\LaporanAbsensiKaryawanRequest;
 use App\Http\Requests\Admin\RekapOvertimesPertahunRequest;
 use App\Http\Requests\Admin\RekapTurnoverPertahunRequest;
@@ -1582,6 +1585,102 @@ class LaporanController extends Controller
         ]);
     }
     // TURNOVER
+
+    //PERIJINAN
+    public function perijinan()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+
+        $items = Legals::all();
+        return view('pages.admin.perijinan.index',[
+            'items' => $items
+        ]);
+
+    }
+    public function tambah_perijinan()
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        return view('pages.admin.perijinan.create');
+    }
+    public function proses_tambah_perijinan(PerijinanRequest $request)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+
+        $data = $request->all();
+        Legals::create($data);
+        Alert::success('Success Input Data Perijinan','Oleh '.auth()->user()->name);
+        return redirect()->route('laporan.perijinan');
+    }
+
+    public function edit_perijinan($id)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        $items = Legals::findOrFail($id);
+        return view('pages.admin.perijinan.edit',[
+        'items' => $items
+        ]);
+    }
+
+    public function hasil_edit_perijinan(EditPerijinanRequest $request, $id)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+        $nama_perijinan     = $request->input('nama_perijinan');
+        $nomor_perijinan    = $request->input('nomor_perijinan');
+        $instansi_penerbit  = $request->input('instansi_penerbit');
+        $tanggal_berlaku    = $request->input('tanggal_berlaku');
+        $tanggal_habis      = $request->input('tanggal_habis');
+        $masa_berlaku       = $request->input('masa_berlaku');
+        $edit_oleh          = $request->input('edit_oleh');
+        $id                 = $request->input('id');
+
+        $perijinan = Legals::where('id', $id)->first();
+
+        $perijinan->update([
+            'nama_perijinan'    => $nama_perijinan,
+            'nomor_perijinan'   => $nomor_perijinan,
+            'instansi_penerbit' => $instansi_penerbit,
+            'tanggal_berlaku'   => $tanggal_berlaku,
+            'tanggal_habis'     => $tanggal_habis,
+            'masa_berlaku'      => $masa_berlaku,
+            'edit_oleh'         => $edit_oleh
+        ]);
+
+        Alert::info('Success Edit Data Perijinan', 'Oleh ' . auth()->user()->name);
+        return redirect()->route('laporan.perijinan');
+    }
+
+    public function hapus_perijinan($id)
+    {
+        if (auth()->user()->roles != 'ADMIN' && auth()->user()->roles != 'MANAGER HRD' && auth()->user()->roles != 'HRD' && auth()->user()->roles != 'MANAGER ACCOUNTING' && auth()->user()->roles != 'ACCOUNTING') {
+            abort(403);
+        }
+
+        $perijinan  = Legals::findOrFail($id);
+        
+        //Hapus Oleh
+        $perijinan->update([
+            'hapus_oleh'    => auth()->user()->name
+        ]);
+        //Hapus Oleh
+
+        $perijinan->delete();
+        Alert::error('Menghapus Data Perijinan','Oleh '.auth()->user()->name);
+        return redirect()->route('laporan.perijinan');
+
+    }
+
+    
+    //PERIJINAN
 
     //ABSENSI KARYAWAN
     public function absensi_karyawan()

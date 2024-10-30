@@ -249,6 +249,8 @@ Route::prefix('admin')
         Route::post('overtime/export_pdf_rekap_overtime_pkwt_harian', 'OvertimeController@export_pdf_rekap_overtime_pkwt_harian')->name('overtime.export_pdf_rekap_overtime_pkwt_harian');
         Route::resource('overtime', 'OvertimeController');
         //Overtimes
+
+
         //Laporan
         Route::get('laporan/rekap_gaji', 'LaporanController@rekap_gaji')->name('laporan.rekap_gaji');
         Route::get('laporan/overtimes', 'LaporanController@overtimes')->name('laporan.overtimes');
@@ -258,11 +260,20 @@ Route::prefix('admin')
         Route::get('laporan/turnover', 'LaporanController@turnover')->name('laporan.turnover');
         Route::get('laporan/turnover_pertahun', 'LaporanController@turnover_pertahun')->name('laporan.turnover_pertahun');
         Route::post('laporan/tampil_rekap_turnover_pertahun', 'LaporanController@tampil_rekap_turnover_pertahun')->name('laporan.tampil_rekap_turnover_pertahun');
-       
         Route::post('laporan/tampil_rekap_gaji', 'LaporanController@tampil_rekap_gaji')->name('laporan.tampil_rekap_gaji');
         Route::post('laporan/export_excell_rekap_gaji', 'LaporanController@export_excell_rekap_gaji')->name('laporan.export_excell_rekap_gaji');
         Route::post('laporan/cetak_slip_gaji', 'LaporanController@cetak_slip_gaji')->name('laporan.cetak_slip_gaji');
         Route::post('laporan/cancel_rekap_gaji', 'LaporanController@cancel_rekap_gaji')->name('laporan.cancel_rekap_gaji');
+
+        //Perijinan
+        Route::get('laporan/perijinan', 'LaporanController@perijinan')->name('laporan.perijinan');
+        Route::get('laporan/tambah_perijinan', 'LaporanController@tambah_perijinan')->name('laporan.tambah_perijinan');
+        Route::post('laporan/proses_tambah_perijinan', 'LaporanController@proses_tambah_perijinan')->name('laporan.proses_tambah_perijinan');
+        Route::get('laporan/edit_perijinan/{id}', 'LaporanController@edit_perijinan')->name('laporan.edit_perijinan');
+        Route::post('laporan/hasil_edit_perijinan/{id}', 'LaporanController@hasil_edit_perijinan')->name('laporan.hasil_edit_perijinan');
+        Route::post('laporan/hapus_perijinan/{id}', 'LaporanController@hapus_perijinan')->name('laporan.hapus_perijinan');
+        //Perijinan
+
         Route::get('laporan/rekap_absensi', 'LaporanController@rekap_absensi')->name('laporan.rekap_absensi');
         Route::get('laporan/rekap_perbulan', 'LaporanController@rekap_perbulan')->name('laporan.rekap_perbulan');
         Route::get('laporan/rekap_pertahun', 'LaporanController@rekap_pertahun')->name('laporan.rekap_pertahun');
