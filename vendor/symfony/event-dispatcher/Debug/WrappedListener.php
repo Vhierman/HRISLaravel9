@@ -26,21 +26,20 @@ final class WrappedListener
     private string $name;
     private bool $called = false;
     private bool $stoppedPropagation = false;
-    private Stopwatch $stopwatch;
-    private ?EventDispatcherInterface $dispatcher;
     private string $pretty;
     private string $callableRef;
     private ClassStub|string $stub;
-    private ?int $priority = null;
     private static bool $hasClassStub;
 
-    public function __construct(callable|array $listener, ?string $name, Stopwatch $stopwatch, EventDispatcherInterface $dispatcher = null, int $priority = null)
-    {
+    public function __construct(
+        callable|array $listener,
+        ?string $name,
+        private Stopwatch $stopwatch,
+        private ?EventDispatcherInterface $dispatcher = null,
+        private ?int $priority = null,
+    ) {
         $this->listener = $listener;
         $this->optimizedListener = $listener instanceof \Closure ? $listener : (\is_callable($listener) ? $listener(...) : null);
-        $this->stopwatch = $stopwatch;
-        $this->dispatcher = $dispatcher;
-        $this->priority = $priority;
 
         if (\is_array($listener)) {
             [$this->name, $this->callableRef] = $this->parseListener($listener);
@@ -48,9 +47,9 @@ final class WrappedListener
             $this->callableRef .= '::'.$listener[1];
         } elseif ($listener instanceof \Closure) {
             $r = new \ReflectionFunction($listener);
-            if (str_contains($r->name, '{closure}')) {
+            if ($r->isAnonymous()) {
                 $this->pretty = $this->name = 'closure';
-            } elseif ($class = $r->getClosureScopeClass()) {
+            } elseif ($class = $r->getClosureCalledClass()) {
                 $this->name = $class->name;
                 $this->pretty = $this->name.'::'.$r->name;
             } else {
@@ -61,7 +60,7 @@ final class WrappedListener
         } else {
             $this->name = get_debug_type($listener);
             $this->pretty = $this->name.'::__invoke';
-            $this->callableRef = \get_class($listener).'::__invoke';
+            $this->callableRef = $listener::class.'::__invoke';
         }
 
         if (null !== $name) {
@@ -112,10 +111,12 @@ final class WrappedListener
 
         $e = $this->stopwatch->start($this->name, 'event_listener');
 
-        ($this->optimizedListener ?? $this->listener)($event, $eventName, $dispatcher);
-
-        if ($e->isStarted()) {
-            $e->stop();
+        try {
+            ($this->optimizedListener ?? $this->listener)($event, $eventName, $dispatcher);
+        } finally {
+            if ($e->isStarted()) {
+                $e->stop();
+            }
         }
 
         if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
@@ -134,7 +135,7 @@ final class WrappedListener
         }
 
         if (\is_object($listener[0])) {
-            return [get_debug_type($listener[0]), \get_class($listener[0])];
+            return [get_debug_type($listener[0]), $listener[0]::class];
         }
 
         return [$listener[0], $listener[0]];

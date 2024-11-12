@@ -154,7 +154,7 @@ class ConsoleCursor
      * Move to the line X and the column Y.
      * If null, use the current coordinate.
      */
-    public static function moveTo(int $x = null, int $y = null)
+    public static function moveTo(?int $x = null, ?int $y = null)
     {
         if (null === $x || null === $y) {
             $position = static::getPosition();
@@ -645,13 +645,6 @@ class ConsoleCursor
         }
 
         switch ($style) {
-            case 'b':
-            case 'block':
-            case '▋':
-                $_style = 1;
-
-                break;
-
             case 'u':
             case 'underline':
             case '_':
@@ -663,6 +656,14 @@ class ConsoleCursor
             case 'vertical':
             case '|':
                 $_style = 5;
+
+                break;
+
+            case 'b':
+            case 'block':
+            case '▋':
+            default:
+                $_style = 1;
 
                 break;
         }

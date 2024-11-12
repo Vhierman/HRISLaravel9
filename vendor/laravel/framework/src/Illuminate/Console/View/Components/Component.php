@@ -6,6 +6,7 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Console\QuestionHelper;
 use ReflectionClass;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
+
 use function Termwind\render;
 use function Termwind\renderUsing;
 
@@ -81,12 +82,14 @@ abstract class Component
     protected function mutate($data, $mutators)
     {
         foreach ($mutators as $mutator) {
+            $mutator = new $mutator;
+
             if (is_iterable($data)) {
                 foreach ($data as $key => $value) {
-                    $data[$key] = app($mutator)->__invoke($value);
+                    $data[$key] = $mutator($value);
                 }
             } else {
-                $data = app($mutator)->__invoke($data);
+                $data = $mutator($data);
             }
         }
 

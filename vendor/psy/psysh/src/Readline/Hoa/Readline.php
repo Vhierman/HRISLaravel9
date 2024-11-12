@@ -137,7 +137,7 @@ class Readline
     /**
      * Read a line from the input.
      */
-    public function readLine(string $prefix = null)
+    public function readLine(?string $prefix = null)
     {
         $input = Console::getInput();
 
@@ -169,6 +169,7 @@ class Readline
         $this->resetLine();
         $this->setPrefix($prefix);
         $read = [$input->getStream()->getStream()];
+        $write = $except = [];
         $output->writeAll($prefix);
 
         while (true) {
@@ -269,7 +270,7 @@ class Readline
     /**
      * Add an entry in the history.
      */
-    public function addHistory(string $line = null)
+    public function addHistory(?string $line = null)
     {
         if (empty($line)) {
             return;
@@ -293,7 +294,7 @@ class Readline
     /**
      * Get an entry in the history.
      */
-    public function getHistory(int $i = null)
+    public function getHistory(?int $i = null)
     {
         if (null === $i) {
             $i = $this->_historyCurrent;
@@ -834,6 +835,7 @@ class Readline
             ++$mColumns;
             $input = Console::getInput();
             $read = [$input->getStream()->getStream()];
+            $write = $except = [];
             $mColumn = -1;
             $mLine = -1;
             $coord = -1;

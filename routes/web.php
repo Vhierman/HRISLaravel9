@@ -59,6 +59,7 @@ Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function(){
 
+
         Route::get('privacypolicy', 'PrivacypolicyController@index')->name('privacypolicy');
         Route::get('dashboard/ubah_password', 'DashboardController@ubah_password')->name('dashboard.ubah_password');
         Route::post('dashboard/hasil_ubah_password', 'DashboardController@hasil_ubah_password')->name('dashboard.hasil_ubah_password');
@@ -76,6 +77,11 @@ Route::prefix('admin')
         // Chart Department
         Route::resource('struktur-hrd', 'StrukturHRDController');
         // Chart Department
+
+        //QR
+        Route::resource('qr', 'QrController');
+        //QR
+
         //Master
         Route::resource('user', 'UserController');
         Route::resource('minimal-salaries', 'MinimalSalariesController');

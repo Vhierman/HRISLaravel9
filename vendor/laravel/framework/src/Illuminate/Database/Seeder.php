@@ -3,8 +3,8 @@
 namespace Illuminate\Database;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\View\Components\Task;
-use Illuminate\Container\Container;
+use Illuminate\Console\View\Components\TwoColumnDetail;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
@@ -14,7 +14,7 @@ abstract class Seeder
     /**
      * The container instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     protected $container;
 
@@ -49,13 +49,26 @@ abstract class Seeder
 
             $name = get_class($seeder);
 
-            if ($silent || ! isset($this->command)) {
-                $seeder->__invoke($parameters);
-            } else {
-                with(new Task($this->command->getOutput()))->render(
+            if ($silent === false && isset($this->command)) {
+                with(new TwoColumnDetail($this->command->getOutput()))->render(
                     $name,
-                    fn () => $seeder->__invoke($parameters),
+                    '<fg=yellow;options=bold>RUNNING</>'
                 );
+            }
+
+            $startTime = microtime(true);
+
+            $seeder->__invoke($parameters);
+
+            if ($silent === false && isset($this->command)) {
+                $runTime = number_format((microtime(true) - $startTime) * 1000, 2);
+
+                with(new TwoColumnDetail($this->command->getOutput()))->render(
+                    $name,
+                    "<fg=gray>$runTime ms</> <fg=green;options=bold>DONE</>"
+                );
+
+                $this->command->getOutput()->writeln('');
             }
 
             static::$called[] = $class;
@@ -130,7 +143,7 @@ abstract class Seeder
     /**
      * Set the IoC container instance.
      *
-     * @param  \Illuminate\Container\Container  $container
+     * @param  \Illuminate\Contracts\Container\Container  $container
      * @return $this
      */
     public function setContainer(Container $container)

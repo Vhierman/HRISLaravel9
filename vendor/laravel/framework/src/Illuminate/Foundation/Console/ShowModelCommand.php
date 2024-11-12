@@ -6,23 +6,20 @@ use BackedEnum;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Types\DecimalType;
-use Illuminate\Console\Command;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Console\DatabaseInspectionCommand;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Composer;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
 use SplFileObject;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Exception\ProcessSignaledException;
-use Symfony\Component\Process\Exception\RuntimeException;
-use Symfony\Component\Process\Process;
 use UnitEnum;
 
 #[AsCommand(name: 'model:show')]
-class ShowModelCommand extends Command
+class ShowModelCommand extends DatabaseInspectionCommand
 {
     /**
      * The console command name.
@@ -59,13 +56,6 @@ class ShowModelCommand extends Command
                 {--json : Output the model as JSON}';
 
     /**
-     * The Composer instance.
-     *
-     * @var \Illuminate\Support\Composer
-     */
-    protected $composer;
-
-    /**
      * The methods that can be called in a model to indicate a relation.
      *
      * @var array
@@ -85,37 +75,22 @@ class ShowModelCommand extends Command
     ];
 
     /**
-     * Create a new command instance.
-     *
-     * @param  \Illuminate\Support\Composer  $composer
-     * @return void
-     */
-    public function __construct(Composer $composer)
-    {
-        parent::__construct();
-
-        $this->composer = $composer;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        if (! interface_exists('Doctrine\DBAL\Driver')) {
-            if (! $this->components->confirm('Displaying model information requires the Doctrine DBAL (doctrine/dbal) package. Would you like to install it?')) {
-                return 1;
-            }
-
-            return $this->installDependencies();
+        if (! $this->ensureDependenciesExist()) {
+            return 1;
         }
 
         $class = $this->qualifyModel($this->argument('model'));
 
         try {
             $model = $this->laravel->make($class);
+
+            $class = get_class($model);
         } catch (BindingResolutionException $e) {
             return $this->components->error($e->getMessage());
         }
@@ -128,9 +103,25 @@ class ShowModelCommand extends Command
             $class,
             $model->getConnection()->getName(),
             $model->getConnection()->getTablePrefix().$model->getTable(),
+            $this->getPolicy($model),
             $this->getAttributes($model),
             $this->getRelations($model),
+            $this->getObservers($model),
         );
+    }
+
+    /**
+     * Get the first policy associated with this model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return Illuminate\Support\Collection
+     */
+    protected function getPolicy($model)
+    {
+        return collect(Gate::policies())
+            ->filter(fn ($policy, $modelClass) => $modelClass === get_class($model))
+            ->values()
+            ->first();
     }
 
     /**
@@ -142,6 +133,7 @@ class ShowModelCommand extends Command
     protected function getAttributes($model)
     {
         $schema = $model->getConnection()->getDoctrineSchemaManager();
+        $this->registerTypeMappings($schema->getDatabasePlatform());
         $table = $model->getConnection()->getTablePrefix().$model->getTable();
         $columns = $schema->listTableColumns($table);
         $indexes = $schema->listTableIndexes($table);
@@ -175,12 +167,13 @@ class ShowModelCommand extends Command
         $class = new ReflectionClass($model);
 
         return collect($class->getMethods())
-            ->reject(fn (ReflectionMethod $method) => $method->isStatic()
-                || $method->isAbstract()
-                || $method->getDeclaringClass()->getName() !== get_class($model)
+            ->reject(
+                fn (ReflectionMethod $method) => $method->isStatic()
+                    || $method->isAbstract()
+                    || $method->getDeclaringClass()->getName() !== get_class($model)
             )
             ->mapWithKeys(function (ReflectionMethod $method) use ($model) {
-                if (preg_match('/^get(.*)Attribute$/', $method->getName(), $matches) === 1) {
+                if (preg_match('/^get(.+)Attribute$/', $method->getName(), $matches) === 1) {
                     return [Str::snake($matches[1]) => 'accessor'];
                 } elseif ($model->hasAttributeMutator($method->getName())) {
                     return [Str::snake($method->getName()) => 'attribute'];
@@ -214,16 +207,17 @@ class ShowModelCommand extends Command
     {
         return collect(get_class_methods($model))
             ->map(fn ($method) => new ReflectionMethod($model, $method))
-            ->reject(fn (ReflectionMethod $method) => $method->isStatic()
-                || $method->isAbstract()
-                || $method->getDeclaringClass()->getName() !== get_class($model)
+            ->reject(
+                fn (ReflectionMethod $method) => $method->isStatic()
+                    || $method->isAbstract()
+                    || $method->getDeclaringClass()->getName() !== get_class($model)
             )
             ->filter(function (ReflectionMethod $method) {
                 $file = new SplFileObject($method->getFileName());
                 $file->seek($method->getStartLine() - 1);
                 $code = '';
                 while ($file->key() < $method->getEndLine()) {
-                    $code .= $file->current();
+                    $code .= trim($file->current());
                     $file->next();
                 }
 
@@ -248,20 +242,56 @@ class ShowModelCommand extends Command
     }
 
     /**
+     * Get the Observers watching this model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return Illuminate\Support\Collection
+     */
+    protected function getObservers($model)
+    {
+        $listeners = $this->getLaravel()->make('events')->getRawListeners();
+
+        // Get the Eloquent observers for this model...
+        $listeners = array_filter($listeners, function ($v, $key) use ($model) {
+            return Str::startsWith($key, 'eloquent.') && Str::endsWith($key, $model::class);
+        }, ARRAY_FILTER_USE_BOTH);
+
+        // Format listeners Eloquent verb => Observer methods...
+        $extractVerb = function ($key) {
+            preg_match('/eloquent.([a-zA-Z]+)\: /', $key, $matches);
+
+            return $matches[1] ?? '?';
+        };
+
+        $formatted = [];
+
+        foreach ($listeners as $key => $observerMethods) {
+            $formatted[] = [
+                'event' => $extractVerb($key),
+                'observer' => array_map(fn ($obs) => is_string($obs) ? $obs : 'Closure', $observerMethods),
+            ];
+        }
+
+        return collect($formatted);
+    }
+
+    /**
      * Render the model information.
      *
      * @param  string  $class
      * @param  string  $database
      * @param  string  $table
+     * @param  string  $policy
      * @param  \Illuminate\Support\Collection  $attributes
      * @param  \Illuminate\Support\Collection  $relations
+     * @param  \Illuminate\Support\Collection  $observers
      * @return void
      */
-    protected function display($class, $database, $table, $attributes, $relations)
+    protected function display($class, $database, $table, $policy, $attributes, $relations, $observers)
     {
         $this->option('json')
-            ? $this->displayJson($class, $database, $table, $attributes, $relations)
-            : $this->displayCli($class, $database, $table, $attributes, $relations);
+            ? $this->displayJson($class, $database, $table, $policy, $attributes, $relations, $observers)
+            : $this->displayCli($class, $database, $table, $policy, $attributes, $relations, $observers);
     }
 
     /**
@@ -270,19 +300,23 @@ class ShowModelCommand extends Command
      * @param  string  $class
      * @param  string  $database
      * @param  string  $table
+     * @param  string  $policy
      * @param  \Illuminate\Support\Collection  $attributes
      * @param  \Illuminate\Support\Collection  $relations
+     * @param  \Illuminate\Support\Collection  $observers
      * @return void
      */
-    protected function displayJson($class, $database, $table, $attributes, $relations)
+    protected function displayJson($class, $database, $table, $policy, $attributes, $relations, $observers)
     {
         $this->output->writeln(
             collect([
                 'class' => $class,
                 'database' => $database,
                 'table' => $table,
+                'policy' => $policy,
                 'attributes' => $attributes,
                 'relations' => $relations,
+                'observers' => $observers,
             ])->toJson()
         );
     }
@@ -293,17 +327,23 @@ class ShowModelCommand extends Command
      * @param  string  $class
      * @param  string  $database
      * @param  string  $table
+     * @param  string  $policy
      * @param  \Illuminate\Support\Collection  $attributes
      * @param  \Illuminate\Support\Collection  $relations
+     * @param  \Illuminate\Support\Collection  $observers
      * @return void
      */
-    protected function displayCli($class, $database, $table, $attributes, $relations)
+    protected function displayCli($class, $database, $table, $policy, $attributes, $relations, $observers)
     {
         $this->newLine();
 
         $this->components->twoColumnDetail('<fg=green;options=bold>'.$class.'</>');
         $this->components->twoColumnDetail('Database', $database);
         $this->components->twoColumnDetail('Table', $table);
+
+        if ($policy) {
+            $this->components->twoColumnDetail('Policy', $policy);
+        }
 
         $this->newLine();
 
@@ -349,6 +389,19 @@ class ShowModelCommand extends Command
         }
 
         $this->newLine();
+
+        $this->components->twoColumnDetail('<fg=green;options=bold>Observers</>');
+
+        if ($observers->count()) {
+            foreach ($observers as $observer) {
+                $this->components->twoColumnDetail(
+                    sprintf('%s', $observer['event']),
+                    implode(', ', $observer['observer'])
+                );
+            }
+        }
+
+        $this->newLine();
     }
 
     /**
@@ -380,6 +433,7 @@ class ShowModelCommand extends Command
     protected function getCastsWithDates($model)
     {
         return collect($model->getDates())
+            ->filter()
             ->flip()
             ->map(fn () => 'datetime')
             ->merge($model->getCasts());
@@ -488,37 +542,5 @@ class ShowModelCommand extends Command
         return is_dir(app_path('Models'))
             ? $rootNamespace.'Models\\'.$model
             : $rootNamespace.$model;
-    }
-
-    /**
-     * Install the command's dependencies.
-     *
-     * @return void
-     *
-     * @throws \Symfony\Component\Process\Exception\ProcessSignaledException
-     */
-    protected function installDependencies()
-    {
-        $command = collect($this->composer->findComposer())
-            ->push('require doctrine/dbal')
-            ->implode(' ');
-
-        $process = Process::fromShellCommandline($command, null, null, null, null);
-
-        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
-            try {
-                $process->setTty(true);
-            } catch (RuntimeException $e) {
-                $this->components->warn($e->getMessage());
-            }
-        }
-
-        try {
-            $process->run(fn ($type, $line) => $this->output->write($line));
-        } catch (ProcessSignaledException $e) {
-            if (extension_loaded('pcntl') && $e->getSignal() !== SIGINT) {
-                throw $e;
-            }
-        }
     }
 }

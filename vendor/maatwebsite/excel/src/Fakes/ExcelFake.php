@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Traits\Macroable;
 use Maatwebsite\Excel\Exporter;
 use Maatwebsite\Excel\Importer;
 use Maatwebsite\Excel\Reader;
@@ -16,6 +17,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ExcelFake implements Exporter, Importer
 {
+    use Macroable;
+
     /**
      * @var array
      */
@@ -63,14 +66,16 @@ class ExcelFake implements Exporter, Importer
 
     /**
      * {@inheritdoc}
+     *
+     * @param  string|null  $diskName  Fallback for usage with named properties
      */
-    public function store($export, string $filePath, string $disk = null, string $writerType = null, $diskOptions = [])
+    public function store($export, string $filePath, string $disk = null, string $writerType = null, $diskOptions = [], string $diskName = null)
     {
         if ($export instanceof ShouldQueue) {
-            return $this->queue($export, $filePath, $disk, $writerType);
+            return $this->queue($export, $filePath, $disk ?: $diskName, $writerType);
         }
 
-        $this->stored[$disk ?? 'default'][$filePath] = $export;
+        $this->stored[$disk ?: $diskName ?: 'default'][$filePath] = $export;
 
         return true;
     }
@@ -373,7 +378,7 @@ class ExcelFake implements Exporter, Importer
             Assert::assertGreaterThan(0, count($results), $message);
             Assert::assertEquals(1, count($results), "More than one result matches the file name expression '$key'.");
 
-            return $results[0];
+            return array_values($results)[0];
         }
         Assert::assertArrayHasKey($key, $disk, $message);
 

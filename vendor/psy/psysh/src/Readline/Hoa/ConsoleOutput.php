@@ -57,7 +57,7 @@ class ConsoleOutput implements StreamOut
     /**
      * Wraps an `Hoa\Stream\IStream\Out` stream.
      */
-    public function __construct(StreamOut $output = null)
+    public function __construct(?StreamOut $output = null)
     {
         $this->_output = $output;
 
@@ -176,7 +176,7 @@ class ConsoleOutput implements StreamOut
      */
     public function writeAll(string $string)
     {
-        return $this->write($string ?: '', \strlen($string ?: ''));
+        return $this->write($string ?? '', \strlen($string ?? ''));
     }
 
     /**

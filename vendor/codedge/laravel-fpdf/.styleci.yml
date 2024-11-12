@@ -1,7 +1,0 @@
-preset: laravel
-
-finder:
-  not-path:
-    - "src/Fpdf"
-  exclude:
-    - "doc"

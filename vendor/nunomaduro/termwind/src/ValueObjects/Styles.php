@@ -15,6 +15,7 @@ use Termwind\Enums\Color;
 use Termwind\Exceptions\ColorNotFound;
 use Termwind\Exceptions\InvalidStyle;
 use Termwind\Repositories\Styles as StyleRepository;
+
 use function Termwind\terminal;
 
 /**
@@ -49,11 +50,9 @@ final class Styles
         private array $textModifiers = [],
         private array $styleModifiers = [],
         private array $defaultStyles = []
-    ) {
-    }
+    ) {}
 
     /**
-     * @param  Element  $element
      * @return $this
      */
     public function setElement(Element $element): self
@@ -416,6 +415,15 @@ final class Styles
     {
         $this->textModifiers[__METHOD__] = function ($text, $styles) use ($limit, $end): string {
             $width = $styles['width'] ?? 0;
+
+            if (is_string($width)) {
+                $width = self::calcWidthFromFraction(
+                    $width,
+                    $styles,
+                    $this->properties['parentStyles'] ?? []
+                );
+            }
+
             [, $paddingRight, , $paddingLeft] = $this->getPaddings();
             $width -= $paddingRight + $paddingLeft;
 
@@ -845,7 +853,7 @@ final class Styles
 
         preg_match_all("/\n+/", $content, $matches);
 
-        $width *= count($matches[0] ?? []) + 1;
+        $width *= count($matches[0] ?? []) + 1; // @phpstan-ignore-line
         $width += mb_strlen($matches[0][0] ?? '', 'UTF-8');
 
         if ($length <= $width) {
@@ -931,7 +939,7 @@ final class Styles
     /**
      * Get the length of the text provided without the styling tags.
      */
-    public function getLength(string $text = null): int
+    public function getLength(?string $text = null): int
     {
         return mb_strlen(preg_replace(
             self::STYLING_REGEX,
@@ -1042,6 +1050,7 @@ final class Styles
         preg_match_all(self::STYLING_REGEX, $text, $matches, PREG_OFFSET_CAPTURE);
         $text = rtrim(mb_strimwidth(preg_replace(self::STYLING_REGEX, '', $text) ?? '', 0, $width, '', 'UTF-8'));
 
+        // @phpstan-ignore-next-line
         foreach ($matches[0] ?? [] as [$part, $index]) {
             $text = substr($text, 0, $index).$part.substr($text, $index, null);
         }

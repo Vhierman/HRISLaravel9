@@ -24,9 +24,13 @@ use Symfony\Component\Mailer\Exception\TransportException;
  */
 abstract class AbstractStream
 {
+    /** @var resource|null */
     protected $stream;
+    /** @var resource|null */
     protected $in;
+    /** @var resource|null */
     protected $out;
+    protected $err;
 
     private string $debug = '';
 
@@ -65,7 +69,7 @@ abstract class AbstractStream
 
     public function terminate(): void
     {
-        $this->stream = $this->out = $this->in = null;
+        $this->stream = $this->err = $this->out = $this->in = null;
     }
 
     public function readLine(): string
@@ -74,14 +78,17 @@ abstract class AbstractStream
             return '';
         }
 
-        $line = fgets($this->out);
-        if ('' === $line) {
+        $line = @fgets($this->out);
+        if ('' === $line || false === $line) {
             $metas = stream_get_meta_data($this->out);
             if ($metas['timed_out']) {
                 throw new TransportException(sprintf('Connection to "%s" timed out.', $this->getReadConnectionDescription()));
             }
             if ($metas['eof']) {
                 throw new TransportException(sprintf('Connection to "%s" has been closed unexpectedly.', $this->getReadConnectionDescription()));
+            }
+            if (false === $line) {
+                throw new TransportException(sprintf('Unable to read from connection to "%s": ', $this->getReadConnectionDescription()).error_get_last()['message']);
             }
         }
 

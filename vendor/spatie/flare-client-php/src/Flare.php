@@ -2,12 +2,13 @@
 
 namespace Spatie\FlareClient;
 
-use Closure;
 use Error;
 use ErrorException;
 use Exception;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Pipeline\Pipeline;
+use Spatie\Backtrace\Arguments\ArgumentReducers;
+use Spatie\Backtrace\Arguments\Reducers\ArgumentReducer;
 use Spatie\FlareClient\Concerns\HasContext;
 use Spatie\FlareClient\Context\BaseContextProviderDetector;
 use Spatie\FlareClient\Context\ContextProviderDetector;
@@ -20,6 +21,7 @@ use Spatie\FlareClient\FlareMiddleware\RemoveRequestIp;
 use Spatie\FlareClient\Glows\Glow;
 use Spatie\FlareClient\Glows\GlowRecorder;
 use Spatie\FlareClient\Http\Client;
+use Spatie\FlareClient\Support\PhpStackFrameArgumentsFixer;
 use Throwable;
 
 class Flare
@@ -39,7 +41,7 @@ class Flare
 
     protected ContextProviderDetector $contextDetector;
 
-    protected ?Closure $previousExceptionHandler = null;
+    protected mixed $previousExceptionHandler = null;
 
     /** @var null|callable */
     protected $previousErrorHandler = null;
@@ -52,11 +54,19 @@ class Flare
     /** @var null|callable */
     protected $filterExceptionsCallable = null;
 
+    /** @var null|callable */
+    protected $filterReportsCallable = null;
+
     protected ?string $stage = null;
 
     protected ?string $requestId = null;
 
     protected ?Container $container = null;
+
+    /** @var array<class-string<ArgumentReducer>|ArgumentReducer>|ArgumentReducers|null */
+    protected null|array|ArgumentReducers $argumentReducers = null;
+
+    protected bool $withStackFrameArguments = true;
 
     public static function make(
         string $apiKey = null,
@@ -121,6 +131,34 @@ class Flare
         return $this;
     }
 
+    public function filterReportsUsing(callable $filterReportsCallable): self
+    {
+        $this->filterReportsCallable = $filterReportsCallable;
+
+        return $this;
+    }
+
+    /** @param array<class-string<ArgumentReducer>|ArgumentReducer>|ArgumentReducers|null $argumentReducers */
+    public function argumentReducers(null|array|ArgumentReducers $argumentReducers): self
+    {
+        $this->argumentReducers = $argumentReducers;
+
+        return $this;
+    }
+
+    public function withStackFrameArguments(
+        bool $withStackFrameArguments = true,
+        bool $forcePHPIniSetting = false,
+    ): self {
+        $this->withStackFrameArguments = $withStackFrameArguments;
+
+        if ($forcePHPIniSetting) {
+            (new PhpStackFrameArgumentsFixer())->enable();
+        }
+
+        return $this;
+    }
+
     public function version(): ?string
     {
         if (! $this->determineVersionCallable) {
@@ -138,7 +176,7 @@ class Flare
     public function __construct(
         Client $client,
         ContextProviderDetector $contextDetector = null,
-        array $middleware = []
+        array $middleware = [],
     ) {
         $this->client = $client;
         $this->recorder = new GlowRecorder();
@@ -180,15 +218,16 @@ class Flare
 
     public function registerExceptionHandler(): self
     {
-        /** @phpstan-ignore-next-line */
         $this->previousExceptionHandler = set_exception_handler([$this, 'handleException']);
 
         return $this;
     }
 
-    public function registerErrorHandler(): self
+    public function registerErrorHandler(?int $errorLevels = null): self
     {
-        $this->previousErrorHandler = set_error_handler([$this, 'handleError']);
+        $this->previousErrorHandler = $errorLevels
+            ? set_error_handler([$this, 'handleError'], $errorLevels)
+            : set_error_handler([$this, 'handleError']);
 
         return $this;
     }
@@ -202,7 +241,7 @@ class Flare
     }
 
     /**
-     * @param FlareMiddleware|array<FlareMiddleware>|class-string<FlareMiddleware> $middleware
+     * @param FlareMiddleware|array<FlareMiddleware>|class-string<FlareMiddleware>|callable $middleware
      *
      * @return $this
      */
@@ -246,7 +285,7 @@ class Flare
     {
         $this->report($throwable);
 
-        if ($this->previousExceptionHandler) {
+        if ($this->previousExceptionHandler && is_callable($this->previousExceptionHandler)) {
             call_user_func($this->previousExceptionHandler, $throwable);
         }
     }
@@ -263,8 +302,8 @@ class Flare
         if ($this->previousErrorHandler) {
             return call_user_func(
                 $this->previousErrorHandler,
-                $message,
                 $code,
+                $message,
                 $file,
                 $line
             );
@@ -278,7 +317,7 @@ class Flare
         return $this;
     }
 
-    public function report(Throwable $throwable, callable $callback = null, Report $report = null): ?Report
+    public function report(Throwable $throwable, callable $callback = null, Report $report = null, ?bool $handled = null): ?Report
     {
         if (! $this->shouldSendReport($throwable)) {
             return null;
@@ -286,27 +325,38 @@ class Flare
 
         $report ??= $this->createReport($throwable);
 
+        if ($handled) {
+            $report->handled();
+        }
+
         if (! is_null($callback)) {
             call_user_func($callback, $report);
         }
+
+        $this->recorder->reset();
 
         $this->sendReportToApi($report);
 
         return $report;
     }
 
+    public function reportHandled(Throwable $throwable): ?Report
+    {
+        return $this->report($throwable, null, null, true);
+    }
+
     protected function shouldSendReport(Throwable $throwable): bool
     {
-        if ($this->reportErrorLevels && $throwable instanceof Error) {
-            return (bool)($this->reportErrorLevels & $throwable->getCode());
+        if (isset($this->reportErrorLevels) && $throwable instanceof Error) {
+            return (bool) ($this->reportErrorLevels & $throwable->getCode());
         }
 
-        if ($this->reportErrorLevels && $throwable instanceof ErrorException) {
-            return (bool)($this->reportErrorLevels & $throwable->getSeverity());
+        if (isset($this->reportErrorLevels) && $throwable instanceof ErrorException) {
+            return (bool) ($this->reportErrorLevels & $throwable->getSeverity());
         }
 
         if ($this->filterExceptionsCallable && $throwable instanceof Exception) {
-            return (bool)(call_user_func($this->filterExceptionsCallable, $throwable));
+            return (bool) (call_user_func($this->filterExceptionsCallable, $throwable));
         }
 
         return true;
@@ -330,6 +380,12 @@ class Flare
 
     protected function sendReportToApi(Report $report): void
     {
+        if ($this->filterReportsCallable) {
+            if (! call_user_func($this->filterReportsCallable, $report)) {
+                return;
+            }
+        }
+
         try {
             $this->api->report($report);
         } catch (Exception $exception) {
@@ -379,7 +435,9 @@ class Flare
             $throwable,
             $this->contextDetector->detectCurrentContext(),
             $this->applicationPath,
-            $this->version()
+            $this->version(),
+            $this->argumentReducers,
+            $this->withStackFrameArguments
         );
 
         return $this->applyMiddlewareToReport($report);
@@ -391,7 +449,9 @@ class Flare
             $message,
             $logLevel,
             $this->contextDetector->detectCurrentContext(),
-            $this->applicationPath
+            $this->applicationPath,
+            $this->argumentReducers,
+            $this->withStackFrameArguments
         );
 
         return $this->applyMiddlewareToReport($report);
@@ -405,6 +465,7 @@ class Flare
                 ? new $singleMiddleware
                 : $singleMiddleware;
         }, $this->middleware);
+
 
         $report = (new Pipeline())
             ->send($report)

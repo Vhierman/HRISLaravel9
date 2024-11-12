@@ -9,7 +9,12 @@ use Throwable;
 
 class UnableToCheckExistence extends RuntimeException implements FilesystemOperationFailed
 {
-    public static function forLocation(string $path, Throwable $exception = null): static
+    final public function __construct(string $message = "", int $code = 0, ?Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
+
+    public static function forLocation(string $path, ?Throwable $exception = null): static
     {
         return new static("Unable to check existence for: {$path}", 0, $exception);
     }

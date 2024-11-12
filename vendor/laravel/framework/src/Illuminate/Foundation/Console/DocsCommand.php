@@ -12,6 +12,7 @@ use Illuminate\Support\Env;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 use Throwable;
 
@@ -86,21 +87,6 @@ class DocsCommand extends Command
     protected $systemOsFamily = PHP_OS_FAMILY;
 
     /**
-     * Create a new command instance.
-     *
-     * @param  \Illuminate\Http\Client\Factory  $http
-     * @param  \Illuminate\Contracts\Cache\Repository  $cache
-     * @return void
-     */
-    public function __construct(Http $http, Cache $cache)
-    {
-        parent::__construct();
-
-        $this->http = $http;
-        $this->cache = $cache;
-    }
-
-    /**
      * Configure the current command.
      *
      * @return void
@@ -117,10 +103,15 @@ class DocsCommand extends Command
     /**
      * Execute the console command.
      *
+     * @param  \Illuminate\Http\Client\Factory  $http
+     * @param  \Illuminate\Contracts\Cache\Repository  $cache
      * @return int
      */
-    public function handle()
+    public function handle(Http $http, Cache $cache)
     {
+        $this->http = $http;
+        $this->cache = $cache;
+
         try {
             $this->openUrl();
         } catch (ProcessFailedException $e) {
@@ -189,7 +180,7 @@ class DocsCommand extends Command
     /**
      * Determine the page to open.
      *
-     * @return ?string
+     * @return string|null
      */
     protected function resolvePage()
     {
@@ -215,7 +206,7 @@ class DocsCommand extends Command
     /**
      * Ask the user which page they would like to open.
      *
-     * @return ?string
+     * @return string|null
      */
     protected function askForPage()
     {
@@ -225,7 +216,7 @@ class DocsCommand extends Command
     /**
      * Ask the user which page they would like to open via a custom strategy.
      *
-     * @return ?string
+     * @return string|null
      */
     protected function askForPageViaCustomStrategy()
     {
@@ -245,7 +236,7 @@ class DocsCommand extends Command
     /**
      * Ask the user which page they would like to open using autocomplete.
      *
-     * @return ?string
+     * @return string|null
      */
     protected function askForPageViaAutocomplete()
     {
@@ -266,7 +257,7 @@ class DocsCommand extends Command
     /**
      * Guess the page the user is attempting to open.
      *
-     * @return ?string
+     * @return string|null
      */
     protected function guessPage()
     {
@@ -292,7 +283,7 @@ class DocsCommand extends Command
      * The section the user specifically asked to open.
      *
      * @param  string  $page
-     * @return ?string
+     * @return string|null
      */
     protected function section($page)
     {
@@ -315,7 +306,7 @@ class DocsCommand extends Command
      * Guess the section the user is attempting to open.
      *
      * @param  string  $page
-     * @return ?string
+     * @return string|null
      */
     protected function guessSection($page)
     {
@@ -351,7 +342,7 @@ class DocsCommand extends Command
             } elseif (in_array($this->systemOsFamily, ['Darwin', 'Windows', 'Linux'])) {
                 $this->openViaBuiltInStrategy($url);
             } else {
-                $this->components->warn('Unable to open the URL on your system. You will need to open it yourself.');
+                $this->components->warn('Unable to open the URL on your system. You will need to open it yourself or create a custom opener for your system.');
             }
         })($url);
     }
@@ -387,11 +378,28 @@ class DocsCommand extends Command
      */
     protected function openViaBuiltInStrategy($url)
     {
-        $process = tap(Process::fromShellCommandline(match ($this->systemOsFamily) {
-            'Darwin' => 'open',
-            'Windows' => 'start',
-            'Linux' => 'xdg-open',
-        }.' '.escapeshellarg($url)))->run();
+        if ($this->systemOsFamily === 'Windows') {
+            $process = tap(Process::fromShellCommandline(escapeshellcmd("start {$url}")))->run();
+
+            if (! $process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+
+            return;
+        }
+
+        $binary = Collection::make(match ($this->systemOsFamily) {
+            'Darwin' => ['open'],
+            'Linux' => ['xdg-open', 'wslview'],
+        })->first(fn ($binary) => (new ExecutableFinder)->find($binary) !== null);
+
+        if ($binary === null) {
+            $this->components->warn('Unable to open the URL on your system. You will need to open it yourself or create a custom opener for your system.');
+
+            return;
+        }
+
+        $process = tap(Process::fromShellCommandline(escapeshellcmd("{$binary} {$url}")))->run();
 
         if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
@@ -464,7 +472,7 @@ class DocsCommand extends Command
      */
     protected function version()
     {
-        return Str::before(($this->version ?? $this->laravel->version()), '.').'.x';
+        return Str::before($this->version ?? $this->laravel->version(), '.').'.x';
     }
 
     /**

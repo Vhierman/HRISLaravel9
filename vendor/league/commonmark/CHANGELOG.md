@@ -6,6 +6,143 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [2.5.3] - 2024-08-16
+
+### Changed
+
+- Made compatible with CommonMark spec 0.31.1, including:
+  - Remove `source`, add `search` to list of recognized block tags
+
+## [2.5.2] - 2024-08-14
+
+### Changed
+
+- Boolean attributes now require an explicit `true` value (#1040)
+
+### Fixed
+
+- Fixed regression where text could be misinterpreted as an attribute (#1040)
+
+## [2.5.1] - 2024-07-24
+
+### Fixed
+
+- Fixed attribute parsing incorrectly parsing mustache-like syntax (#1035)
+- Fixed incorrect `Table` start line numbers (#1037)
+
+## [2.5.0] - 2024-07-22
+
+### Added
+
+- The `AttributesExtension` now supports attributes without values (#985, #986)
+- The `AutolinkExtension` exposes two new configuration options to override the default behavior (#969, #987):
+    - `autolink/allowed_protocols` - an array of protocols to allow autolinking for
+    - `autolink/default_protocol` - the default protocol to use when none is specified
+
+### Changed
+
+- Made compatible with CommonMark spec 0.31.0, including:
+    - Allow closing fence to be followed by tabs
+    - Remove restrictive limitation on inline comments
+    - Unicode symbols now treated like punctuation (for purposes of flankingness)
+    - Trailing tabs on the last line of indented code blocks will be excluded
+    - Improved HTML comment matching
+- `Paragraph`s only containing link reference definitions will be kept in the AST until the `Document` is finalized
+    - (These were previously removed immediately after parsing the `Paragraph`)
+
+### Fixed
+
+- Fixed list tightness not being determined properly in some edge cases
+- Fixed incorrect ending line numbers for several block types in various scenarios
+- Fixed lowercase inline HTML declarations not being accepted
+
+## [2.4.4] - 2024-07-22
+
+### Fixed
+
+- Fixed SmartPunct extension changing already-formatted quotation marks (#1030)
+
+## [2.4.3] - 2024-07-22
+
+### Fixed
+
+- Fixed the Attributes extension not supporting CSS level 3 selectors (#1013)
+- Fixed `UrlAutolinkParser` incorrectly parsing text containing `www` anywhere before an autolink (#1025)
+
+
+## [2.4.2] - 2024-02-02
+
+### Fixed
+
+- Fixed declaration parser being too strict
+- `FencedCodeRenderer`: don't add `language-` to class if already prefixed
+
+## [2.4.1] - 2023-08-30
+
+### Fixed
+
+- Fixed `ExternalLinkProcessor` not fully disabling the `rel` attribute when configured to do so (#992)
+
+## [2.4.0] - 2023-03-24
+
+### Added
+
+- Added generic `CommonMarkException` marker interface for all exceptions thrown by the library
+- Added several new specific exception types implementing that marker interface:
+    - `AlreadyInitializedException`
+    - `InvalidArgumentException`
+    - `IOException`
+    - `LogicException`
+    - `MissingDependencyException`
+    - `NoMatchingRendererException`
+    - `ParserLogicException`
+- Added more configuration options to the Heading Permalinks extension (#939):
+    - `heading_permalink/apply_id_to_heading` - When `true`, the `id` attribute will be applied to the heading element itself instead of the `<a>` tag
+    - `heading_permalink/heading_class` - class to apply to the heading element
+    - `heading_permalink/insert` - now accepts `none` to prevent the creation of the `<a>` link
+- Added new `table/alignment_attributes` configuration option to control how table cell alignment is rendered (#959)
+
+### Changed
+
+- Change several thrown exceptions from `RuntimeException` to `LogicException` (or something extending it), including:
+    - `CallbackGenerator`s that fail to set a URL or return an expected value
+    - `MarkdownParser` when deactivating the last block parser or attempting to get an active block parser when they've all been closed
+    - Adding items to an already-initialized `Environment`
+    - Rendering a `Node` when no renderer has been registered for it
+- `HeadingPermalinkProcessor` now throws `InvalidConfigurationException` instead of `RuntimeException` when invalid config values are given.
+- `HtmlElement::setAttribute()` no longer requires the second parameter for boolean attributes
+- Several small micro-optimizations
+- Changed Strikethrough to only allow 1 or 2 tildes per the updated GFM spec
+
+### Fixed
+
+- Fixed inaccurate `@throws` docblocks throughout the codebase, including `ConverterInterface`, `MarkdownConverter`, and `MarkdownConverterInterface`.
+    - These previously suggested that only `\RuntimeException`s were thrown, which was inaccurate as `\LogicException`s were also possible.
+
+## [2.3.9] - 2023-02-15
+
+### Fixed
+
+- Fixed autolink extension not detecting some URIs with underscores (#956)
+
+## [2.3.8] - 2022-12-10
+
+### Fixed
+
+- Fixed parsing issues when `mb_internal_encoding()` is set to something other than `UTF-8` (#951)
+
+## [2.3.7] - 2022-11-03
+
+### Fixed
+
+- Fixed `TaskListItemMarkerRenderer` not including HTML attributes set on the node by other extensions (#947)
+
+## [2.3.6] - 2022-10-30
+
+### Fixed
+
+- Fixed unquoted attribute parsing when closing curly brace is followed by certain characters (like a `.`) (#943)
+
 ## [2.3.5] - 2022-07-29
 
 ### Fixed
@@ -494,7 +631,20 @@ No changes were introduced since the previous release.
     - Alternative 1: Use `CommonMarkConverter` or `GithubFlavoredMarkdownConverter` if you don't need to customize the environment
     - Alternative 2: Instantiate a new `Environment` and add the necessary extensions yourself
 
-[unreleased]: https://github.com/thephpleague/commonmark/compare/2.3.5...main
+[unreleased]: https://github.com/thephpleague/commonmark/compare/2.5.3...main
+[2.5.3]: https://github.com/thephpleague/commonmark/compare/2.5.2...2.5.3
+[2.5.2]: https://github.com/thephpleague/commonmark/compare/2.5.1...2.5.2
+[2.5.1]: https://github.com/thephpleague/commonmark/compare/2.5.0...2.5.1
+[2.5.0]: https://github.com/thephpleague/commonmark/compare/2.4.4...2.5.0
+[2.4.4]: https://github.com/thephpleague/commonmark/compare/2.4.3...2.4.4
+[2.4.3]: https://github.com/thephpleague/commonmark/compare/2.4.2...2.4.3
+[2.4.2]: https://github.com/thephpleague/commonmark/compare/2.4.1...2.4.2
+[2.4.1]: https://github.com/thephpleague/commonmark/compare/2.4.0...2.4.1
+[2.4.0]: https://github.com/thephpleague/commonmark/compare/2.3.9...2.4.0
+[2.3.9]: https://github.com/thephpleague/commonmark/compare/2.3.8...2.3.9
+[2.3.8]: https://github.com/thephpleague/commonmark/compare/2.3.7...2.3.8
+[2.3.7]: https://github.com/thephpleague/commonmark/compare/2.3.6...2.3.7
+[2.3.6]: https://github.com/thephpleague/commonmark/compare/2.3.5...2.3.6
 [2.3.5]: https://github.com/thephpleague/commonmark/compare/2.3.4...2.3.5
 [2.3.4]: https://github.com/thephpleague/commonmark/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/thephpleague/commonmark/compare/2.3.2...2.3.3
