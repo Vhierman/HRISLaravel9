@@ -1547,7 +1547,7 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', '', '11');
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            $this->fpdf->Cell(170, 6, 'Perjanjian kerja ini berlaku untuk jangka waktu 21 hari(dua puluh satu hari), terhitung sejak tanggal', 0, 0, 'L');
+            $this->fpdf->Cell(170, 6, 'Perjanjian kerja ini berlaku untuk jangka waktu 20 hari(dua puluh hari), terhitung sejak tanggal', 0, 0, 'L');
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
             $this->fpdf->Cell(135, 6, 'penandatanganan surat perjanjian kerja ini dan akan berakhir pada tanggal : ', 0, 0, 'L');
@@ -1680,14 +1680,14 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', '', '11');
             $this->fpdf->Cell(57, 5, 'akan memberikan upah sebesar ', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', 'B', '11');
-            $this->fpdf->Cell(70, 5, 'Rp.222.419,- (dua ratus dua puluh dua ribu ', 0, 0, 'L');
+            $this->fpdf->Cell(25, 5, 'Rp.'.number_format($salary->jumlah_upah/20), 0, 0, 'L');
+            $this->fpdf->SetFont('Arial', '', '11');
+            $this->fpdf->Cell(60, 5, 'rupiah setiap hari kehadiran', 0, 0, 'L');
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            $this->fpdf->Cell(55, 5, 'empat ratus sembilan belas) ', 0, 0, 'L');
-            $this->fpdf->SetFont('Arial', '', '11');
-            $this->fpdf->Cell(50, 5, 'rupiah setiap hari kehadiran', 0, 0, 'L');
+            $this->fpdf->Cell(15, 5, 'kepada', 0, 0, 'L');
             $this->fpdf->SetFont('Arial', 'B', '11');
-            $this->fpdf->Cell(35, 5, 'PIHAK KEDUA.', 0, 0, 'L');
+            $this->fpdf->Cell(30, 5, 'PIHAK KEDUA', 0, 0, 'L');
     
             $this->fpdf->SetFont('Arial', 'B', '11');
             $this->fpdf->Ln(10);
@@ -1697,10 +1697,7 @@ class CetakController extends Controller
             $this->fpdf->SetFont('Arial', '', '11');
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
-            $this->fpdf->Cell(170, 5, 'Pembayaran  upah  akan  dibayarkan kurang lebih  14  (empatbelas) hari  kerja setelah masa ', 0, 0, 'L');
-            $this->fpdf->Ln();
-            $this->fpdf->Cell(20);
-            $this->fpdf->Cell(170, 5, 'kontrak kerja berakhir.', 0, 0, 'L');
+            $this->fpdf->Cell(170, 5, 'Pembayaran  upah  akan  dibayarkan setiap tanggal 25 setiap bulannya. ', 0, 0, 'L');
     
             //TTD
             $this->fpdf->Ln();
@@ -1764,7 +1761,11 @@ class CetakController extends Controller
             $this->fpdf->Cell(16, 6, 'sebesar', 0, 0, 'L');
     
             $this->fpdf->SetFont('Arial', 'B', '11');
-            $this->fpdf->Cell(117, 6, 'Rp.26.999,- (dua puluh enam ribu sembilan ratus sembilan puluh sembilan)', 0, 0, 'L');
+            $this->fpdf->Cell(23, 6, 'Rp.'.number_format($salary->upah_lembur_perjam), 0, 0, 'L');
+            $this->fpdf->SetFont('Arial', '', '11');
+            $this->fpdf->SetFont('Arial', '', '11');
+            $this->fpdf->Cell(60, 6, 'rupiah setiap jam lembur.', 0, 0, 'L');
+
             $this->fpdf->Ln();
             $this->fpdf->Cell(20);
             $this->fpdf->SetFont('Arial', '', '11');
@@ -2089,6 +2090,12 @@ class CetakController extends Controller
                     'positions'
                     ])->where('nik_karyawan', $pkwtharian->employees_id)->where('golongans_id', $golongan)->get();
 
+                $salaries = HistorySalaries::with([
+                    'employees'
+                    ])->where('employees_id', $pkwtharian->employees_id)->get();
+                
+                foreach ($salaries as $salary) {
+
                 foreach ($items as $item) {
                  
                 $nik            = substr($pkwtharian->employees_id, 12);
@@ -2136,6 +2143,8 @@ class CetakController extends Controller
                     $romawi = 'SALAH';
                 }
 
+                $upah_perhari = $salary->jumlah_upah/20;
+         
                 $this->fpdf->SetFont('Arial', 'BU', '12');
                 $this->fpdf->Cell(190, 10, 'SURAT PERJANJIAN KERJA HARIAN LEPAS', 0, 0, 'C');
                 $this->fpdf->Ln(5);
@@ -2371,7 +2380,7 @@ class CetakController extends Controller
                 $this->fpdf->SetFont('Arial', '', '11');
                 $this->fpdf->Ln();
                 $this->fpdf->Cell(20);
-                $this->fpdf->Cell(170, 6, 'Perjanjian kerja ini berlaku untuk jangka waktu 21 hari(dua puluh satu hari), terhitung sejak tanggal', 0, 0, 'L');
+                $this->fpdf->Cell(170, 6, 'Perjanjian kerja ini berlaku untuk jangka waktu 20 hari (dua puluh hari) kerja, terhitung sejak tanggal', 0, 0, 'L');
                 $this->fpdf->Ln();
                 $this->fpdf->Cell(20);
                 $this->fpdf->Cell(135, 6, 'penandatanganan surat perjanjian kerja ini dan akan berakhir pada tanggal : ', 0, 0, 'L');
@@ -2504,14 +2513,14 @@ class CetakController extends Controller
                 $this->fpdf->SetFont('Arial', '', '11');
                 $this->fpdf->Cell(57, 5, 'akan memberikan upah sebesar ', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', 'B', '11');
-                $this->fpdf->Cell(70, 5, 'Rp.222.419,- (dua ratus dua puluh dua ribu ', 0, 0, 'L');
+                $this->fpdf->Cell(25, 5, 'Rp.'.number_format($upah_perhari), 0, 0, 'L');
+                $this->fpdf->SetFont('Arial', '', '11');
+                $this->fpdf->Cell(60, 5, 'rupiah setiap hari kehadiran', 0, 0, 'L');
                 $this->fpdf->Ln();
                 $this->fpdf->Cell(20);
-                $this->fpdf->Cell(55, 5, 'empat ratus sembilan belas) ', 0, 0, 'L');
-                $this->fpdf->SetFont('Arial', '', '11');
-                $this->fpdf->Cell(50, 5, 'rupiah setiap hari kehadiran', 0, 0, 'L');
+                $this->fpdf->Cell(15, 5, 'kepada', 0, 0, 'L');
                 $this->fpdf->SetFont('Arial', 'B', '11');
-                $this->fpdf->Cell(35, 5, 'PIHAK KEDUA.', 0, 0, 'L');
+                $this->fpdf->Cell(30, 5, 'PIHAK KEDUA', 0, 0, 'L');
         
                 $this->fpdf->SetFont('Arial', 'B', '11');
                 $this->fpdf->Ln(10);
@@ -2521,10 +2530,7 @@ class CetakController extends Controller
                 $this->fpdf->SetFont('Arial', '', '11');
                 $this->fpdf->Ln();
                 $this->fpdf->Cell(20);
-                $this->fpdf->Cell(170, 5, 'Pembayaran  upah  akan  dibayarkan kurang lebih  14  (empatbelas) hari  kerja setelah masa ', 0, 0, 'L');
-                $this->fpdf->Ln();
-                $this->fpdf->Cell(20);
-                $this->fpdf->Cell(170, 5, 'kontrak kerja berakhir.', 0, 0, 'L');
+                $this->fpdf->Cell(170, 5, 'Pembayaran  upah  akan  dibayarkan setiap tanggal 25 setiap bulannya. ', 0, 0, 'L');
         
                 $this->fpdf->Ln(100);
                 $this->fpdf->Ln(50);
@@ -2580,7 +2586,11 @@ class CetakController extends Controller
                 $this->fpdf->Cell(16, 6, 'sebesar', 0, 0, 'L');
         
                 $this->fpdf->SetFont('Arial', 'B', '11');
-                $this->fpdf->Cell(117, 6, 'Rp.26.999,- (dua puluh enam ribu sembilan ratus sembilan puluh sembilan)', 0, 0, 'L');
+                $this->fpdf->Cell(23, 6, 'Rp.'.number_format($salary->upah_lembur_perjam), 0, 0, 'L');
+                $this->fpdf->SetFont('Arial', '', '11');
+                $this->fpdf->SetFont('Arial', '', '11');
+                $this->fpdf->Cell(60, 6, 'rupiah setiap jam lembur.', 0, 0, 'L');
+
                 $this->fpdf->Ln();
                 $this->fpdf->Cell(20);
                 $this->fpdf->SetFont('Arial', '', '11');
@@ -2828,6 +2838,7 @@ class CetakController extends Controller
                 $this->fpdf->Cell(70, 5, '', 0, 0, 'C');
                 $this->fpdf->Cell(50, 5, '( '.$pkwtharian->employees->nama_karyawan.' )', 0, 0, 'C');
                 $this->fpdf->Ln(100);
+            }
             }
             }
             $this->fpdf->Output();
