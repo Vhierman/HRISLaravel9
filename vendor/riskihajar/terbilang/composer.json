@@ -1,0 +1,74 @@
+{
+    "name": "riskihajar/terbilang",
+    "description": "Number to words conversion support multi language.",
+    "keywords": [
+        "riskihajar",
+        "laravel",
+        "terbilang",
+        "number to words",
+        "date to words",
+        "number to roman"
+    ],
+    "homepage": "https://github.com/riskihajar/terbilang",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rizky Hajar",
+            "email": "riskihajar@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0|^8.1|^8.2",
+        "spatie/laravel-package-tools": "^1.0",
+        "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^5.0|^6.0|^7.0|^8.0",
+        "larastan/larastan": "^1.0|^2.0",
+        "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+        "pestphp/pest": "^1.21|^2.0",
+        "pestphp/pest-plugin-laravel": "^1.1|^2.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.0|^10.0|^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Riskihajar\\Terbilang\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Riskihajar\\Terbilang\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Riskihajar\\Terbilang\\TerbilangServiceProvider"
+            ],
+            "aliases": {
+                "Terbilang": "Riskihajar\\Terbilang\\Facades\\Terbilang"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

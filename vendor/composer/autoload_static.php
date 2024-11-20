@@ -92,6 +92,7 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'Spatie\\LaravelPackageTools\\' => 27,
             'Spatie\\LaravelIgnition\\' => 23,
             'Spatie\\Ignition\\' => 16,
             'Spatie\\FlareClient\\' => 19,
@@ -100,6 +101,7 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         ),
         'R' => 
         array (
+            'Riskihajar\\Terbilang\\' => 21,
             'RealRashid\\SweetAlert\\' => 22,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
@@ -338,6 +340,10 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Spatie\\LaravelPackageTools\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-package-tools/src',
+        ),
         'Spatie\\LaravelIgnition\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
@@ -357,6 +363,10 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         'SimpleSoftwareIO\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src',
+        ),
+        'Riskihajar\\Terbilang\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/riskihajar/terbilang/src',
         ),
         'RealRashid\\SweetAlert\\' => 
         array (
@@ -645,6 +655,7 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         'App\\Http\\Controllers\\Admin\\PositionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PositionController.php',
         'App\\Http\\Controllers\\Admin\\PrivacypolicyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PrivacypolicyController.php',
         'App\\Http\\Controllers\\Admin\\ProsesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ProsesController.php',
+        'App\\Http\\Controllers\\Admin\\QrController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/QrController.php',
         'App\\Http\\Controllers\\Admin\\SchoolController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SchoolController.php',
         'App\\Http\\Controllers\\Admin\\StrukturHRDController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StrukturHRDController.php',
         'App\\Http\\Controllers\\Admin\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StudentController.php',
@@ -660,6 +671,7 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\FacilitiesController' => __DIR__ . '/../..' . '/app/Http/Controllers/FacilitiesController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\IdcardController' => __DIR__ . '/../..' . '/app/Http/Controllers/IdcardController.php',
         'App\\Http\\Controllers\\ProductsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductsController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -5745,6 +5757,21 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         'RealRashid\\SweetAlert\\SweetAlertServiceProvider' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/SweetAlertServiceProvider.php',
         'RealRashid\\SweetAlert\\ToSweetAlert' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/ToSweetAlert.php',
         'RealRashid\\SweetAlert\\Toaster' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Toaster.php',
+        'Riskihajar\\Terbilang\\Commands\\TerbilangLargeNumberCommand' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Commands/TerbilangLargeNumberCommand.php',
+        'Riskihajar\\Terbilang\\Commands\\TerbilangNumberToWordsCommand' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Commands/TerbilangNumberToWordsCommand.php',
+        'Riskihajar\\Terbilang\\Commands\\TerbilangRomanCommand' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Commands/TerbilangRomanCommand.php',
+        'Riskihajar\\Terbilang\\DateTime' => __DIR__ . '/..' . '/riskihajar/terbilang/src/DateTime.php',
+        'Riskihajar\\Terbilang\\DistanceDate' => __DIR__ . '/..' . '/riskihajar/terbilang/src/DistanceDate.php',
+        'Riskihajar\\Terbilang\\Enums\\DistanceDate' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Enums/DistanceDate.php',
+        'Riskihajar\\Terbilang\\Enums\\LargeNumber' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Enums/LargeNumber.php',
+        'Riskihajar\\Terbilang\\Enums\\Roman' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Enums/Roman.php',
+        'Riskihajar\\Terbilang\\Exceptions\\InvalidNumber' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Exceptions/InvalidNumber.php',
+        'Riskihajar\\Terbilang\\Facades\\Terbilang' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Facades/Terbilang.php',
+        'Riskihajar\\Terbilang\\LargeNumber' => __DIR__ . '/..' . '/riskihajar/terbilang/src/LargeNumber.php',
+        'Riskihajar\\Terbilang\\NumberToWords' => __DIR__ . '/..' . '/riskihajar/terbilang/src/NumberToWords.php',
+        'Riskihajar\\Terbilang\\Roman' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Roman.php',
+        'Riskihajar\\Terbilang\\Terbilang' => __DIR__ . '/..' . '/riskihajar/terbilang/src/Terbilang.php',
+        'Riskihajar\\Terbilang\\TerbilangServiceProvider' => __DIR__ . '/..' . '/riskihajar/terbilang/src/TerbilangServiceProvider.php',
         'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
@@ -6135,6 +6162,10 @@ class ComposerStaticInit58e389447eabc22a84f09bbbb7668d85
         'Spatie\\LaravelIgnition\\Support\\StringComparator' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/StringComparator.php',
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
+        'Spatie\\LaravelPackageTools\\Commands\\InstallCommand' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Commands/InstallCommand.php',
+        'Spatie\\LaravelPackageTools\\Exceptions\\InvalidPackage' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Exceptions/InvalidPackage.php',
+        'Spatie\\LaravelPackageTools\\Package' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Package.php',
+        'Spatie\\LaravelPackageTools\\PackageServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/PackageServiceProvider.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\Attribute\\AsCommand' => __DIR__ . '/..' . '/symfony/console/Attribute/AsCommand.php',

@@ -187,6 +187,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Riskihajar\Terbilang\TerbilangServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -213,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
