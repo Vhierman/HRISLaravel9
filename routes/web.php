@@ -53,6 +53,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/facilities', 'FacilitiesController@index')->name('facilities');
 Route::get('/products', 'ProductsController@index')->name('products');
 
+Route::get('/idcard/{id}', 'IdcardController@index')->name('show');
+Route::resource('idcard', 'IdcardController');
+
 // Halaman Admin
 Route::prefix('admin')
     ->namespace('Admin')
