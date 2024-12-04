@@ -85,8 +85,8 @@ class AbsensiController extends Controller
             ->join('divisions', 'divisions.id', '=', 'employees.divisions_id')
             ->join('golongans', 'golongans.id', '=', 'employees.golongans_id')
             ->join('positions', 'positions.id', '=', 'employees.positions_id')
-            ->where('attendances.deleted_at',NULL)
-            ->where('employees.deleted_at',NULL)
+            // ->where('attendances.deleted_at',NULL)
+            // ->where('employees.deleted_at',NULL)
             // ->whereIn('golongans_id', [1,2,4])
             ->whereBetween('tanggal_absen', [$awal, $akhir])
             ->get();
@@ -123,7 +123,7 @@ class AbsensiController extends Controller
         if (!$items->isEmpty()) {
             return view('pages.admin.absensi.tampilabsensi',[
                 'awal'  => $awal,
-                'akhir'  => $akhir,
+                'akhir' => $akhir,
                 'items' => $items
             ]);
         } else {
