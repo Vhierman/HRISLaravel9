@@ -250,7 +250,7 @@ class BonusController extends Controller
                 $this->fpdf->Cell(5);
                 $this->fpdf->Cell(73, 6, 'Kesadaran dan Tanggung Jawab', 1, 0, 'L');
                 $this->fpdf->Cell(17, 6, '', 1, 0, 'C');
-                $this->fpdf->Cell(104, 6, '[ A = 3 - 4 ] [ B = 2 - 2,99 ] [ C = 1 - 1,99 ] [ D = 0 - 0,99 ]', 0, 0, 'L');
+                $this->fpdf->Cell(104, 6, '[ A = 3.6 - 4 ] [ B = 2.8 - 3.5 ] [ C = 2 - 2.75 ] [ D = < 2 ]', 0, 0, 'L');
 
                 $this->fpdf->Ln(6);
                 $this->fpdf->Cell(5);
@@ -348,7 +348,7 @@ class BonusController extends Controller
                 $this->fpdf->Cell(5);
                 $this->fpdf->Cell(48, 6, 'Atasan Langsung :', 0, 0, 'C');
 
-                $this->fpdf->Cell(48, 6, 'Kepala Unit / Manager', 0, 0, 'C');
+                $this->fpdf->Cell(48, 6, 'Kepala Dept. / Manager', 0, 0, 'C');
 
                 $this->fpdf->Cell(48, 6, 'HRD - GA', 0, 0, 'C');
 
