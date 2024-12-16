@@ -363,7 +363,7 @@ class InventoryMotorcycleController extends Controller
 
         $this->fpdf->SetFont('Arial', 'BU', '12');
         $this->fpdf->Cell(10);
-        $this->fpdf->Cell(70, 10, 'Rudiyanto', 0, 0, 'L');
+        $this->fpdf->Cell(70, 10, 'Achmad Firmansyah', 0, 0, 'L');
 
         $this->fpdf->SetFont('Arial', 'B', '12');
         $this->fpdf->Cell(40);

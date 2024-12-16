@@ -367,13 +367,13 @@ class LaporanController extends Controller
 
         $this->fpdf->Ln(1.6);
         $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(1.8, 1, "Rudiyanto", 0, 0, 'L');
+        $this->fpdf->Cell(1.8, 1, "Achmad Firmansyah", 0, 0, 'L');
         $this->fpdf->Cell(11.5);
         $this->fpdf->Cell(1.8, 1, $judul->nama_karyawan, 0, 0, 'C');
 
         $this->fpdf->Ln(0.3);
         $this->fpdf->Cell(0.1);
-        $this->fpdf->Cell(1.8, 1, "( General Manager HRD - GA )", 0, 0, 'L');
+        $this->fpdf->Cell(1.8, 1, "( Manager HRD - GA )", 0, 0, 'L');
         $this->fpdf->Cell(11.5);
         $this->fpdf->Cell(1.8, 1, "( " . $judul->positions->jabatan . " " .  $judul->divisions->penempatan . " )", 0, 0, 'C');
 
