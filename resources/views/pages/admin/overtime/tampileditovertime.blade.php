@@ -76,8 +76,8 @@
                                             <label for="uang_makan_lembur">Uang Makan Lembur</label>
                                             <select name="uang_makan_lembur" class="form-select">
                                                 <option value="">Dapat Uang Makan Lembur ?</option>
-                                                <option value="12500"
-                                                    @if ($items->uang_makan_lembur == '12500') {{ 'selected' }} @endif>Dapat
+                                                <option value="17000"
+                                                    @if ($items->uang_makan_lembur == '17000') {{ 'selected' }} @endif>Dapat
                                                 </option>
                                                 <option value="0"
                                                     @if ($items->uang_makan_lembur == '0') {{ 'selected' }} @endif>
